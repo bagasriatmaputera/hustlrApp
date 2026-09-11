@@ -1,0 +1,38 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('projects', function (Blueprint $table) {
+            $table->uuid('project_id')->primary();
+            $table->string('project_name');
+            $table->string('ownership_type');
+            $table->text('description')->nullable();
+            $table->string('link_testing')->nullable();
+            $table->string('link_prod')->nullable();
+            $table->foreignUuid('status_id')->constrained('project_statuses', 'status_id');
+            $table->foreignUuid('client_id')->nullable()->constrained('clients', 'client_id')->nullOnDelete();
+            $table->foreignId('created_by')->constrained('users', 'id');
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('projects');
+    }
+};
