@@ -4,7 +4,8 @@ namespace App\PermissionManager\IntegratedPersonalSystem;
 
 use App\PermissionManager\PermissionManager;
 
-class StaffPermissionManager extends PermissionManager {
+class StaffPermissionManager extends PermissionManager
+{
     public $role = 'Staff Integrated Personal System';
 
     public $permission = [

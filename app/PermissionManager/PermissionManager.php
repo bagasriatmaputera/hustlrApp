@@ -1,18 +1,20 @@
 <?php
+
 namespace App\PermissionManager;
 
-abstract class PermissionManager {
-
+abstract class PermissionManager
+{
     public $permission = [];
 
     public $role;
 
-    public function getRole(){
+    public function getRole()
+    {
         return $this->role;
     }
 
-    public function getPermissions(){
+    public function getPermissions()
+    {
         return $this->permission;
     }
 }
-

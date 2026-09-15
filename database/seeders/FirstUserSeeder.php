@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 
@@ -23,6 +22,6 @@ class FirstUserSeeder extends Seeder
         $role = Role::where('name', 'owner')->first();
         $user->assignRole($role);
 
-        $this->command->info("Success create first user as owner PSI system. User: " . $user->email . " | Password: password");
+        $this->command->info('Success create first user as owner PSI system. User: '.$user->email.' | Password: password');
     }
 }

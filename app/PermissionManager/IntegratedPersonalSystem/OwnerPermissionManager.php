@@ -4,7 +4,8 @@ namespace App\PermissionManager\IntegratedPersonalSystem;
 
 use App\PermissionManager\PermissionManager;
 
-class OwnerPermissionManager extends PermissionManager {
+class OwnerPermissionManager extends PermissionManager
+{
     public $role = 'Owner Integrated Personal System';
 
     public $permission = [
