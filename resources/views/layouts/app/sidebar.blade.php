@@ -4,10 +4,10 @@
         @include('partials.head')
     </head>
     <body class="min-h-screen bg-white dark:bg-zinc-800">
-        <flux:sidebar sticky collapsible="mobile" class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
+        <flux:sidebar sticky collapsible class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 transition-all duration-300">
             <flux:sidebar.header>
                 <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate />
-                <flux:sidebar.collapse class="lg:hidden" />
+                <flux:sidebar.collapse />
             </flux:sidebar.header>
 
             <flux:sidebar.nav>
@@ -44,17 +44,22 @@
             <x-desktop-user-menu class="hidden lg:block" :name="auth()->user()->name" />
         </flux:sidebar>
 
-        <!-- Mobile User Menu -->
-        <flux:header class="lg:hidden">
-            <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
+        <!-- Header Bar with Sidebar Toggle -->
+        <flux:header class="border-b border-zinc-200/80 bg-zinc-50/50 dark:border-zinc-700/80 dark:bg-zinc-900/50">
+            <flux:sidebar.toggle icon="bars-2" inset="left" />
 
             <flux:spacer />
 
-            <flux:dropdown position="top" align="end">
-                <flux:profile
-                    :initials="auth()->user()->initials()"
-                    icon-trailing="chevron-down"
-                />
+            <div class="flex items-center gap-2">
+                <flux:button variant="ghost" size="sm" icon="moon" x-data x-on:click="$flux.dark = !$flux.dark" />
+
+                <!-- Mobile Profile Menu -->
+                <div class="lg:hidden">
+                    <flux:dropdown position="top" align="end">
+                        <flux:profile
+                            :initials="auth()->user()->initials()"
+                            icon-trailing="chevron-down"
+                        />
 
                 <flux:menu>
                     <flux:menu.radio.group>
@@ -95,9 +100,11 @@
                             {{ __('Log out') }}
                         </flux:menu.item>
                     </form>
-                </flux:menu>
-            </flux:dropdown>
-        </flux:header>
+                    </flux:menu>
+                </flux:dropdown>
+            </div>
+        </div>
+    </flux:header>
 
         {{ $slot }}
 
