@@ -19,9 +19,12 @@ class FirstUserSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
-        $role = Role::where('name', 'owner')->first();
-        $user->assignRole($role);
+        $role = Role::where('name', 'Owner Integrated Personal System')->first();
+        if ($role) {
+            $user->assignRole($role);
+        }
 
         $this->command->info('Success create first user as owner PSI system. User: '.$user->email.' | Password: password');
+
     }
 }

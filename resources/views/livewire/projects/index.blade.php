@@ -4,10 +4,13 @@
             <flux:heading size="xl">{{ __('All Projects') }}</flux:heading>
             <flux:subheading>{{ __('Manage and track all your projects in one place.') }}</flux:subheading>
         </div>
-        <flux:button variant="primary" icon="plus" :href="route('projects.create')" wire:navigate>
-            {{ __('Add Project') }}
-        </flux:button>
+        @can('IPS - PROJECT - Can Create Projects')
+            <flux:button variant="primary" icon="plus" :href="route('projects.create')" wire:navigate>
+                {{ __('Add Project') }}
+            </flux:button>
+        @endcan
     </div>
+
 
     <div class="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <flux:card class="!p-4">

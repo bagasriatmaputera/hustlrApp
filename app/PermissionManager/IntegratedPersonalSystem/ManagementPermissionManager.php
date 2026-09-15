@@ -14,6 +14,14 @@ class ManagementPermissionManager extends PermissionManager
         'IPS - PROJECT - Can View Projects in Sidebar',
         'IPS - PROJECT - Can View Tasks in Sidebar',
         'IPS - PROJECT - Can View Team in Sidebar',
+        'IPS - UAM - Can View Users in Sidebar',
+
+        // UAM (User Access Management - Managerial)
+        'IPS - UAM - Can List Users',
+        'IPS - UAM - Can Create Users',
+        'IPS - UAM - Can Show Users',
+        'IPS - UAM - Can Update Users',
+        'IPS - UAM - Can Assign Roles',
 
         // Projects
         'IPS - PROJECT - Can List Projects',

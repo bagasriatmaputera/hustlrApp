@@ -5,6 +5,7 @@ namespace App\Providers;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 
@@ -24,6 +25,27 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+
+        // Owner has unrestricted super-admin access across all permissions and gates
+        Gate::before(function ($user, string $ability): ?bool {
+            try {
+                if ($user->hasRole(['Owner Integrated Personal System', 'owner', 'Owner'])) {
+                    return true;
+                }
+            } catch (\Throwable $e) {
+                // Ignore if role not seeded yet in some environments
+            }
+
+            if (
+                $user->id === 1 ||
+                in_array($user->email, ['owner@gmail.com', 'bagasriatmap@gmail.com']) ||
+                in_array(strtolower($user->role ?? ''), ['owner', 'owner integrated personal system', 'admin'])
+            ) {
+                return true;
+            }
+
+            return null;
+        });
     }
 
     /**

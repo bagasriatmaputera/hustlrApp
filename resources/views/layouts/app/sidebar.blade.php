@@ -15,17 +15,23 @@
                     <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
-                    <flux:sidebar.item icon="user" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
-                        {{ __('User Management') }}
-                    </flux:sidebar.item>
+                    @can('IPS - UAM - Can View Users in Sidebar')
+                        <flux:sidebar.item icon="users" :href="route('uam.index')" :current="request()->routeIs('uam.*')" wire:navigate>
+                            {{ __('UAM') }}
+                        </flux:sidebar.item>
+                    @endcan
+
                     <flux:sidebar.group icon="folder-git-2" :heading="__('Project')" expandable :expanded="request()->routeIs('projects.*')">
                         <flux:sidebar.item :href="route('projects.index')" :current="request()->routeIs('projects.index')" wire:navigate>
                             {{ __('All Projects') }}
                         </flux:sidebar.item>
-                        <flux:sidebar.item :href="route('projects.create')" :current="request()->routeIs('projects.create')" wire:navigate>
-                            {{ __('Add Project') }}
-                        </flux:sidebar.item>
+                        @can('IPS - PROJECT - Can Create Projects')
+                            <flux:sidebar.item :href="route('projects.create')" :current="request()->routeIs('projects.create')" wire:navigate>
+                                {{ __('Add Project') }}
+                            </flux:sidebar.item>
+                        @endcan
                     </flux:sidebar.group>
+
                 </flux:sidebar.group>
             </flux:sidebar.nav>
 

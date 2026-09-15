@@ -15,6 +15,15 @@ class OwnerPermissionManager extends PermissionManager
         'IPS - PROJECT - Can View Tasks in Sidebar',
         'IPS - PROJECT - Can View Team in Sidebar',
         'IPS - PROJECT - Can View Settings in Sidebar',
+        'IPS - UAM - Can View Users in Sidebar',
+
+        // UAM (User Access Management)
+        'IPS - UAM - Can List Users',
+        'IPS - UAM - Can Create Users',
+        'IPS - UAM - Can Show Users',
+        'IPS - UAM - Can Update Users',
+        'IPS - UAM - Can Delete Users',
+        'IPS - UAM - Can Assign Roles',
 
         // Projects
         'IPS - PROJECT - Can List Projects',

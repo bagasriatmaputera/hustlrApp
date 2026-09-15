@@ -36,6 +36,14 @@ class RolePermissionSeeder extends Seeder
             $role->syncPermissions($manager->getPermissions());
         }
 
+        // Owner gets ALL permissions in the entire system
+        $allPermissions = Permission::all();
+        $ownerRole = Role::where('name', 'Owner Integrated Personal System')->first();
+        if ($ownerRole) {
+            $ownerRole->syncPermissions($allPermissions);
+        }
+
         $this->command->info('Roles & permissions seeded successfully.');
+
     }
 }
