@@ -1,0 +1,775 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [7 0 R 8 0 R 9 0 R 10 0 R 11 0 R 12 0 R 13 0 R] /Count 7 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier-Bold >>
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Contents 14 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> >>
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Contents 15 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> >>
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Contents 16 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> >>
+endobj
+10 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Contents 17 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> >>
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Contents 18 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> >>
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Contents 19 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> >>
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Contents 20 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> >>
+endobj
+14 0 obj
+<< /Length 8638 >>
+stream
+q 0.090 0.110 0.150 rg 0.200 0.230 0.280 RG 1.00 w 48.00 672.89 499.28 115.00 re B Q
+q 0.380 0.400 0.950 rg 48.00 672.89 5.00 115.00 re f Q
+BT /F2 18.00 Tf 1.000 1.000 1.000 rg 1 0 0 1 66.00 756.89 Tm (HUSTLR ARCHITECTURE STANDARDS) Tj ET
+BT /F1 9.50 Tf 0.750 0.800 0.880 rg 1 0 0 1 66.00 736.89 Tm (Standard Operating Procedures, Component Blueprints & Development Manual) Tj ET
+q 0.180 0.220 0.300 rg 0.300 0.350 0.450 RG 0.50 w 66.00 696.89 78.80 18.00 re B Q
+BT /F2 7.50 Tf 0.600 0.800 1.000 rg 1 0 0 1 73.00 701.89 Tm (Laravel 13.x) Tj ET
+q 0.180 0.220 0.300 rg 0.300 0.350 0.450 RG 0.50 w 150.80 696.89 78.80 18.00 re B Q
+BT /F2 7.50 Tf 0.600 0.800 1.000 rg 1 0 0 1 157.80 701.89 Tm (Livewire 4.x) Tj ET
+q 0.180 0.220 0.300 rg 0.300 0.350 0.450 RG 0.50 w 235.60 696.89 73.40 18.00 re B Q
+BT /F2 7.50 Tf 0.600 0.800 1.000 rg 1 0 0 1 242.60 701.89 Tm (Flux UI 2.x) Tj ET
+q 0.180 0.220 0.300 rg 0.300 0.350 0.450 RG 0.50 w 315.00 696.89 95.00 18.00 re B Q
+BT /F2 7.50 Tf 0.600 0.800 1.000 rg 1 0 0 1 322.00 701.89 Tm (Tailwind CSS v4) Tj ET
+q 0.180 0.220 0.300 rg 0.300 0.350 0.450 RG 0.50 w 416.00 696.89 57.20 18.00 re B Q
+BT /F2 7.50 Tf 0.600 0.800 1.000 rg 1 0 0 1 423.00 701.89 Tm (PHP 8.3+) Tj ET
+q 0.180 0.220 0.300 rg 0.300 0.350 0.450 RG 0.50 w 479.20 696.89 100.40 18.00 re B Q
+BT /F2 7.50 Tf 0.600 0.800 1.000 rg 1 0 0 1 486.20 701.89 Tm (Larastan Level 7) Tj ET
+BT /F1 7.50 Tf 0.500 0.550 0.620 rg 1 0 0 1 66.00 680.89 Tm (Manage Side Hustle \(MSH\) - Architecture Standards - Version 1.0) Tj ET
+q 0.380 0.400 0.950 rg 48.00 628.89 22.00 18.00 re f Q
+BT /F2 10.00 Tf 1.000 1.000 1.000 rg 1 0 0 1 55.00 633.89 Tm (1) Tj ET
+BT /F2 13.00 Tf 0.090 0.110 0.150 rg 1 0 0 1 78.00 632.89 Tm (Executive Architecture & Core Invariants) Tj ET
+q 0.850 0.880 0.920 RG 1.00 w 48.00 622.89 m 547.28 622.89 l S Q
+BT /F1 8.50 Tf 0.250 0.280 0.320 rg 1 0 0 1 48.00 598.39 Tm (Hustlr \(Manage Side Hustle - MSH\) is built upon a high-performance reactive Laravel 13 stack. Every engineer and) Tj ET
+BT /F1 8.50 Tf 0.250 0.280 0.320 rg 1 0 0 1 48.00 585.89 Tm (automated agent must preserve the four core invariants below to prevent architectural drift, performance) Tj ET
+BT /F1 8.50 Tf 0.250 0.280 0.320 rg 1 0 0 1 48.00 573.39 Tm (degradation, and security flaws.) Tj ET
+BT /F2 9.00 Tf 0.380 0.400 0.950 rg 1 0 0 1 52.00 556.39 Tm (-) Tj ET
+BT /F2 8.50 Tf 0.150 0.180 0.220 rg 1 0 0 1 62.00 556.39 Tm (UUID Primary Keys:) Tj ET
+BT /F1 8.50 Tf 0.300 0.340 0.400 rg 1 0 0 1 159.60 556.39 Tm (All domain entities utilize UUID primary keys with HasUuids to ensure distributed scale) Tj ET
+BT /F1 8.50 Tf 0.300 0.340 0.400 rg 1 0 0 1 62.00 544.39 Tm (and obscure sequential database IDs.) Tj ET
+BT /F2 9.00 Tf 0.380 0.400 0.950 rg 1 0 0 1 52.00 529.39 Tm (-) Tj ET
+BT /F2 8.50 Tf 0.150 0.180 0.220 rg 1 0 0 1 62.00 529.39 Tm (Strict PHP Typing:) Tj ET
+BT /F1 8.50 Tf 0.300 0.340 0.400 rg 1 0 0 1 159.60 529.39 Tm (Methods must have explicit parameter and return types. Eloquent relations and paginators) Tj ET
+BT /F1 8.50 Tf 0.300 0.340 0.400 rg 1 0 0 1 62.00 517.39 Tm (must declare PHPStan generics.) Tj ET
+BT /F2 9.00 Tf 0.380 0.400 0.950 rg 1 0 0 1 52.00 502.39 Tm (-) Tj ET
+BT /F2 8.50 Tf 0.150 0.180 0.220 rg 1 0 0 1 62.00 502.39 Tm (Livewire 4 + Flux UI:) Tj ET
+BT /F1 8.50 Tf 0.300 0.340 0.400 rg 1 0 0 1 175.20 502.39 Tm (User-facing dashboard interfaces are written as reactive Livewire 4 components) Tj ET
+BT /F1 8.50 Tf 0.300 0.340 0.400 rg 1 0 0 1 62.00 490.39 Tm (styled with official Flux UI components.) Tj ET
+BT /F2 9.00 Tf 0.380 0.400 0.950 rg 1 0 0 1 52.00 475.39 Tm (-) Tj ET
+BT /F2 8.50 Tf 0.150 0.180 0.220 rg 1 0 0 1 62.00 475.39 Tm (Layer Separation:) Tj ET
+BT /F1 8.50 Tf 0.300 0.340 0.400 rg 1 0 0 1 154.40 475.39 Tm (Controllers are reserved for APIs and webhooks; Livewire handles reactive pages; Services) Tj ET
+BT /F1 8.50 Tf 0.300 0.340 0.400 rg 1 0 0 1 62.00 463.39 Tm (manage domain transactions.) Tj ET
+q 0.950 0.960 1.000 rg 0.880 0.900 0.940 RG 0.80 w 48.00 407.39 499.28 54.00 re B Q
+q 0.380 0.400 0.950 rg 48.00 407.39 4.00 54.00 re f Q
+BT /F2 8.00 Tf 0.200 0.220 0.600 rg 1 0 0 1 60.00 446.39 Tm (ARCHITECTURAL RULE) Tj ET
+BT /F1 8.00 Tf 0.250 0.280 0.320 rg 1 0 0 1 60.00 433.39 Tm (Never execute database queries inside Blade views. Eager load all relations in the component or) Tj ET
+BT /F1 8.00 Tf 0.250 0.280 0.320 rg 1 0 0 1 60.00 421.39 Tm (repository using with\(['status', 'client', ...]\) to completely eliminate N+1 query bottlenecks.) Tj ET
+q 0.380 0.400 0.950 rg 48.00 371.39 22.00 18.00 re f Q
+BT /F2 10.00 Tf 1.000 1.000 1.000 rg 1 0 0 1 55.00 376.39 Tm (2) Tj ET
+BT /F2 13.00 Tf 0.090 0.110 0.150 rg 1 0 0 1 78.00 375.39 Tm (Architectural Decision Matrix) Tj ET
+q 0.850 0.880 0.920 RG 1.00 w 48.00 365.39 m 547.28 365.39 l S Q
+BT /F1 8.50 Tf 0.250 0.280 0.320 rg 1 0 0 1 48.00 340.89 Tm (Select the correct component layer based on the functional requirement:) Tj ET
+q 0.850 0.880 0.920 RG 1.00 w 48.00 208.89 499.28 128.00 re S Q
+q 0.140 0.160 0.220 rg 48.00 316.89 499.28 20.00 re f Q
+BT /F2 8.00 Tf 1.000 1.000 1.000 rg 1 0 0 1 56.00 322.89 Tm (Layer) Tj ET
+q 0.850 0.880 0.920 RG 0.50 w 133.00 208.89 m 133.00 336.89 l S Q
+BT /F2 8.00 Tf 1.000 1.000 1.000 rg 1 0 0 1 141.00 322.89 Tm (Directory) Tj ET
+q 0.850 0.880 0.920 RG 0.50 w 253.00 208.89 m 253.00 336.89 l S Q
+BT /F2 8.00 Tf 1.000 1.000 1.000 rg 1 0 0 1 261.00 322.89 Tm (Primary Responsibility) Tj ET
+q 0.850 0.880 0.920 RG 0.50 w 408.00 208.89 m 408.00 336.89 l S Q
+BT /F2 8.00 Tf 1.000 1.000 1.000 rg 1 0 0 1 416.00 322.89 Tm (Key Invariant) Tj ET
+q 0.880 0.900 0.940 RG 0.50 w 48.00 316.89 m 547.28 316.89 l S Q
+BT /F2 7.50 Tf 0.150 0.180 0.220 rg 1 0 0 1 56.00 303.89 Tm (Livewire Page) Tj ET
+BT /F1 7.50 Tf 0.280 0.320 0.380 rg 1 0 0 1 141.00 303.89 Tm (app/Livewire/*) Tj ET
+BT /F1 7.50 Tf 0.280 0.320 0.380 rg 1 0 0 1 261.00 303.89 Tm (Reactive UI pages, forms, modals) Tj ET
+BT /F1 7.50 Tf 0.280 0.320 0.380 rg 1 0 0 1 416.00 303.89 Tm (Route::livewire, #[Title], #[Computed]) Tj ET
+q 0.970 0.980 0.990 rg 48.00 280.89 499.28 18.00 re f Q
+q 0.880 0.900 0.940 RG 0.50 w 48.00 298.89 m 547.28 298.89 l S Q
+BT /F2 7.50 Tf 0.150 0.180 0.220 rg 1 0 0 1 56.00 285.89 Tm (Controller) Tj ET
+BT /F1 7.50 Tf 0.280 0.320 0.380 rg 1 0 0 1 141.00 285.89 Tm (app/Http/Controllers/*) Tj ET
+BT /F1 7.50 Tf 0.280 0.320 0.380 rg 1 0 0 1 261.00 285.89 Tm (Stateless REST APIs, webhooks, files) Tj ET
+BT /F1 7.50 Tf 0.280 0.320 0.380 rg 1 0 0 1 416.00 285.89 Tm (Form Requests & Eloquent Resources) Tj ET
+q 0.880 0.900 0.940 RG 0.50 w 48.00 280.89 m 547.28 280.89 l S Q
+BT /F2 7.50 Tf 0.150 0.180 0.220 rg 1 0 0 1 56.00 267.89 Tm (Service) Tj ET
+BT /F1 7.50 Tf 0.280 0.320 0.380 rg 1 0 0 1 141.00 267.89 Tm (app/Services/*) Tj ET
+BT /F1 7.50 Tf 0.280 0.320 0.380 rg 1 0 0 1 261.00 267.89 Tm (Business rules, multi-model workflows) Tj ET
+BT /F1 7.50 Tf 0.280 0.320 0.380 rg 1 0 0 1 416.00 267.89 Tm (DB::transaction, Dependency Injection) Tj ET
+q 0.970 0.980 0.990 rg 48.00 244.89 499.28 18.00 re f Q
+q 0.880 0.900 0.940 RG 0.50 w 48.00 262.89 m 547.28 262.89 l S Q
+BT /F2 7.50 Tf 0.150 0.180 0.220 rg 1 0 0 1 56.00 249.89 Tm (Repository) Tj ET
+BT /F1 7.50 Tf 0.280 0.320 0.380 rg 1 0 0 1 141.00 249.89 Tm (app/Repositories/*) Tj ET
+BT /F1 7.50 Tf 0.280 0.320 0.380 rg 1 0 0 1 261.00 249.89 Tm (Complex queries, eager loads, filters) Tj ET
+BT /F1 7.50 Tf 0.280 0.320 0.380 rg 1 0 0 1 416.00 249.89 Tm (Interface contracts, typed paginators) Tj ET
+q 0.880 0.900 0.940 RG 0.50 w 48.00 244.89 m 547.28 244.89 l S Q
+BT /F2 7.50 Tf 0.150 0.180 0.220 rg 1 0 0 1 56.00 231.89 Tm (Action) Tj ET
+BT /F1 7.50 Tf 0.280 0.320 0.380 rg 1 0 0 1 141.00 231.89 Tm (app/Actions/*) Tj ET
+BT /F1 7.50 Tf 0.280 0.320 0.380 rg 1 0 0 1 261.00 231.89 Tm (Single discrete domain command \(SRP\)) Tj ET
+BT /F1 7.50 Tf 0.280 0.320 0.380 rg 1 0 0 1 416.00 231.89 Tm (Invokable or execute\(\) method) Tj ET
+q 0.970 0.980 0.990 rg 48.00 208.89 499.28 18.00 re f Q
+q 0.880 0.900 0.940 RG 0.50 w 48.00 226.89 m 547.28 226.89 l S Q
+BT /F2 7.50 Tf 0.150 0.180 0.220 rg 1 0 0 1 56.00 213.89 Tm (Model) Tj ET
+BT /F1 7.50 Tf 0.280 0.320 0.380 rg 1 0 0 1 141.00 213.89 Tm (app/Models/*) Tj ET
+BT /F1 7.50 Tf 0.280 0.320 0.380 rg 1 0 0 1 261.00 213.89 Tm (Domain entities & relationships) Tj ET
+BT /F1 7.50 Tf 0.280 0.320 0.380 rg 1 0 0 1 416.00 213.89 Tm (HasUuids, $fillable, casts\(\), generics) Tj ET
+q 0.88 0.90 0.94 RG 0.5 w 48.00 48.00 m 547.28 48.00 l S Q
+BT /F1 7.0 Tf 0.55 0.60 0.68 rg 1 0 0 1 48.00 36.00 Tm (CONFIDENTIAL - HUSTLR MANAGEMENT PLATFORM \(MSH\) - LARAVEL 13 & LIVEWIRE 4) Tj ET
+BT /F2 7.0 Tf 0.38 0.40 0.95 rg 1 0 0 1 492.28 36.00 Tm (Page 1 of 7) Tj ET
+endstream
+endobj
+15 0 obj
+<< /Length 9218 >>
+stream
+q 0.380 0.400 0.950 rg 48.00 761.89 22.00 18.00 re f Q
+BT /F2 10.00 Tf 1.000 1.000 1.000 rg 1 0 0 1 55.00 766.89 Tm (3) Tj ET
+BT /F2 13.00 Tf 0.090 0.110 0.150 rg 1 0 0 1 78.00 765.89 Tm (Domain Models & Database Architecture \(UUID Standard\)) Tj ET
+q 0.850 0.880 0.920 RG 1.00 w 48.00 755.89 m 547.28 755.89 l S Q
+BT /F1 8.50 Tf 0.250 0.280 0.320 rg 1 0 0 1 48.00 731.39 Tm (Domain models must strictly adhere to the UUID primary key format and provide generic PHPDocs to satisfy) Tj ET
+BT /F1 8.50 Tf 0.250 0.280 0.320 rg 1 0 0 1 48.00 718.89 Tm (Larastan Level 7 analysis.) Tj ET
+q 0.080 0.090 0.120 rg 0.200 0.220 0.280 RG 1.00 w 48.00 356.89 499.28 358.00 re B Q
+q 0.130 0.150 0.190 rg 48.00 696.89 499.28 18.00 re f Q
+q 0.220 0.250 0.320 RG 0.50 w 48.00 696.89 m 547.28 696.89 l S Q
+q 0.950 0.350 0.350 rg 56.00 702.89 5.00 5.00 re f Q
+q 0.950 0.750 0.250 rg 64.00 702.89 5.00 5.00 re f Q
+q 0.250 0.800 0.450 rg 72.00 702.89 5.00 5.00 re f Q
+BT /F3 7.50 Tf 0.750 0.800 0.880 rg 1 0 0 1 84.00 701.89 Tm (app/Models/Project.php) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 684.89 Tm ( 1) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 684.89 Tm (<?php) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 673.89 Tm ( 2) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 673.89 Tm (namespace App\\Models;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 662.89 Tm ( 3) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 662.89 Tm () Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 651.89 Tm ( 4) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 651.89 Tm (use Illuminate\\Database\\Eloquent\\Concerns\\HasUuids;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 640.89 Tm ( 5) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 640.89 Tm (use Illuminate\\Database\\Eloquent\\Factories\\HasFactory;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 629.89 Tm ( 6) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 629.89 Tm (use Illuminate\\Database\\Eloquent\\Model;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 618.89 Tm ( 7) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 618.89 Tm (use Illuminate\\Database\\Eloquent\\Relations\\BelongsTo;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 607.89 Tm ( 8) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 607.89 Tm (use Illuminate\\Database\\Eloquent\\SoftDeletes;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 596.89 Tm ( 9) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 596.89 Tm () Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 585.89 Tm (10) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 585.89 Tm (class Project extends Model) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 574.89 Tm (11) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 574.89 Tm ({) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 563.89 Tm (12) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 563.89 Tm (    use HasFactory, HasUuids, SoftDeletes;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 552.89 Tm (13) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 552.89 Tm () Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 541.89 Tm (14) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 541.89 Tm (    protected $primaryKey = 'project_id';) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 530.89 Tm (15) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 530.89 Tm (    public $incrementing = false;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 519.89 Tm (16) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 519.89 Tm (    protected $keyType = 'string';) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 508.89 Tm (17) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 508.89 Tm () Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 497.89 Tm (18) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 497.89 Tm (    protected $fillable = ['project_name', 'description', 'status_id', 'client_id'];) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 486.89 Tm (19) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 486.89 Tm () Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 475.89 Tm (20) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 475.89 Tm (    protected function casts\(\): array) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 464.89 Tm (21) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 464.89 Tm (    {) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 453.89 Tm (22) Tj ET
+BT /F3 7.00 Tf 0.850 0.550 0.950 rg 1 0 0 1 76.00 453.89 Tm (        return ['start_date' => 'date', 'end_date' => 'date'];) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 442.89 Tm (23) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 442.89 Tm (    }) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 431.89 Tm (24) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 431.89 Tm () Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 420.89 Tm (25) Tj ET
+BT /F3 7.00 Tf 0.450 0.520 0.600 rg 1 0 0 1 76.00 420.89 Tm (    /** @return BelongsTo<Client, $this> */) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 409.89 Tm (26) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 409.89 Tm (    public function client\(\): BelongsTo) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 398.89 Tm (27) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 398.89 Tm (    {) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 387.89 Tm (28) Tj ET
+BT /F3 7.00 Tf 0.850 0.550 0.950 rg 1 0 0 1 76.00 387.89 Tm (        return $this->belongsTo\(Client::class, 'client_id', 'client_id'\);) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 376.89 Tm (29) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 376.89 Tm (    }) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 365.89 Tm (30) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 365.89 Tm (}) Tj ET
+BT /F2 10.50 Tf 0.200 0.250 0.350 rg 1 0 0 1 48.00 330.89 Tm (Database Migration Standard) Tj ET
+q 0.080 0.090 0.120 rg 0.200 0.220 0.280 RG 1.00 w 48.00 169.89 499.28 149.00 re B Q
+q 0.130 0.150 0.190 rg 48.00 300.89 499.28 18.00 re f Q
+q 0.220 0.250 0.320 RG 0.50 w 48.00 300.89 m 547.28 300.89 l S Q
+q 0.950 0.350 0.350 rg 56.00 306.89 5.00 5.00 re f Q
+q 0.950 0.750 0.250 rg 64.00 306.89 5.00 5.00 re f Q
+q 0.250 0.800 0.450 rg 72.00 306.89 5.00 5.00 re f Q
+BT /F3 7.50 Tf 0.750 0.800 0.880 rg 1 0 0 1 84.00 305.89 Tm (database/migrations/xxxx_xx_xx_create_projects_table.php) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 288.89 Tm ( 1) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 288.89 Tm (Schema::create\('projects', function \(Blueprint $table\) {) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 277.89 Tm ( 2) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 277.89 Tm (    $table->uuid\('project_id'\)->primary\(\);) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 266.89 Tm ( 3) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 266.89 Tm (    $table->string\('project_name'\);) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 255.89 Tm ( 4) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 255.89 Tm (    $table->text\('description'\)->nullable\(\);) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 244.89 Tm ( 5) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 244.89 Tm (    $table->enum\('ownership_type', ['Internal', 'Client', 'Freelance']\)->default\('Inte) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 233.89 Tm ( 6) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 233.89 Tm (    $table->foreignUuid\('status_id'\)->constrained\('project_statuses', 'status_id'\);) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 222.89 Tm ( 7) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 222.89 Tm (    $table->foreignUuid\('client_id'\)->nullable\(\)->constrained\('clients', 'client_id'\)-) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 211.89 Tm ( 8) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 211.89 Tm (    $table->timestamps\(\);) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 200.89 Tm ( 9) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 200.89 Tm (    $table->softDeletes\(\);) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 189.89 Tm (10) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 189.89 Tm (    $table->index\(['status_id', 'ownership_type']\);) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 178.89 Tm (11) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 178.89 Tm (}\);) Tj ET
+BT /F1 7.5 Tf 0.50 0.55 0.62 rg 1 0 0 1 48.00 805.89 Tm (Hustlr - Engineering & Architecture Standards Manual) Tj ET
+q 0.88 0.90 0.94 RG 0.5 w 48.00 801.89 m 547.28 801.89 l S Q
+q 0.88 0.90 0.94 RG 0.5 w 48.00 48.00 m 547.28 48.00 l S Q
+BT /F1 7.0 Tf 0.55 0.60 0.68 rg 1 0 0 1 48.00 36.00 Tm (CONFIDENTIAL - HUSTLR MANAGEMENT PLATFORM \(MSH\) - LARAVEL 13 & LIVEWIRE 4) Tj ET
+BT /F2 7.0 Tf 0.38 0.40 0.95 rg 1 0 0 1 492.28 36.00 Tm (Page 2 of 7) Tj ET
+endstream
+endobj
+16 0 obj
+<< /Length 7643 >>
+stream
+q 0.380 0.400 0.950 rg 48.00 761.89 22.00 18.00 re f Q
+BT /F2 10.00 Tf 1.000 1.000 1.000 rg 1 0 0 1 55.00 766.89 Tm (4) Tj ET
+BT /F2 13.00 Tf 0.090 0.110 0.150 rg 1 0 0 1 78.00 765.89 Tm (Livewire 4 & Flux UI Component Standards) Tj ET
+q 0.850 0.880 0.920 RG 1.00 w 48.00 755.89 m 547.28 755.89 l S Q
+BT /F1 8.50 Tf 0.250 0.280 0.320 rg 1 0 0 1 48.00 731.39 Tm (Livewire 4 components provide real-time UI interactivity without writing client-side JavaScript. All component) Tj ET
+BT /F1 8.50 Tf 0.250 0.280 0.320 rg 1 0 0 1 48.00 718.89 Tm (queries must use #[Computed] properties with pagination.) Tj ET
+q 0.080 0.090 0.120 rg 0.200 0.220 0.280 RG 1.00 w 48.00 290.89 499.28 424.00 re B Q
+q 0.130 0.150 0.190 rg 48.00 696.89 499.28 18.00 re f Q
+q 0.220 0.250 0.320 RG 0.50 w 48.00 696.89 m 547.28 696.89 l S Q
+q 0.950 0.350 0.350 rg 56.00 702.89 5.00 5.00 re f Q
+q 0.950 0.750 0.250 rg 64.00 702.89 5.00 5.00 re f Q
+q 0.250 0.800 0.450 rg 72.00 702.89 5.00 5.00 re f Q
+BT /F3 7.50 Tf 0.750 0.800 0.880 rg 1 0 0 1 84.00 701.89 Tm (app/Livewire/Projects/Index.php) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 684.89 Tm ( 1) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 684.89 Tm (<?php) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 673.89 Tm ( 2) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 673.89 Tm (namespace App\\Livewire\\Projects;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 662.89 Tm ( 3) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 662.89 Tm () Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 651.89 Tm ( 4) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 651.89 Tm (use App\\Models\\Project;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 640.89 Tm ( 5) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 640.89 Tm (use Flux\\Flux;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 629.89 Tm ( 6) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 629.89 Tm (use Illuminate\\Contracts\\Pagination\\LengthAwarePaginator;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 618.89 Tm ( 7) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 618.89 Tm (use Livewire\\Attributes\\Computed;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 607.89 Tm ( 8) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 607.89 Tm (use Livewire\\Attributes\\Title;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 596.89 Tm ( 9) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 596.89 Tm (use Livewire\\Attributes\\Url;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 585.89 Tm (10) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 585.89 Tm (use Livewire\\Component;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 574.89 Tm (11) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 574.89 Tm (use Livewire\\WithPagination;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 563.89 Tm (12) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 563.89 Tm () Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 552.89 Tm (13) Tj ET
+BT /F3 7.00 Tf 0.450 0.520 0.600 rg 1 0 0 1 76.00 552.89 Tm (#[Title\('Projects Directory'\)]) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 541.89 Tm (14) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 541.89 Tm (class Index extends Component) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 530.89 Tm (15) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 530.89 Tm ({) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 519.89 Tm (16) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 519.89 Tm (    use WithPagination;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 508.89 Tm (17) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 508.89 Tm () Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 497.89 Tm (18) Tj ET
+BT /F3 7.00 Tf 0.450 0.520 0.600 rg 1 0 0 1 76.00 497.89 Tm (    #[Url] public string $search = '';) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 486.89 Tm (19) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 486.89 Tm () Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 475.89 Tm (20) Tj ET
+BT /F3 7.00 Tf 0.450 0.520 0.600 rg 1 0 0 1 76.00 475.89 Tm (    /** @return LengthAwarePaginator<int, Project> */) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 464.89 Tm (21) Tj ET
+BT /F3 7.00 Tf 0.450 0.520 0.600 rg 1 0 0 1 76.00 464.89 Tm (    #[Computed]) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 453.89 Tm (22) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 453.89 Tm (    public function projects\(\): LengthAwarePaginator) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 442.89 Tm (23) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 442.89 Tm (    {) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 431.89 Tm (24) Tj ET
+BT /F3 7.00 Tf 0.850 0.550 0.950 rg 1 0 0 1 76.00 431.89 Tm (        return Project::query\(\)) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 420.89 Tm (25) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 420.89 Tm (            ->with\(['status', 'client', 'technologies']\)) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 409.89 Tm (26) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 409.89 Tm (            ->when\($this->search, fn \($q\) => $q->where\('project_name', 'like', "%{$thi) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 398.89 Tm (27) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 398.89 Tm (            ->latest\('updated_at'\)) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 387.89 Tm (28) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 387.89 Tm (            ->paginate\(10\);) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 376.89 Tm (29) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 376.89 Tm (    }) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 365.89 Tm (30) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 365.89 Tm () Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 354.89 Tm (31) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 354.89 Tm (    public function delete\(string $id\): void) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 343.89 Tm (32) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 343.89 Tm (    {) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 332.89 Tm (33) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 332.89 Tm (        Project::findOrFail\($id\)->delete\(\);) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 321.89 Tm (34) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 321.89 Tm (        Flux::toast\(variant: 'success', text: __\('Project deleted successfully.'\)\);) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 310.89 Tm (35) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 310.89 Tm (    }) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 299.89 Tm (36) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 299.89 Tm (}) Tj ET
+BT /F2 10.50 Tf 0.200 0.250 0.350 rg 1 0 0 1 48.00 264.89 Tm (Flux UI Blade Template Standard) Tj ET
+BT /F1 7.5 Tf 0.50 0.55 0.62 rg 1 0 0 1 48.00 805.89 Tm (Hustlr - Engineering & Architecture Standards Manual) Tj ET
+q 0.88 0.90 0.94 RG 0.5 w 48.00 801.89 m 547.28 801.89 l S Q
+q 0.88 0.90 0.94 RG 0.5 w 48.00 48.00 m 547.28 48.00 l S Q
+BT /F1 7.0 Tf 0.55 0.60 0.68 rg 1 0 0 1 48.00 36.00 Tm (CONFIDENTIAL - HUSTLR MANAGEMENT PLATFORM \(MSH\) - LARAVEL 13 & LIVEWIRE 4) Tj ET
+BT /F2 7.0 Tf 0.38 0.40 0.95 rg 1 0 0 1 492.28 36.00 Tm (Page 3 of 7) Tj ET
+endstream
+endobj
+17 0 obj
+<< /Length 4379 >>
+stream
+q 0.080 0.090 0.120 rg 0.200 0.220 0.280 RG 1.00 w 48.00 550.89 499.28 237.00 re B Q
+q 0.130 0.150 0.190 rg 48.00 769.89 499.28 18.00 re f Q
+q 0.220 0.250 0.320 RG 0.50 w 48.00 769.89 m 547.28 769.89 l S Q
+q 0.950 0.350 0.350 rg 56.00 775.89 5.00 5.00 re f Q
+q 0.950 0.750 0.250 rg 64.00 775.89 5.00 5.00 re f Q
+q 0.250 0.800 0.450 rg 72.00 775.89 5.00 5.00 re f Q
+BT /F3 7.50 Tf 0.750 0.800 0.880 rg 1 0 0 1 84.00 774.89 Tm (resources/views/livewire/projects/index.blade.php) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 757.89 Tm ( 1) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 757.89 Tm (<div>) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 746.89 Tm ( 2) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 746.89 Tm (    <div class="flex justify-between items-center mb-6">) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 735.89 Tm ( 3) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 735.89 Tm (        <flux:heading size="xl">Projects</flux:heading>) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 724.89 Tm ( 4) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 724.89 Tm (        <flux:button href="{{ route\('projects.create'\) }}" variant="primary" icon="plu) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 713.89 Tm ( 5) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 713.89 Tm (            New Project) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 702.89 Tm ( 6) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 702.89 Tm (        </flux:button>) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 691.89 Tm ( 7) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 691.89 Tm (    </div>) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 680.89 Tm ( 8) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 680.89 Tm (    <flux:input wire:model.live.debounce.300ms="search" placeholder="Search..." icon=") Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 669.89 Tm ( 9) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 669.89 Tm (    <flux:table class="mt-4">) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 658.89 Tm (10) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 658.89 Tm (        <flux:table.rows>) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 647.89 Tm (11) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 647.89 Tm (            @foreach \($this->projects as $project\)) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 636.89 Tm (12) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 636.89 Tm (                <flux:table.row :key="$project->project_id">) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 625.89 Tm (13) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 625.89 Tm (                    <flux:table.cell>{{ $project->project_name }}</flux:table.cell>) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 614.89 Tm (14) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 614.89 Tm (                    <flux:table.cell><flux:badge>{{ $project->status->status_name }}</) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 603.89 Tm (15) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 603.89 Tm (                </flux:table.row>) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 592.89 Tm (16) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 592.89 Tm (            @endforeach) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 581.89 Tm (17) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 581.89 Tm (        </flux:table.rows>) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 570.89 Tm (18) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 570.89 Tm (    </flux:table>) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 559.89 Tm (19) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 559.89 Tm (</div>) Tj ET
+BT /F1 7.5 Tf 0.50 0.55 0.62 rg 1 0 0 1 48.00 805.89 Tm (Hustlr - Engineering & Architecture Standards Manual) Tj ET
+q 0.88 0.90 0.94 RG 0.5 w 48.00 801.89 m 547.28 801.89 l S Q
+q 0.88 0.90 0.94 RG 0.5 w 48.00 48.00 m 547.28 48.00 l S Q
+BT /F1 7.0 Tf 0.55 0.60 0.68 rg 1 0 0 1 48.00 36.00 Tm (CONFIDENTIAL - HUSTLR MANAGEMENT PLATFORM \(MSH\) - LARAVEL 13 & LIVEWIRE 4) Tj ET
+BT /F2 7.0 Tf 0.38 0.40 0.95 rg 1 0 0 1 492.28 36.00 Tm (Page 4 of 7) Tj ET
+endstream
+endobj
+18 0 obj
+<< /Length 9802 >>
+stream
+q 0.380 0.400 0.950 rg 48.00 761.89 22.00 18.00 re f Q
+BT /F2 10.00 Tf 1.000 1.000 1.000 rg 1 0 0 1 55.00 766.89 Tm (5) Tj ET
+BT /F2 13.00 Tf 0.090 0.110 0.150 rg 1 0 0 1 78.00 765.89 Tm (Service & Repository Layers) Tj ET
+q 0.850 0.880 0.920 RG 1.00 w 48.00 755.89 m 547.28 755.89 l S Q
+BT /F1 8.50 Tf 0.250 0.280 0.320 rg 1 0 0 1 48.00 731.39 Tm (Services coordinate complex business logic and manage database transactions. Repositories isolate data access) Tj ET
+BT /F1 8.50 Tf 0.250 0.280 0.320 rg 1 0 0 1 48.00 718.89 Tm (queries behind clean interface contracts.) Tj ET
+q 0.080 0.090 0.120 rg 0.200 0.220 0.280 RG 1.00 w 48.00 389.89 499.28 325.00 re B Q
+q 0.130 0.150 0.190 rg 48.00 696.89 499.28 18.00 re f Q
+q 0.220 0.250 0.320 RG 0.50 w 48.00 696.89 m 547.28 696.89 l S Q
+q 0.950 0.350 0.350 rg 56.00 702.89 5.00 5.00 re f Q
+q 0.950 0.750 0.250 rg 64.00 702.89 5.00 5.00 re f Q
+q 0.250 0.800 0.450 rg 72.00 702.89 5.00 5.00 re f Q
+BT /F3 7.50 Tf 0.750 0.800 0.880 rg 1 0 0 1 84.00 701.89 Tm (app/Services/ProjectService.php) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 684.89 Tm ( 1) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 684.89 Tm (<?php) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 673.89 Tm ( 2) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 673.89 Tm (namespace App\\Services;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 662.89 Tm ( 3) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 662.89 Tm () Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 651.89 Tm ( 4) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 651.89 Tm (use App\\Models\\Project;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 640.89 Tm ( 5) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 640.89 Tm (use App\\Repositories\\Contracts\\ProjectRepositoryInterface;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 629.89 Tm ( 6) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 629.89 Tm (use Illuminate\\Support\\Facades\\DB;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 618.89 Tm ( 7) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 618.89 Tm () Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 607.89 Tm ( 8) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 607.89 Tm (class ProjectService) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 596.89 Tm ( 9) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 596.89 Tm ({) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 585.89 Tm (10) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 585.89 Tm (    public function __construct\(protected ProjectRepositoryInterface $projectRepo\) {}) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 574.89 Tm (11) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 574.89 Tm () Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 563.89 Tm (12) Tj ET
+BT /F3 7.00 Tf 0.450 0.520 0.600 rg 1 0 0 1 76.00 563.89 Tm (    /** @param array<string, mixed> $data */) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 552.89 Tm (13) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 552.89 Tm (    public function createProject\(array $data, string $creatorId\): Project) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 541.89 Tm (14) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 541.89 Tm (    {) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 530.89 Tm (15) Tj ET
+BT /F3 7.00 Tf 0.850 0.550 0.950 rg 1 0 0 1 76.00 530.89 Tm (        return DB::transaction\(function \(\) use \($data, $creatorId\): Project {) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 519.89 Tm (16) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 519.89 Tm (            $data['created_by'] = $creatorId;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 508.89 Tm (17) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 508.89 Tm (            $technologies = $data['technologies'] ?? [];) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 497.89 Tm (18) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 497.89 Tm (            unset\($data['technologies']\);) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 486.89 Tm (19) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 486.89 Tm () Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 475.89 Tm (20) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 475.89 Tm (            $project = $this->projectRepo->create\($data\);) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 464.89 Tm (21) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 464.89 Tm (            if \(!empty\($technologies\)\) {) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 453.89 Tm (22) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 453.89 Tm (                $project->technologies\(\)->sync\($technologies\);) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 442.89 Tm (23) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 442.89 Tm (            }) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 431.89 Tm (24) Tj ET
+BT /F3 7.00 Tf 0.850 0.550 0.950 rg 1 0 0 1 76.00 431.89 Tm (            return $project->fresh\(['status', 'client', 'technologies']\);) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 420.89 Tm (25) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 420.89 Tm (        }\);) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 409.89 Tm (26) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 409.89 Tm (    }) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 398.89 Tm (27) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 398.89 Tm (}) Tj ET
+q 0.080 0.090 0.120 rg 0.200 0.220 0.280 RG 1.00 w 48.00 151.89 499.28 226.00 re B Q
+q 0.130 0.150 0.190 rg 48.00 359.89 499.28 18.00 re f Q
+q 0.220 0.250 0.320 RG 0.50 w 48.00 359.89 m 547.28 359.89 l S Q
+q 0.950 0.350 0.350 rg 56.00 365.89 5.00 5.00 re f Q
+q 0.950 0.750 0.250 rg 64.00 365.89 5.00 5.00 re f Q
+q 0.250 0.800 0.450 rg 72.00 365.89 5.00 5.00 re f Q
+BT /F3 7.50 Tf 0.750 0.800 0.880 rg 1 0 0 1 84.00 364.89 Tm (app/Repositories/Eloquent/ProjectRepository.php) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 347.89 Tm ( 1) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 347.89 Tm (<?php) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 336.89 Tm ( 2) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 336.89 Tm (namespace App\\Repositories\\Eloquent;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 325.89 Tm ( 3) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 325.89 Tm () Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 314.89 Tm ( 4) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 314.89 Tm (use App\\Models\\Project;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 303.89 Tm ( 5) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 303.89 Tm (use App\\Repositories\\Contracts\\ProjectRepositoryInterface;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 292.89 Tm ( 6) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 292.89 Tm (use Illuminate\\Contracts\\Pagination\\LengthAwarePaginator;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 281.89 Tm ( 7) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 281.89 Tm () Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 270.89 Tm ( 8) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 270.89 Tm (class ProjectRepository implements ProjectRepositoryInterface) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 259.89 Tm ( 9) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 259.89 Tm ({) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 248.89 Tm (10) Tj ET
+BT /F3 7.00 Tf 0.450 0.520 0.600 rg 1 0 0 1 76.00 248.89 Tm (    /** @return LengthAwarePaginator<int, Project> */) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 237.89 Tm (11) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 237.89 Tm (    public function getPaginated\(array $filters = [], int $perPage = 10\): LengthAwareP) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 226.89 Tm (12) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 226.89 Tm (    {) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 215.89 Tm (13) Tj ET
+BT /F3 7.00 Tf 0.850 0.550 0.950 rg 1 0 0 1 76.00 215.89 Tm (        return Project::query\(\)) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 204.89 Tm (14) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 204.89 Tm (            ->with\(['status', 'client', 'technologies']\)) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 193.89 Tm (15) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 193.89 Tm (            ->when\($filters['search'] ?? null, fn \($q, $s\) => $q->where\('project_name') Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 182.89 Tm (16) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 182.89 Tm (            ->latest\('updated_at'\)->paginate\($perPage\);) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 171.89 Tm (17) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 171.89 Tm (    }) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 160.89 Tm (18) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 160.89 Tm (}) Tj ET
+BT /F1 7.5 Tf 0.50 0.55 0.62 rg 1 0 0 1 48.00 805.89 Tm (Hustlr - Engineering & Architecture Standards Manual) Tj ET
+q 0.88 0.90 0.94 RG 0.5 w 48.00 801.89 m 547.28 801.89 l S Q
+q 0.88 0.90 0.94 RG 0.5 w 48.00 48.00 m 547.28 48.00 l S Q
+BT /F1 7.0 Tf 0.55 0.60 0.68 rg 1 0 0 1 48.00 36.00 Tm (CONFIDENTIAL - HUSTLR MANAGEMENT PLATFORM \(MSH\) - LARAVEL 13 & LIVEWIRE 4) Tj ET
+BT /F2 7.0 Tf 0.38 0.40 0.95 rg 1 0 0 1 492.28 36.00 Tm (Page 5 of 7) Tj ET
+endstream
+endobj
+19 0 obj
+<< /Length 8095 >>
+stream
+q 0.380 0.400 0.950 rg 48.00 761.89 22.00 18.00 re f Q
+BT /F2 10.00 Tf 1.000 1.000 1.000 rg 1 0 0 1 55.00 766.89 Tm (6) Tj ET
+BT /F2 13.00 Tf 0.090 0.110 0.150 rg 1 0 0 1 78.00 765.89 Tm (Controllers, Form Requests & RBAC) Tj ET
+q 0.850 0.880 0.920 RG 1.00 w 48.00 755.89 m 547.28 755.89 l S Q
+BT /F1 8.50 Tf 0.250 0.280 0.320 rg 1 0 0 1 48.00 731.39 Tm (Controllers handle HTTP requests, Form Requests validate input with permission gates, and Hustlr's) Tj ET
+BT /F1 8.50 Tf 0.250 0.280 0.320 rg 1 0 0 1 48.00 718.89 Tm (PermissionManager orchestrates granular role permissions.) Tj ET
+q 0.080 0.090 0.120 rg 0.200 0.220 0.280 RG 1.00 w 48.00 466.89 499.28 248.00 re B Q
+q 0.130 0.150 0.190 rg 48.00 696.89 499.28 18.00 re f Q
+q 0.220 0.250 0.320 RG 0.50 w 48.00 696.89 m 547.28 696.89 l S Q
+q 0.950 0.350 0.350 rg 56.00 702.89 5.00 5.00 re f Q
+q 0.950 0.750 0.250 rg 64.00 702.89 5.00 5.00 re f Q
+q 0.250 0.800 0.450 rg 72.00 702.89 5.00 5.00 re f Q
+BT /F3 7.50 Tf 0.750 0.800 0.880 rg 1 0 0 1 84.00 701.89 Tm (app/Http/Controllers/Api/ProjectController.php) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 684.89 Tm ( 1) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 684.89 Tm (<?php) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 673.89 Tm ( 2) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 673.89 Tm (namespace App\\Http\\Controllers\\Api;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 662.89 Tm ( 3) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 662.89 Tm () Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 651.89 Tm ( 4) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 651.89 Tm (use App\\Http\\Controllers\\Controller;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 640.89 Tm ( 5) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 640.89 Tm (use App\\Http\\Requests\\StoreProjectRequest;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 629.89 Tm ( 6) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 629.89 Tm (use App\\Http\\Resources\\ProjectResource;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 618.89 Tm ( 7) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 618.89 Tm (use App\\Services\\ProjectService;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 607.89 Tm ( 8) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 607.89 Tm (use Illuminate\\Http\\JsonResponse;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 596.89 Tm ( 9) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 596.89 Tm (use Symfony\\Component\\HttpFoundation\\Response;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 585.89 Tm (10) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 585.89 Tm () Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 574.89 Tm (11) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 574.89 Tm (class ProjectController extends Controller) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 563.89 Tm (12) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 563.89 Tm ({) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 552.89 Tm (13) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 552.89 Tm (    public function __construct\(protected ProjectService $projectService\) {}) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 541.89 Tm (14) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 541.89 Tm () Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 530.89 Tm (15) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 530.89 Tm (    public function store\(StoreProjectRequest $request\): JsonResponse) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 519.89 Tm (16) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 519.89 Tm (    {) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 508.89 Tm (17) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 508.89 Tm (        $project = $this->projectService->createProject\($request->validated\(\), $reques) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 497.89 Tm (18) Tj ET
+BT /F3 7.00 Tf 0.850 0.550 0.950 rg 1 0 0 1 76.00 497.89 Tm (        return \(new ProjectResource\($project\)\)->response\(\)->setStatusCode\(Response::HT) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 486.89 Tm (19) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 486.89 Tm (    }) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 475.89 Tm (20) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 475.89 Tm (}) Tj ET
+q 0.080 0.090 0.120 rg 0.200 0.220 0.280 RG 1.00 w 48.00 294.89 499.28 160.00 re B Q
+q 0.130 0.150 0.190 rg 48.00 436.89 499.28 18.00 re f Q
+q 0.220 0.250 0.320 RG 0.50 w 48.00 436.89 m 547.28 436.89 l S Q
+q 0.950 0.350 0.350 rg 56.00 442.89 5.00 5.00 re f Q
+q 0.950 0.750 0.250 rg 64.00 442.89 5.00 5.00 re f Q
+q 0.250 0.800 0.450 rg 72.00 442.89 5.00 5.00 re f Q
+BT /F3 7.50 Tf 0.750 0.800 0.880 rg 1 0 0 1 84.00 441.89 Tm (app/Http/Requests/StoreProjectRequest.php) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 424.89 Tm ( 1) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 424.89 Tm (public function authorize\(\): bool) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 413.89 Tm ( 2) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 413.89 Tm ({) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 402.89 Tm ( 3) Tj ET
+BT /F3 7.00 Tf 0.850 0.550 0.950 rg 1 0 0 1 76.00 402.89 Tm (    return $this->user\(\)?->can\('IPS - PROJECT - Can Create Projects'\) ?? false;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 391.89 Tm ( 4) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 391.89 Tm (}) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 380.89 Tm ( 5) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 380.89 Tm (public function rules\(\): array) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 369.89 Tm ( 6) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 369.89 Tm ({) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 358.89 Tm ( 7) Tj ET
+BT /F3 7.00 Tf 0.850 0.550 0.950 rg 1 0 0 1 76.00 358.89 Tm (    return [) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 347.89 Tm ( 8) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 347.89 Tm (        'project_name' => ['required', 'string', 'max:255'],) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 336.89 Tm ( 9) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 336.89 Tm (        'status_id'    => ['required', 'uuid', 'exists:project_statuses,status_id'],) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 325.89 Tm (10) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 325.89 Tm (        'client_id'    => ['nullable', 'uuid', 'exists:clients,client_id'],) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 314.89 Tm (11) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 314.89 Tm (    ];) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 303.89 Tm (12) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 303.89 Tm (}) Tj ET
+q 0.940 0.980 0.950 rg 0.880 0.900 0.940 RG 0.80 w 48.00 228.89 499.28 54.00 re B Q
+q 0.150 0.650 0.350 rg 48.00 228.89 4.00 54.00 re f Q
+BT /F2 8.00 Tf 0.080 0.400 0.200 rg 1 0 0 1 60.00 267.89 Tm (PERMISSION MANAGEMENT PATTERN) Tj ET
+BT /F1 8.00 Tf 0.250 0.280 0.320 rg 1 0 0 1 60.00 254.89 Tm (Add new permissions to app/PermissionManager/IntegratedPersonalSystem/ role classes \(Owner, Management,) Tj ET
+BT /F1 8.00 Tf 0.250 0.280 0.320 rg 1 0 0 1 60.00 242.89 Tm (Staff\). Always prefix permissions with 'IPS - {MODULE} - Can {Action} {Target}'.) Tj ET
+BT /F1 7.5 Tf 0.50 0.55 0.62 rg 1 0 0 1 48.00 805.89 Tm (Hustlr - Engineering & Architecture Standards Manual) Tj ET
+q 0.88 0.90 0.94 RG 0.5 w 48.00 801.89 m 547.28 801.89 l S Q
+q 0.88 0.90 0.94 RG 0.5 w 48.00 48.00 m 547.28 48.00 l S Q
+BT /F1 7.0 Tf 0.55 0.60 0.68 rg 1 0 0 1 48.00 36.00 Tm (CONFIDENTIAL - HUSTLR MANAGEMENT PLATFORM \(MSH\) - LARAVEL 13 & LIVEWIRE 4) Tj ET
+BT /F2 7.0 Tf 0.38 0.40 0.95 rg 1 0 0 1 492.28 36.00 Tm (Page 6 of 7) Tj ET
+endstream
+endobj
+20 0 obj
+<< /Length 9885 >>
+stream
+q 0.380 0.400 0.950 rg 48.00 761.89 22.00 18.00 re f Q
+BT /F2 10.00 Tf 1.000 1.000 1.000 rg 1 0 0 1 55.00 766.89 Tm (7) Tj ET
+BT /F2 13.00 Tf 0.090 0.110 0.150 rg 1 0 0 1 78.00 765.89 Tm (Automated Testing Standards \(PHPUnit 12\)) Tj ET
+q 0.850 0.880 0.920 RG 1.00 w 48.00 755.89 m 547.28 755.89 l S Q
+BT /F1 8.50 Tf 0.250 0.280 0.320 rg 1 0 0 1 48.00 731.39 Tm (Hustlr uses PHPUnit 12. Write feature tests for all business logic, authorization rules, and Livewire component) Tj ET
+BT /F1 8.50 Tf 0.250 0.280 0.320 rg 1 0 0 1 48.00 718.89 Tm (interactions.) Tj ET
+q 0.080 0.090 0.120 rg 0.200 0.220 0.280 RG 1.00 w 48.00 378.89 499.28 336.00 re B Q
+q 0.130 0.150 0.190 rg 48.00 696.89 499.28 18.00 re f Q
+q 0.220 0.250 0.320 RG 0.50 w 48.00 696.89 m 547.28 696.89 l S Q
+q 0.950 0.350 0.350 rg 56.00 702.89 5.00 5.00 re f Q
+q 0.950 0.750 0.250 rg 64.00 702.89 5.00 5.00 re f Q
+q 0.250 0.800 0.450 rg 72.00 702.89 5.00 5.00 re f Q
+BT /F3 7.50 Tf 0.750 0.800 0.880 rg 1 0 0 1 84.00 701.89 Tm (tests/Feature/ProjectIndexTest.php) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 684.89 Tm ( 1) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 684.89 Tm (<?php) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 673.89 Tm ( 2) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 673.89 Tm (namespace Tests\\Feature;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 662.89 Tm ( 3) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 662.89 Tm () Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 651.89 Tm ( 4) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 651.89 Tm (use App\\Livewire\\Projects\\Index;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 640.89 Tm ( 5) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 640.89 Tm (use App\\Models\\Project;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 629.89 Tm ( 6) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 629.89 Tm (use App\\Models\\User;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 618.89 Tm ( 7) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 618.89 Tm (use Illuminate\\Foundation\\Testing\\RefreshDatabase;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 607.89 Tm ( 8) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 607.89 Tm (use Livewire\\Livewire;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 596.89 Tm ( 9) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 596.89 Tm (use Tests\\TestCase;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 585.89 Tm (10) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 585.89 Tm () Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 574.89 Tm (11) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 574.89 Tm (class ProjectIndexTest extends TestCase) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 563.89 Tm (12) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 563.89 Tm ({) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 552.89 Tm (13) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 552.89 Tm (    use RefreshDatabase;) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 541.89 Tm (14) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 541.89 Tm () Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 530.89 Tm (15) Tj ET
+BT /F3 7.00 Tf 0.500 0.750 1.000 rg 1 0 0 1 76.00 530.89 Tm (    public function test_user_can_search_projects_in_livewire\(\): void) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 519.89 Tm (16) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 519.89 Tm (    {) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 508.89 Tm (17) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 508.89 Tm (        $user = User::factory\(\)->create\(\);) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 497.89 Tm (18) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 497.89 Tm (        Project::factory\(\)->create\(['project_name' => 'Project Alpha']\);) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 486.89 Tm (19) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 486.89 Tm (        Project::factory\(\)->create\(['project_name' => 'Project Beta']\);) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 475.89 Tm (20) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 475.89 Tm () Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 464.89 Tm (21) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 464.89 Tm (        $this->actingAs\($user\);) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 453.89 Tm (22) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 453.89 Tm () Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 442.89 Tm (23) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 442.89 Tm (        Livewire::test\(Index::class\)) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 431.89 Tm (24) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 431.89 Tm (            ->set\('search', 'Alpha'\)) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 420.89 Tm (25) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 420.89 Tm (            ->assertSee\('Project Alpha'\)) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 409.89 Tm (26) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 409.89 Tm (            ->assertDontSee\('Project Beta'\);) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 398.89 Tm (27) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 398.89 Tm (    }) Tj ET
+BT /F3 7.00 Tf 0.350 0.400 0.480 rg 1 0 0 1 56.00 387.89 Tm (28) Tj ET
+BT /F3 7.00 Tf 0.850 0.880 0.920 rg 1 0 0 1 76.00 387.89 Tm (}) Tj ET
+q 0.380 0.400 0.950 rg 48.00 340.89 22.00 18.00 re f Q
+BT /F2 10.00 Tf 1.000 1.000 1.000 rg 1 0 0 1 55.00 345.89 Tm (8) Tj ET
+BT /F2 13.00 Tf 0.090 0.110 0.150 rg 1 0 0 1 78.00 344.89 Tm (Quality Gates & Artisan Cheatsheet) Tj ET
+q 0.850 0.880 0.920 RG 1.00 w 48.00 334.89 m 547.28 334.89 l S Q
+BT /F1 8.50 Tf 0.250 0.280 0.320 rg 1 0 0 1 48.00 310.39 Tm (Mandatory pre-commit verification scripts:) Tj ET
+BT /F2 9.00 Tf 0.380 0.400 0.950 rg 1 0 0 1 52.00 293.39 Tm (-) Tj ET
+BT /F2 8.50 Tf 0.150 0.180 0.220 rg 1 0 0 1 62.00 293.39 Tm (Code Formatter:) Tj ET
+BT /F1 8.50 Tf 0.300 0.340 0.400 rg 1 0 0 1 144.00 293.39 Tm (composer run lint \(Laravel Pint agent-formatted\)) Tj ET
+BT /F2 9.00 Tf 0.380 0.400 0.950 rg 1 0 0 1 52.00 278.39 Tm (-) Tj ET
+BT /F2 8.50 Tf 0.150 0.180 0.220 rg 1 0 0 1 62.00 278.39 Tm (Static Analysis:) Tj ET
+BT /F1 8.50 Tf 0.300 0.340 0.400 rg 1 0 0 1 149.20 278.39 Tm (composer run types:check \(Larastan PHPStan Level 7\)) Tj ET
+BT /F2 9.00 Tf 0.380 0.400 0.950 rg 1 0 0 1 52.00 263.39 Tm (-) Tj ET
+BT /F2 8.50 Tf 0.150 0.180 0.220 rg 1 0 0 1 62.00 263.39 Tm (Full Suite:) Tj ET
+BT /F1 8.50 Tf 0.300 0.340 0.400 rg 1 0 0 1 123.20 263.39 Tm (composer run test \(Cache clear, lint, types, and PHPUnit\)) Tj ET
+BT /F2 10.50 Tf 0.200 0.250 0.350 rg 1 0 0 1 48.00 247.39 Tm (Artisan Scaffolding Commands) Tj ET
+q 0.850 0.880 0.920 RG 1.00 w 48.00 89.39 499.28 146.00 re S Q
+q 0.140 0.160 0.220 rg 48.00 215.39 499.28 20.00 re f Q
+BT /F2 8.00 Tf 1.000 1.000 1.000 rg 1 0 0 1 56.00 221.39 Tm (Scaffold Target) Tj ET
+q 0.850 0.880 0.920 RG 0.50 w 228.00 89.39 m 228.00 235.39 l S Q
+BT /F2 8.00 Tf 1.000 1.000 1.000 rg 1 0 0 1 236.00 221.39 Tm (Artisan CLI Command) Tj ET
+q 0.880 0.900 0.940 RG 0.50 w 48.00 215.39 m 547.28 215.39 l S Q
+BT /F2 7.50 Tf 0.150 0.180 0.220 rg 1 0 0 1 56.00 202.39 Tm (Model + Factory + Migration + Seeder) Tj ET
+BT /F1 7.50 Tf 0.280 0.320 0.380 rg 1 0 0 1 236.00 202.39 Tm (php artisan make:model Task -m -f -s) Tj ET
+q 0.970 0.980 0.990 rg 48.00 179.39 499.28 18.00 re f Q
+q 0.880 0.900 0.940 RG 0.50 w 48.00 197.39 m 547.28 197.39 l S Q
+BT /F2 7.50 Tf 0.150 0.180 0.220 rg 1 0 0 1 56.00 184.39 Tm (Livewire 4 Page Component) Tj ET
+BT /F1 7.50 Tf 0.280 0.320 0.380 rg 1 0 0 1 236.00 184.39 Tm (php artisan make:livewire Tasks/Index) Tj ET
+q 0.880 0.900 0.940 RG 0.50 w 48.00 179.39 m 547.28 179.39 l S Q
+BT /F2 7.50 Tf 0.150 0.180 0.220 rg 1 0 0 1 56.00 166.39 Tm (Service Layer Class) Tj ET
+BT /F1 7.50 Tf 0.280 0.320 0.380 rg 1 0 0 1 236.00 166.39 Tm (php artisan make:class Services/TaskServ) Tj ET
+q 0.970 0.980 0.990 rg 48.00 143.39 499.28 18.00 re f Q
+q 0.880 0.900 0.940 RG 0.50 w 48.00 161.39 m 547.28 161.39 l S Q
+BT /F2 7.50 Tf 0.150 0.180 0.220 rg 1 0 0 1 56.00 148.39 Tm (Repository Implementation) Tj ET
+BT /F1 7.50 Tf 0.280 0.320 0.380 rg 1 0 0 1 236.00 148.39 Tm (php artisan make:class Repositories/Eloq) Tj ET
+q 0.880 0.900 0.940 RG 0.50 w 48.00 143.39 m 547.28 143.39 l S Q
+BT /F2 7.50 Tf 0.150 0.180 0.220 rg 1 0 0 1 56.00 130.39 Tm (Discrete Action Command) Tj ET
+BT /F1 7.50 Tf 0.280 0.320 0.380 rg 1 0 0 1 236.00 130.39 Tm (php artisan make:class Actions/Tasks/Ass) Tj ET
+q 0.970 0.980 0.990 rg 48.00 107.39 499.28 18.00 re f Q
+q 0.880 0.900 0.940 RG 0.50 w 48.00 125.39 m 547.28 125.39 l S Q
+BT /F2 7.50 Tf 0.150 0.180 0.220 rg 1 0 0 1 56.00 112.39 Tm (Form Request Validation) Tj ET
+BT /F1 7.50 Tf 0.280 0.320 0.380 rg 1 0 0 1 236.00 112.39 Tm (php artisan make:request StoreTaskReques) Tj ET
+q 0.880 0.900 0.940 RG 0.50 w 48.00 107.39 m 547.28 107.39 l S Q
+BT /F2 7.50 Tf 0.150 0.180 0.220 rg 1 0 0 1 56.00 94.39 Tm (PHPUnit 12 Feature Test) Tj ET
+BT /F1 7.50 Tf 0.280 0.320 0.380 rg 1 0 0 1 236.00 94.39 Tm (php artisan make:test TaskFeatureTest --) Tj ET
+BT /F1 7.5 Tf 0.50 0.55 0.62 rg 1 0 0 1 48.00 805.89 Tm (Hustlr - Engineering & Architecture Standards Manual) Tj ET
+q 0.88 0.90 0.94 RG 0.5 w 48.00 801.89 m 547.28 801.89 l S Q
+q 0.88 0.90 0.94 RG 0.5 w 48.00 48.00 m 547.28 48.00 l S Q
+BT /F1 7.0 Tf 0.55 0.60 0.68 rg 1 0 0 1 48.00 36.00 Tm (CONFIDENTIAL - HUSTLR MANAGEMENT PLATFORM \(MSH\) - LARAVEL 13 & LIVEWIRE 4) Tj ET
+BT /F2 7.0 Tf 0.38 0.40 0.95 rg 1 0 0 1 492.28 36.00 Tm (Page 7 of 7) Tj ET
+endstream
+endobj
+xref
+0 21
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000161 00000 n 
+0000000231 00000 n 
+0000000306 00000 n 
+0000000374 00000 n 
+0000000447 00000 n 
+0000000610 00000 n 
+0000000773 00000 n 
+0000000936 00000 n 
+0000001100 00000 n 
+0000001264 00000 n 
+0000001428 00000 n 
+0000001592 00000 n 
+0000010283 00000 n 
+0000019554 00000 n 
+0000027250 00000 n 
+0000031682 00000 n 
+0000041537 00000 n 
+0000049685 00000 n 
+trailer
+<< /Size 21 /Root 1 0 R >>
+startxref
+59623
+%%EOF
