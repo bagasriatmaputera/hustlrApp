@@ -121,17 +121,33 @@
                                 <span class="{{ $colors['bg'] }} {{ $colors['text'] }} inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium">
                                     {{ $project->status->status_name }}
                                 </span>
+                                @if ($project->health_status)
+                                    @php
+                                        $hColors = \App\Livewire\Projects\Show::healthColor($project->health_status);
+                                    @endphp
+                                    <span class="{{ $hColors['bg'] }} {{ $hColors['text'] }} inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-medium">
+                                        <span class="size-1.5 rounded-full {{ $hColors['dot'] }}"></span>
+                                        {{ $project->health_status }}
+                                    </span>
+                                @endif
                                 @if ($project->isRecentlyUpdated())
                                     <span class="inline-flex items-center rounded-full bg-purple-100 px-2 py-0.5 text-xs font-medium text-purple-700 dark:bg-purple-900/30 dark:text-purple-300">
                                         {{ __('Updated') }}
                                     </span>
                                 @endif
                             </div>
-                            <flux:heading size="lg" class="truncate">{{ $project->project_name }}</flux:heading>
+                            <flux:heading size="lg" class="truncate">
+                                <a href="{{ route('projects.show', $project->project_id) }}" class="hover:underline hover:text-primary transition-colors" wire:navigate>
+                                    {{ $project->project_name }}
+                                </a>
+                            </flux:heading>
                         </div>
                         <flux:dropdown position="bottom" align="end">
                             <flux:button variant="ghost" size="sm" icon="ellipsis-vertical" class="opacity-0 transition-opacity group-hover:opacity-100" />
                             <flux:menu>
+                                <flux:menu.item icon="eye" :href="route('projects.show', $project->project_id)" wire:navigate>
+                                    {{ __('View Board & Roadmap') }}
+                                </flux:menu.item>
                                 <flux:menu.item icon="pencil-square" :href="route('projects.edit', $project->project_id)" wire:navigate>
                                     {{ __('Edit') }}
                                 </flux:menu.item>

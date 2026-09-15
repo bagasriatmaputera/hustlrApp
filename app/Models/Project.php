@@ -24,7 +24,10 @@ class Project extends Model
         'ownership_type',
         'link_testing',
         'link_prod',
+        'link_repository',
+        'link_docs',
         'status_id',
+        'health_status',
         'client_id',
         'created_by',
         'start_date',
@@ -99,6 +102,51 @@ class Project extends Model
     public function activityLogs(): HasMany
     {
         return $this->hasMany(ProjectActivityLog::class, 'project_id', 'project_id');
+    }
+
+    /**
+     * @return HasMany<Task, $this>
+     */
+    public function tasks(): HasMany
+    {
+        return $this->hasMany(Task::class, 'project_id', 'project_id')->orderBy('order');
+    }
+
+    /**
+     * @return HasMany<ProjectMilestone, $this>
+     */
+    public function milestones(): HasMany
+    {
+        return $this->hasMany(ProjectMilestone::class, 'project_id', 'project_id')->orderBy('order');
+    }
+
+    public function totalTasksCount(): int
+    {
+        return $this->tasks()->count();
+    }
+
+    public function completedTasksCount(): int
+    {
+        return $this->tasks()->where('status', 'Done')->count();
+    }
+
+    public function taskProgressPercentage(): int
+    {
+        $total = $this->totalTasksCount();
+        if ($total === 0) {
+            return 0;
+        }
+
+        return (int) round(($this->completedTasksCount() / $total) * 100);
+    }
+
+    public function daysRemaining(): ?int
+    {
+        if (! $this->end_date) {
+            return null;
+        }
+
+        return (int) now()->startOfDay()->diffInDays($this->end_date->startOfDay(), false);
     }
 
     public function isRecentlyUpdated(): bool

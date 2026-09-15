@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('passkeys', function (Blueprint $table) {
-            $table->id('id')->primary();
+            $table->id('id');
             $table->foreignId('user_id')->constrained('users', 'id')->cascadeOnDelete();
             $table->string('name');
             $table->string('credential_id')->unique();
