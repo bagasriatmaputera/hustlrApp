@@ -47,5 +47,12 @@ class OwnerPermissionManager extends PermissionManager
 
         // Settings
         'IPS - PROJECT - Can Manage Settings',
+
+        // Portfolio
+        'PORTFOLIO - Can View Portfolio in Sidebar',
+        'PORTFOLIO - Can Manage Portfolio',
+        'PORTFOLIO - Can Manage Profile',
+        'PORTFOLIO - Can Manage Projects',
+        'PORTFOLIO - Can Manage Experiences',
     ];
 }

@@ -21,6 +21,10 @@ class DatabaseSeeder extends Seeder
             FirstUserSeeder::class,
             ProjectStatusSeeder::class,
             ProjectSeeder::class,
+            JobApplicationSeeder::class,
+            PortfolioProfileSeeder::class,
+            PortfolioExperienceSeeder::class,
+            PortfolioProjectSeeder::class,
         ]);
 
         // User::factory()->create([

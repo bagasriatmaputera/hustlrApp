@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\Contracts\JobApplicationRepositoryInterface;
+use App\Repositories\Eloquent\JobApplicationRepository;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +18,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(
+            JobApplicationRepositoryInterface::class,
+            JobApplicationRepository::class
+        );
     }
 
     /**
