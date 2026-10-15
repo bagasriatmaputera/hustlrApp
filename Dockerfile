@@ -1,30 +1,42 @@
+# ---------- Stage 1: install vendor ----------
+FROM composer:2 AS vendor
+WORKDIR /app
+COPY composer.json composer.lock ./
+RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist --ignore-platform-reqs
+COPY . .
+RUN composer dump-autoload --optimize --no-dev
+
+# ---------- Stage 2: build aset frontend ----------
+FROM node:20-alpine AS assets
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY . .
+COPY --from=vendor /app/vendor ./vendor
+RUN npm run build
+
+# ---------- Stage 3: runtime ----------
 FROM php:8.4-fpm-alpine
 
-# Dependensi sistem
 RUN apk add --no-cache \
-    bash git curl unzip \
+    bash curl unzip \
     libpng-dev libjpeg-turbo-dev freetype-dev \
-    libzip-dev icu-dev oniguruma-dev \
-    nodejs npm
+    libzip-dev icu-dev oniguruma-dev
 
-# Ekstensi PHP yang dibutuhkan Laravel + Livewire
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) \
         pdo_mysql bcmath gd zip intl mbstring pcntl opcache exif
 
-# Composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-
 WORKDIR /var/www/html
 
-# Samakan UID/GID dengan user host supaya permission file aman
+COPY --from=vendor /app /var/www/html
+COPY --from=assets /app/public/build ./public/build
+
 ARG UID=1000
 ARG GID=1000
 RUN addgroup -g ${GID} laravel \
     && adduser -D -u ${UID} -G laravel laravel \
-    && chown -R laravel:laravel /var/www/html
+    && chown -R laravel:laravel storage bootstrap/cache
 
 USER laravel
-
 EXPOSE 9000
-CMD ["php-fpm"]

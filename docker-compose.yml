@@ -3,51 +3,52 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      target: app
       args:
         UID: ${UID:-1000}
         GID: ${GID:-1000}
+    image: laravel-app:latest
     container_name: laravel-app
     restart: unless-stopped
-    working_dir: /var/www/html
+    env_file: .env
     volumes:
-      - .:/var/www/html
+      - app_storage:/var/www/html/storage
     networks:
       - app-network
       - shared-db
 
   web:
-    image: nginx:alpine
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: web
     container_name: laravel-web
     restart: unless-stopped
     ports:
       - "127.0.0.1:3003:80"
     volumes:
-      - .:/var/www/html:ro
-      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - app_storage:/var/www/html/storage:ro
     depends_on:
       - app
     networks:
       - app-network
 
-  # Opsional: jalankan queue worker (hapus jika tidak dipakai)
   queue:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        UID: ${UID:-1000}
-        GID: ${GID:-1000}
+    image: laravel-app:latest
     container_name: laravel-queue
     restart: unless-stopped
-    working_dir: /var/www/html
+    env_file: .env
     command: php artisan queue:work --tries=3
     volumes:
-      - .:/var/www/html
+      - app_storage:/var/www/html/storage
     depends_on:
       - app
     networks:
       - app-network
       - shared-db
+
+volumes:
+  app_storage:
 
 networks:
   app-network:
