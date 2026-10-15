@@ -31,6 +31,8 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->configureDefaults();
 
+        $this->schemeHttpsLive();
+
         // Owner has unrestricted super-admin access across all permissions and gates
         Gate::before(function ($user, string $ability): ?bool {
             try {
@@ -73,5 +75,12 @@ class AppServiceProvider extends ServiceProvider
                 ->uncompromised()
             : null,
         );
+    }
+
+    protected function schemeHttpsLive(): void
+    {
+        if ($this->app->environment('production')) {
+            \URL::forceScheme('https');
+        }
     }
 }
