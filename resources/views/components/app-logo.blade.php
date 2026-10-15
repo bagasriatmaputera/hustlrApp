@@ -13,7 +13,7 @@
         <x-slot name="logo" class="flex items-center justify-center">
             @if($isExplicitDark)
                 {{-- 1. Paksa Mode Dark jika prop theme="dark" --}}
-                <img src="{{ asset('images/Hustler Dark Logo.png') }}" alt="{{ config('app.name', 'Hustlr') }}" class="h-6 w-auto object-contain" />
+                <img src="{{ asset('images/Hustlr Dark Logo.png') }}" alt="{{ config('app.name', 'Hustlr') }}" class="h-6 w-auto object-contain" />
             @elseif($isExplicitLight)
                 {{-- 2. Paksa Mode Light jika prop theme="light" --}}
                 <img src="{{ asset('images/Hustlr Light Logo.png') }}" alt="{{ config('app.name', 'Hustlr') }}" class="h-6 w-auto object-contain" />
@@ -26,7 +26,7 @@
 
                 {{-- Tampil saat Mode Dark --}}
                 <div class="hidden dark:flex items-center justify-center">
-                    <img src="{{ asset('images/Hustler Dark Logo.png') }}" alt="{{ config('app.name', 'Hustlr') }}" class="h-6 w-auto object-contain" />
+                    <img src="{{ asset('images/Hustlr Dark Logo.png') }}" alt="{{ config('app.name', 'Hustlr') }}" class="h-6 w-auto object-contain" />
                 </div>
             @endif
         </x-slot>
@@ -36,7 +36,7 @@
         <x-slot name="logo" class="flex items-center justify-center">
             @if($isExplicitDark)
                 {{-- 1. Paksa Mode Dark jika prop theme="dark" --}}
-                <img src="{{ asset('images/Hustler Dark Logo.png') }}" alt="{{ config('app.name', 'Hustlr') }}" class="h-6 w-auto object-contain" />
+                <img src="{{ asset('images/Hustlr Dark Logo.png') }}" alt="{{ config('app.name', 'Hustlr') }}" class="h-6 w-auto object-contain" />
             @elseif($isExplicitLight)
                 {{-- 2. Paksa Mode Light jika prop theme="light" --}}
                 <img src="{{ asset('images/Hustlr Light Logo.png') }}" alt="{{ config('app.name', 'Hustlr') }}" class="h-6 w-auto object-contain" />
@@ -49,7 +49,7 @@
 
                 {{-- Tampil saat Mode Dark --}}
                 <div class="hidden dark:flex items-center justify-center">
-                    <img src="{{ asset('images/Hustler Dark Logo.png') }}" alt="{{ config('app.name', 'Hustlr') }}" class="h-6 w-auto object-contain" />
+                    <img src="{{ asset('images/Hustlr Dark Logo.png') }}" alt="{{ config('app.name', 'Hustlr') }}" class="h-6 w-auto object-contain" />
                 </div>
             @endif
         </x-slot>
