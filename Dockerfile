@@ -15,8 +15,8 @@ COPY . .
 COPY --from=vendor /app/vendor ./vendor
 RUN npm run build
 
-# ---------- Stage 3: runtime ----------
-FROM php:8.4-fpm-alpine
+# ---------- Stage 3: runtime PHP ----------
+FROM php:8.4-fpm-alpine AS app
 
 RUN apk add --no-cache \
     bash curl unzip \
