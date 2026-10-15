@@ -40,3 +40,8 @@ RUN addgroup -g ${GID} laravel \
 
 USER laravel
 EXPOSE 9000
+
+# ---------- Stage 4: nginx ----------
+FROM nginx:alpine AS web
+COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY --from=app /var/www/html/public /var/www/html/public
