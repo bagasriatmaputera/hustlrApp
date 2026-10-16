@@ -7,6 +7,27 @@
         </div>
 
         <div class="flex items-center gap-2">
+            <flux:dropdown position="bottom" align="end">
+                <flux:button variant="ghost" size="sm" icon="arrow-down-tray" icon:trailing="chevron-down">
+                    {{ __('Export') }}
+                </flux:button>
+
+                <flux:menu>
+                    <flux:menu.item
+                        :href="route('job-tracker.export.csv', array_filter(['search' => $search, 'contract_status' => $contractFilter, 'apply_status' => $statusFilter, 'workplace_type' => $workplaceFilter]))"
+                        icon="document-text"
+                    >
+                        {{ __('Export CSV') }}
+                    </flux:menu.item>
+                    <flux:menu.item
+                        :href="route('job-tracker.export.pdf', array_filter(['search' => $search, 'contract_status' => $contractFilter, 'apply_status' => $statusFilter, 'workplace_type' => $workplaceFilter]))"
+                        icon="document"
+                    >
+                        {{ __('Export PDF') }}
+                    </flux:menu.item>
+                </flux:menu>
+            </flux:dropdown>
+
             <flux:button variant="primary" icon="plus" wire:click="openCreateModal">
                 {{ __('Add Job Application') }}
             </flux:button>

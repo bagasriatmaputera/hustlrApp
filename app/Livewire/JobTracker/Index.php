@@ -97,6 +97,7 @@ class Index extends Component
         $service = app(JobApplicationService::class);
 
         return $service->getPaginated([
+            'user_id' => Auth::id(),
             'search' => $this->search,
             'contract_status' => $this->contractFilter,
             'apply_status' => $this->statusFilter,
@@ -151,31 +152,31 @@ class Index extends Component
     #[Computed]
     public function totalApplicationsCount(): int
     {
-        return JobApplication::count();
+        return JobApplication::where('user_id', Auth::id())->count();
     }
 
     #[Computed]
     public function hrReviewCount(): int
     {
-        return JobApplication::where('apply_status', 'hr_review')->count();
+        return JobApplication::where('user_id', Auth::id())->where('apply_status', 'hr_review')->count();
     }
 
     #[Computed]
     public function interviewCount(): int
     {
-        return JobApplication::whereIn('apply_status', ['interview', 'interview_user'])->count();
+        return JobApplication::where('user_id', Auth::id())->whereIn('apply_status', ['interview', 'interview_user'])->count();
     }
 
     #[Computed]
     public function offeringCount(): int
     {
-        return JobApplication::whereIn('apply_status', ['offering_letter', 'accepted'])->count();
+        return JobApplication::where('user_id', Auth::id())->whereIn('apply_status', ['offering_letter', 'accepted'])->count();
     }
 
     #[Computed]
     public function rejectedCount(): int
     {
-        return JobApplication::where('apply_status', 'rejected')->count();
+        return JobApplication::where('user_id', Auth::id())->where('apply_status', 'rejected')->count();
     }
 
     // --- CREATE MODAL ACTIONS ---
@@ -224,7 +225,7 @@ class Index extends Component
     {
         $this->authorizePermission('IPS - JOBTRACKER - Can List Job Tracker');
 
-        $this->viewingJob = JobApplication::with('user')->find($jobId);
+        $this->viewingJob = JobApplication::with('user')->where('user_id', Auth::id())->find($jobId);
         if ($this->viewingJob) {
             $this->showDetailModal = true;
         }
@@ -234,7 +235,7 @@ class Index extends Component
 
     public function openEditModal(string $jobId): void
     {
-        $job = JobApplication::findOrFail($jobId);
+        $job = JobApplication::where('user_id', Auth::id())->findOrFail($jobId);
 
         $this->selectedJobId = $job->job_application_id;
         $this->company_name = $job->company_name;
@@ -260,7 +261,7 @@ class Index extends Component
             return;
         }
 
-        $job = JobApplication::findOrFail($this->selectedJobId);
+        $job = JobApplication::where('user_id', Auth::id())->findOrFail($this->selectedJobId);
 
         $validated = $this->validate([
             'company_name' => ['required', 'string', 'max:255'],
@@ -297,7 +298,7 @@ class Index extends Component
     {
         $this->authorizePermission('IPS - JOBTRACKER - Can Update Job Tracker');
 
-        $job = JobApplication::findOrFail($jobId);
+        $job = JobApplication::where('user_id', Auth::id())->findOrFail($jobId);
 
         /** @var JobApplicationService $service */
         $service = app(JobApplicationService::class);
@@ -312,7 +313,7 @@ class Index extends Component
     {
         $this->authorizePermission('IPS - JOBTRACKER - Can Delete Job Tracker');
 
-        $job = JobApplication::findOrFail($jobId);
+        $job = JobApplication::where('user_id', Auth::id())->findOrFail($jobId);
 
         $this->selectedJobId = $job->job_application_id;
         $this->deletingJobTitle = "{$job->position} at {$job->company_name}";
@@ -329,7 +330,7 @@ class Index extends Component
             return;
         }
 
-        $job = JobApplication::findOrFail($this->selectedJobId);
+        $job = JobApplication::where('user_id', Auth::id())->findOrFail($this->selectedJobId);
 
         /** @var JobApplicationService $service */
         $service = app(JobApplicationService::class);

@@ -29,6 +29,7 @@ class JobApplicationController extends Controller
 
         if ($request->wantsJson()) {
             $filters = $request->only(['search', 'contract_status', 'apply_status', 'workplace_type']);
+            $filters['user_id'] = $request->user()->id;
             $jobs = $this->jobApplicationService->getPaginated($filters, (int) $request->get('per_page', 10));
 
             return response()->json($jobs);
@@ -69,6 +70,8 @@ class JobApplicationController extends Controller
             abort(Response::HTTP_FORBIDDEN, __('Unauthorized action.'));
         }
 
+        $this->authorizeOwnership($request, $jobApplication);
+
         if ($request->wantsJson()) {
             return response()->json([
                 'data' => $jobApplication->load('user'),
@@ -83,6 +86,8 @@ class JobApplicationController extends Controller
      */
     public function update(UpdateJobApplicationRequest $request, JobApplication $jobApplication): JsonResponse|RedirectResponse
     {
+        $this->authorizeOwnership($request, $jobApplication);
+
         $updatedJob = $this->jobApplicationService->updateJobApplication(
             $jobApplication,
             $request->validated()
@@ -107,6 +112,8 @@ class JobApplicationController extends Controller
             abort(Response::HTTP_FORBIDDEN, __('Unauthorized action.'));
         }
 
+        $this->authorizeOwnership($request, $jobApplication);
+
         $this->jobApplicationService->deleteJobApplication($jobApplication);
 
         if ($request->wantsJson()) {
@@ -116,5 +123,15 @@ class JobApplicationController extends Controller
         }
 
         return redirect()->route('job-tracker.index')->with('success', __('Job application deleted successfully.'));
+    }
+
+    /**
+     * Job Tracker is personal: only the owning account may access a record.
+     */
+    private function authorizeOwnership(Request $request, JobApplication $jobApplication): void
+    {
+        if ($jobApplication->user_id !== $request->user()?->id) {
+            abort(Response::HTTP_NOT_FOUND);
+        }
     }
 }

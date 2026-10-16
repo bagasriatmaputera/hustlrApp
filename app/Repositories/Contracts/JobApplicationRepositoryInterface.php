@@ -4,6 +4,7 @@ namespace App\Repositories\Contracts;
 
 use App\Models\JobApplication;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 
 interface JobApplicationRepositoryInterface
 {
@@ -12,6 +13,12 @@ interface JobApplicationRepositoryInterface
      * @return LengthAwarePaginator<int, JobApplication>
      */
     public function getPaginated(array $filters = [], int $perPage = 10): LengthAwarePaginator;
+
+    /**
+     * @param  array<string, mixed>  $filters
+     * @return Collection<int, JobApplication>
+     */
+    public function getForExport(array $filters = []): Collection;
 
     public function findById(string $id): ?JobApplication;
 
