@@ -7,6 +7,8 @@ use App\Models\Client;
 use App\Models\Project;
 use App\Models\ProjectStatus;
 use App\Models\Technology;
+use App\Models\User;
+use App\PermissionManager\ModuleRegistry;
 use Flux\Flux;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -41,6 +43,15 @@ class Create extends Component
     /** @var array<int, string> */
     public array $selectedTechnologies = [];
 
+    /** @var array<int, int> */
+    public array $selectedMembers = [];
+
+    public string $defaultMemberRole = 'Member';
+
+    public string $memberSearch = '';
+
+    public int $memberPerPage = 5;
+
     public function mount(): void
     {
         $this->authorizePermission('IPS - PROJECT - Can Create Projects');
@@ -71,6 +82,35 @@ class Create extends Component
     public function technologies(): Collection
     {
         return Technology::orderBy('category')->orderBy('tech_name')->get();
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    #[Computed]
+    public function availableUsers(): Collection
+    {
+        $query = User::query()->where('id', '!=', Auth::id());
+
+        if ($this->memberSearch !== '') {
+            $query->where(function ($q) {
+                $q->where('full_name', 'like', "%{$this->memberSearch}%")
+                    ->orWhere('name', 'like', "%{$this->memberSearch}%")
+                    ->orWhere('email', 'like', "%{$this->memberSearch}%");
+            });
+        }
+
+        return $query->orderBy('full_name')->get();
+    }
+
+    public function updatedMemberSearch(): void
+    {
+        $this->memberPerPage = 5;
+    }
+
+    public function loadMoreMembers(): void
+    {
+        $this->memberPerPage = min($this->memberPerPage + 5, $this->availableUsers->count());
     }
 
     public function removeTechnology(string $techId): void
@@ -121,10 +161,52 @@ class Create extends Component
             $project->technologies()->attach($validated['selectedTechnologies']);
         }
 
+        if (! empty($this->selectedMembers)) {
+            $pivotRows = [];
+
+            foreach ($this->selectedMembers as $memberId) {
+                if ((int) $memberId === (int) Auth::id()) {
+                    continue;
+                }
+
+                $pivotRows[$memberId] = [
+                    'role_in_project' => $this->defaultMemberRole,
+                    'joined_at' => now(),
+                ];
+            }
+
+            if ($pivotRows !== []) {
+                $project->members()->attach($pivotRows);
+
+                // Grant project participation access to members missing it (auto-grant, default).
+                $grantedCount = 0;
+                foreach (array_keys($pivotRows) as $mid) {
+                    $member = User::find($mid);
+                    if ($member && ModuleRegistry::isMissingProjectAccess($member)) {
+                        $member->givePermissionTo(
+                            ModuleRegistry::projectMemberPermissions($this->defaultMemberRole)
+                        );
+                        $grantedCount++;
+                    }
+                }
+
+                $names = User::whereIn('id', array_keys($pivotRows))->pluck('full_name')->sort()->values()->all();
+
+                $log = __('Added members: :names', ['names' => implode(', ', $names)]);
+                if ($grantedCount > 0) {
+                    $log .= ' '.__('(:count granted project access)', ['count' => $grantedCount]);
+                }
+
+                $project->logActivity('member.added', $log);
+            }
+        }
+
         $project->members()->attach(Auth::id(), [
             'role_in_project' => 'Owner',
             'joined_at' => now(),
         ]);
+
+        $project->logActivity('project.created', __('Created project ":name".', ['name' => $project->project_name]));
 
         Flux::toast(variant: 'success', text: __('Project created successfully.'));
 

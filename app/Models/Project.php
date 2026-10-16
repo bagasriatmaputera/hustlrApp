@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Database\Factories\ProjectFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,6 +11,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Auth;
 
 class Project extends Model
 {
@@ -102,6 +105,27 @@ class Project extends Model
     public function activityLogs(): HasMany
     {
         return $this->hasMany(ProjectActivityLog::class, 'project_id', 'project_id');
+    }
+
+    /**
+     * Scope projects visible to a given user (creator OR member), including owners.
+     *
+     * @param  Builder<self>  $query
+     * @return Builder<self>
+     */
+    public function scopeVisibleTo(Builder $query, User $user): Builder
+    {
+        return $query->where('created_by', $user->id)
+            ->orWhereHas('members', fn (Builder $m) => $m->where('user_id', $user->id));
+    }
+
+    public function logActivity(string $action, ?string $description = null): ProjectActivityLog
+    {
+        return $this->activityLogs()->create([
+            'user_id' => Auth::id(),
+            'action' => $action,
+            'description' => $description,
+        ]);
     }
 
     /**

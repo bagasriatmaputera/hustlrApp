@@ -5,9 +5,11 @@ namespace App\Livewire\Projects;
 use App\Concerns\AuthorizesPermissions;
 use App\Models\Project;
 use App\Models\ProjectStatus;
+use App\Models\User;
 use Flux\Flux;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
@@ -36,8 +38,12 @@ class Index extends Component
     #[Computed]
     public function projects(): LengthAwarePaginator
     {
+        /** @var User $user */
+        $user = Auth::user();
+
         return Project::query()
             ->with(['status', 'client', 'technologies', 'members'])
+            ->visibleTo($user)
             ->when($this->search, function ($query) {
                 $query->where('project_name', 'like', "%{$this->search}%");
             })
@@ -60,25 +66,25 @@ class Index extends Component
     #[Computed]
     public function totalProjects(): int
     {
-        return Project::count();
+        return Project::visibleTo(Auth::user())->count();
     }
 
     #[Computed]
     public function activeProjects(): int
     {
-        return Project::whereHas('status', fn ($q) => $q->where('status_name', 'In Progress'))->count();
+        return Project::visibleTo(Auth::user())->whereHas('status', fn ($q) => $q->where('status_name', 'In Progress'))->count();
     }
 
     #[Computed]
     public function completedProjects(): int
     {
-        return Project::whereHas('status', fn ($q) => $q->where('status_name', 'Completed'))->count();
+        return Project::visibleTo(Auth::user())->whereHas('status', fn ($q) => $q->where('status_name', 'Completed'))->count();
     }
 
     #[Computed]
     public function onHoldProjects(): int
     {
-        return Project::whereHas('status', fn ($q) => $q->where('status_name', 'On Hold'))->count();
+        return Project::visibleTo(Auth::user())->whereHas('status', fn ($q) => $q->where('status_name', 'On Hold'))->count();
     }
 
     public function updatedSearch(): void
@@ -102,6 +108,8 @@ class Index extends Component
         $this->authorizePermission('IPS - PROJECT - Can Delete Projects');
 
         $project = Project::findOrFail($projectId);
+
+        $project->logActivity('project.deleted', __('Deleted project ":name".', ['name' => $project->project_name]));
         $project->delete();
 
         Flux::toast(variant: 'success', text: __('Project deleted successfully.'));

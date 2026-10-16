@@ -9,6 +9,7 @@ use App\Models\ProjectStatus;
 use App\Models\Technology;
 use Flux\Flux;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -44,6 +45,8 @@ class Edit extends Component
     public function mount(Project $project): void
     {
         $this->authorizePermission('IPS - PROJECT - Can Update Projects');
+
+        abort_if(! Project::visibleTo(Auth::user())->where('project_id', $project->project_id)->exists(), 403, __('Unauthorized action.'));
 
         $this->project = $project;
 
@@ -132,6 +135,8 @@ class Edit extends Component
         ]);
 
         $this->project->technologies()->sync($validated['selectedTechnologies'] ?? []);
+
+        $this->project->logActivity('project.updated', __('Updated project ":name".', ['name' => $this->project->project_name]));
 
         Flux::toast(variant: 'success', text: __('Project updated successfully.'));
 

@@ -171,6 +171,108 @@
         </div>
     </flux:card>
 
+    <flux:card class="!p-5">
+        <div class="mb-3 flex items-center justify-between">
+            <flux:heading size="md">{{ __('Team Members') }}</flux:heading>
+            <flux:text class="text-xs text-zinc-400">{{ $project->members->count() }} {{ __('members') }}</flux:text>
+        </div>
+
+        <div class="mb-4 flex flex-wrap gap-2">
+            @foreach ($project->members as $member)
+                <div class="flex items-center gap-2 rounded-lg border border-zinc-200 bg-zinc-50 px-2.5 py-1.5 text-xs dark:border-zinc-700 dark:bg-zinc-800" wire:key="member-row-{{ $member->id }}">
+                    <flux:avatar size="xs" :name="$member->full_name ?? $member->name" />
+                    <span class="font-medium text-zinc-900 dark:text-zinc-100">{{ $member->full_name ?? $member->name }}</span>
+                    <span class="rounded bg-blue-100 px-1.5 py-0.5 text-[10px] font-semibold text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">{{ $member->pivot->role_in_project }}</span>
+                    @can('IPS - PROJECT - Can Remove Team Member')
+                        @if ($member->id !== $project->created_by)
+                            <button
+                                type="button"
+                                wire:click="removeMember({{ $member->id }})"
+                                wire:confirm="{{ __('Remove :name from project?', ['name' => $member->full_name ?? $member->name]) }}"
+                                class="ml-1 text-zinc-400 transition hover:text-red-500"
+                                title="{{ __('Remove member') }}"
+                            >
+                                <flux:icon.x-mark class="size-3.5" />
+                            </button>
+                        @endif
+                    @endcan
+                </div>
+            @endforeach
+            @if ($project->members->isEmpty())
+                <flux:text class="text-sm text-zinc-500">{{ __('No team members yet.') }}</flux:text>
+            @endif
+        </div>
+
+        @can('IPS - PROJECT - Can Invite Team Member')
+            <div class="flex flex-col gap-3">
+                <flux:input wire:model.live.debounce.300ms="memberSearch" :placeholder="__('Search user by name or email...')" icon="magnifying-glass" clearable />
+                <div class="max-h-48 overflow-auto rounded-lg border border-zinc-200 p-2 dark:border-zinc-700">
+                    @forelse ($this->availableMembers->take($memberPerPage) as $availUser)
+                        <label class="flex cursor-pointer items-center gap-2 rounded px-2 py-1.5 hover:bg-zinc-50 dark:hover:bg-zinc-800" wire:key="avail-member-{{ $availUser->id }}">
+                            <input type="radio" wire:model.live="newMemberUserId" value="{{ $availUser->id }}" class="size-4 border-zinc-300 text-primary focus:ring-primary" />
+                            <span class="text-sm text-zinc-700 dark:text-zinc-300">{{ $availUser->full_name ?? $availUser->name }}</span>
+                            <span class="ml-auto text-xs text-zinc-400">{{ $availUser->email }}</span>
+                        </label>
+                    @empty
+                        <flux:text class="text-sm text-zinc-500">{{ __('No matching users.') }}</flux:text>
+                    @endforelse
+                </div>
+                @if ($this->availableMembers->count() > $memberPerPage)
+                    <flux:button type="button" variant="ghost" size="sm" wire:click="loadMoreMembers">
+                        {{ __('Load more (:n)', ['n' => $this->availableMembers->count() - $memberPerPage]) }}
+                    </flux:button>
+                @endif
+                <div class="flex flex-col gap-3 sm:flex-row sm:items-end">
+                    <flux:select wire:model="newMemberRole" :label="__('Role')" class="sm:w-40">
+                        <flux:select.option value="Owner">{{ __('Owner') }}</flux:select.option>
+                        <flux:select.option value="Member">{{ __('Member') }}</flux:select.option>
+                        <flux:select.option value="Manager">{{ __('Manager') }}</flux:select.option>
+                    </flux:select>
+                    <flux:button type="button" variant="primary" icon="plus" wire:click="addMember">{{ __('Add') }}</flux:button>
+                </div>
+            </div>
+            @if ($this->newMemberMissingAccess())
+                <div class="rounded-lg border border-amber-200 bg-amber-50 p-3 dark:border-amber-800/50 dark:bg-amber-950/30">
+                    <p class="text-sm font-medium text-amber-700 dark:text-amber-300">
+                        {{ __('This user has no project-modul access yet. Without access, they cannot view this project even after being added.') }}
+                    </p>
+                    <label class="mt-2 flex items-center gap-2 text-sm text-amber-700 dark:text-amber-300">
+                        <input type="checkbox" wire:model="grantProjectAccess" class="size-4 rounded border-amber-300 text-primary focus:ring-primary" />
+                        <span>{{ __('Grant project participation access automatically (recommended)') }}</span>
+                    </label>
+                </div>
+            @endif
+        @endcan
+    </flux:card>
+
+    <flux:card class="!p-5">
+        <div class="mb-3 flex items-center justify-between">
+            <flux:heading size="md">{{ __('Recent Activity') }}</flux:heading>
+            <flux:text class="text-xs text-zinc-400">{{ __('Latest :count actions', ['count' => $this->recentActivity->count()]) }}</flux:text>
+        </div>
+
+        @if ($this->recentActivity->isEmpty())
+            <flux:text class="text-sm text-zinc-500">{{ __('No activity yet.') }}</flux:text>
+        @else
+            <div class="flex flex-col gap-3">
+                @foreach ($this->recentActivity as $log)
+                    <div class="flex items-start gap-3" wire:key="activity-{{ $log->log_id }}">
+                        <div class="flex size-8 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-xs font-semibold dark:bg-zinc-800">
+                            {{ $log->user?->initials() ?? '?' }}
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="text-sm">
+                                <span class="font-medium text-zinc-900 dark:text-zinc-100">{{ $log->user?->full_name ?? $log->user?->name ?? __('Unknown') }}</span>
+                                <span class="text-zinc-500"> {{ $log->description }}</span>
+                            </div>
+                            <div class="text-xs text-zinc-400">{{ $log->created_at?->diffForHumans() }}</div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+    </flux:card>
+
     {{-- 2. Tab Navigation Strip --}}
     <div class="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-2">
         <div class="flex gap-4">

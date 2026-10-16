@@ -4,12 +4,15 @@ namespace App\Livewire\Projects;
 
 use App\Concerns\AuthorizesPermissions;
 use App\Models\Project;
+use App\Models\ProjectActivityLog;
 use App\Models\ProjectMilestone;
 use App\Models\Task;
 use App\Models\TaskChecklist;
 use App\Models\User;
+use App\PermissionManager\ModuleRegistry;
 use Flux\Flux;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
@@ -71,6 +74,17 @@ class Show extends Component
     // Quick Links Modal
     public bool $showLinksModal = false;
 
+    // Member Management
+    public ?int $newMemberUserId = null;
+
+    public string $newMemberRole = 'Member';
+
+    public bool $grantProjectAccess = true;
+
+    public string $memberSearch = '';
+
+    public int $memberPerPage = 5;
+
     public ?string $linkRepository = null;
 
     public ?string $linkDocs = null;
@@ -82,6 +96,8 @@ class Show extends Component
     public function mount(Project $project): void
     {
         $this->authorizePermission('IPS - PROJECT - Can Show Projects');
+
+        abort_if(! Project::visibleTo(Auth::user())->where('project_id', $project->project_id)->exists(), 403, __('Unauthorized action.'));
 
         $this->project = $project->load([
             'status',
@@ -124,12 +140,72 @@ class Show extends Component
     }
 
     /**
+     * @return Collection<int, User>
+     */
+    #[Computed]
+    public function availableMembers(): Collection
+    {
+        $memberIds = $this->project->members->pluck('id')->all();
+
+        $query = User::query()->whereNotIn('id', $memberIds);
+
+        if ($this->memberSearch !== '') {
+            $query->where(function ($q) {
+                $q->where('full_name', 'like', "%{$this->memberSearch}%")
+                    ->orWhere('name', 'like', "%{$this->memberSearch}%")
+                    ->orWhere('email', 'like', "%{$this->memberSearch}%");
+            });
+        }
+
+        return $query->orderBy('full_name')->get();
+    }
+
+    public function updatedMemberSearch(): void
+    {
+        $this->memberPerPage = 5;
+    }
+
+    public function loadMoreMembers(): void
+    {
+        $this->memberPerPage = min($this->memberPerPage + 5, $this->availableMembers->count());
+    }
+
+    #[Computed]
+    public function selectedNewMember(): ?User
+    {
+        if (! $this->newMemberUserId) {
+            return null;
+        }
+
+        return User::find($this->newMemberUserId);
+    }
+
+    public function newMemberMissingAccess(): bool
+    {
+        return $this->selectedNewMember !== null
+            && ModuleRegistry::isMissingProjectAccess($this->selectedNewMember);
+    }
+
+    /**
      * @return Collection<int, ProjectMilestone>
      */
     #[Computed]
     public function milestones(): Collection
     {
         return $this->project->milestones()->orderBy('due_date')->orderBy('order')->get();
+    }
+
+    /**
+     * @return Collection<int, ProjectActivityLog>
+     */
+    #[Computed]
+    public function recentActivity(): Collection
+    {
+        return $this->project->activityLogs()
+            ->with('user')
+            ->latest()
+            ->limit(20)
+            ->get();
     }
 
     public function setTab(string $tab): void
@@ -149,6 +225,8 @@ class Show extends Component
 
         $this->project->update(['health_status' => $health]);
         $this->project->refresh();
+
+        $this->project->logActivity('health.updated', __('Health updated to :health.', ['health' => $health]));
 
         Flux::toast(variant: 'success', text: __('Project health updated to :health.', ['health' => $health]));
     }
@@ -369,6 +447,8 @@ class Show extends Component
         $this->project->refresh();
         unset($this->boardColumns);
 
+        $this->project->logActivity('task.created', __('Created task ":title".', ['title' => $task->title]));
+
         Flux::toast(variant: 'success', text: __('Task created successfully.'));
     }
 
@@ -386,6 +466,8 @@ class Show extends Component
         $this->project->refresh();
         unset($this->boardColumns);
 
+        $this->project->logActivity('task.status_changed', __('Moved task ":title" to :status.', ['title' => $task->title, 'status' => $newStatus]));
+
         Flux::toast(variant: 'success', text: __('Task moved to :status.', ['status' => $newStatus]));
     }
 
@@ -401,6 +483,8 @@ class Show extends Component
 
         $this->project->refresh();
         unset($this->boardColumns);
+
+        $this->project->logActivity('subtask.toggled', __('Toggled sub-task ":title".', ['title' => $checklist->title]));
     }
 
     public function deleteTask(string $taskId): void
@@ -408,6 +492,8 @@ class Show extends Component
         $this->authorizePermission('IPS - PROJECT - Can Delete Tasks');
 
         $task = Task::where('project_id', $this->project->project_id)->findOrFail($taskId);
+
+        $this->project->logActivity('task.deleted', __('Deleted task ":title".', ['title' => $task->title]));
         $task->delete();
 
         $this->project->refresh();
@@ -451,6 +537,8 @@ class Show extends Component
         $this->project->refresh();
         unset($this->milestones);
 
+        $this->project->logActivity('milestone.created', __('Created milestone ":title".', ['title' => $this->milestoneTitle]));
+
         Flux::toast(variant: 'success', text: __('Milestone created successfully.'));
     }
 
@@ -468,6 +556,8 @@ class Show extends Component
         $this->project->refresh();
         unset($this->milestones);
 
+        $this->project->logActivity('milestone.status_changed', __('Milestone ":title" marked as :status.', ['title' => $milestone->title, 'status' => $status]));
+
         Flux::toast(variant: 'success', text: __('Milestone status updated.'));
     }
 
@@ -476,6 +566,8 @@ class Show extends Component
         $this->authorizePermission('IPS - PROJECT - Can Update Projects');
 
         $milestone = ProjectMilestone::where('project_id', $this->project->project_id)->findOrFail($milestoneId);
+
+        $this->project->logActivity('milestone.deleted', __('Deleted milestone ":title".', ['title' => $milestone->title]));
         $milestone->delete();
 
         $this->project->refresh();
@@ -485,6 +577,78 @@ class Show extends Component
     }
 
     // --- Quick Links Modal ---
+
+    public function addMember(): void
+    {
+        $this->authorizePermission('IPS - PROJECT - Can Invite Team Member');
+
+        $validated = $this->validate([
+            'newMemberUserId' => ['required', 'exists:users,id'],
+            'newMemberRole' => ['required', 'string', 'in:Owner,Member,Manager'],
+        ]);
+
+        if ($this->project->members()->where('users.id', $validated['newMemberUserId'])->exists()) {
+            Flux::toast(variant: 'danger', text: __('This user is already a member of the project.'));
+
+            return;
+        }
+
+        $addedUser = User::findOrFail($validated['newMemberUserId']);
+
+        $this->project->members()->attach($validated['newMemberUserId'], [
+            'role_in_project' => $validated['newMemberRole'],
+            'joined_at' => now(),
+        ]);
+
+        $grantedPermissions = [];
+
+        if ($this->grantProjectAccess && ModuleRegistry::isMissingProjectAccess($addedUser)) {
+            $permissions = ModuleRegistry::projectMemberPermissions($validated['newMemberRole']);
+            $addedUser->givePermissionTo($permissions);
+            $grantedPermissions = $permissions;
+        }
+
+        $this->project->refresh();
+        $this->reset(['newMemberUserId', 'grantProjectAccess']);
+        $this->grantProjectAccess = true;
+        $this->newMemberRole = 'Member';
+
+        $description = __('Added member :name (:role).', ['name' => $addedUser->full_name ?? $addedUser->name, 'role' => $validated['newMemberRole']]);
+
+        if ($grantedPermissions !== []) {
+            $description .= ' '.__('Project access granted: :count permissions.', ['count' => count($grantedPermissions)]);
+        }
+
+        $this->project->logActivity('member.added', $description);
+
+        Flux::toast(variant: 'success', text: __('Member added successfully.'));
+    }
+
+    public function removeMember(int $userId): void
+    {
+        $this->authorizePermission('IPS - PROJECT - Can Remove Team Member');
+
+        if ($userId === $this->project->created_by) {
+            Flux::toast(variant: 'danger', text: __('The project creator cannot be removed.'));
+
+            return;
+        }
+
+        if ($this->project->members()->where('users.id', $userId)->doesntExist()) {
+            Flux::toast(variant: 'danger', text: __('This user is not a member of the project.'));
+
+            return;
+        }
+
+        $removedUser = User::find($userId);
+
+        $this->project->members()->detach($userId);
+        $this->project->refresh();
+
+        $this->project->logActivity('member.removed', __('Removed member :name.', ['name' => $removedUser?->full_name ?? $removedUser?->name ?? __('Unknown user')]));
+
+        Flux::toast(variant: 'success', text: __('Member removed successfully.'));
+    }
 
     public function saveLinks(): void
     {
@@ -506,6 +670,8 @@ class Show extends Component
 
         $this->showLinksModal = false;
         $this->project->refresh();
+
+        $this->project->logActivity('links.updated', __('Updated project quick links.'));
 
         Flux::toast(variant: 'success', text: __('Quick links saved successfully.'));
     }

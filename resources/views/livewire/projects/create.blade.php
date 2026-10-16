@@ -65,7 +65,35 @@
                 <x-project-technologies :technologies="$this->technologies" :selected="$selectedTechnologies" />
             </flux:card>
 
-            <div class="flex items-center justify-end gap-3">
+            <flux:card class="flex flex-col gap-6">
+                <flux:heading size="lg">{{ __('Team Members') }}</flux:heading>
+                <flux:subheading>{{ __('Optionally add collaborators during project creation. You (creator) will be the project Owner.') }}</flux:subheading>
+
+                @if ($this->availableUsers->isNotEmpty())
+                    <flux:input wire:model.live.debounce.300ms="memberSearch" :placeholder="__('Search users...')" icon="magnifying-glass" clearable />
+                    <div class="max-h-56 overflow-auto rounded-lg border border-zinc-200 p-2 dark:border-zinc-700">
+                        @foreach ($this->availableUsers->take($memberPerPage) as $availUser)
+                            <label class="flex items-center gap-2 rounded px-2 py-1 hover:bg-zinc-50 dark:hover:bg-zinc-800">
+                                <input type="checkbox" wire:model="selectedMembers" value="{{ $availUser->id }}" class="size-4 rounded border-zinc-300 text-primary focus:ring-primary" />
+                                <span class="text-sm text-zinc-700 dark:text-zinc-300">{{ $availUser->full_name ?? $availUser->name }}</span>
+                                <span class="ml-auto text-xs text-zinc-400">{{ $availUser->email }}</span>
+                            </label>
+                        @endforeach
+                    </div>
+                    @if ($this->availableUsers->count() > $memberPerPage)
+                        <flux:button type="button" variant="ghost" size="sm" wire:click="loadMoreMembers">
+                            {{ __('Load more (:n)', ['n' => $this->availableUsers->count() - $memberPerPage]) }}
+                        </flux:button>
+                    @endif
+                    <flux:select wire:model="defaultMemberRole" :label="__('Default role for added members')">
+                        <flux:select.option value="Member">{{ __('Member') }}</flux:select.option>
+                        <flux:select.option value="Manager">{{ __('Manager') }}</flux:select.option>
+                        <flux:select.option value="Owner">{{ __('Owner') }}</flux:select.option>
+                    </flux:select>
+                @else
+                    <flux:text class="text-sm text-zinc-500">{{ __('No other users available. Invite users via UAM first.') }}</flux:text>
+                @endif
+            </flux:card>
                 <flux:button variant="ghost" :href="route('projects.index')" wire:navigate>
                     {{ __('Cancel') }}
                 </flux:button>

@@ -8,7 +8,7 @@
         $groupedTechnologies = $technologies->groupBy('category');
     @endphp
 
-    <div class="relative" x-data="{ open: false }" @click.outside="open = false">
+    <div class="relative" x-data="{ open: false, q: '' }" @click.outside="open = false">
         <button
             type="button"
             @click="open = !open"
@@ -23,27 +23,40 @@
         <div
             x-show="open"
             x-cloak
-            class="absolute z-50 mt-1 max-h-72 w-full overflow-auto rounded-lg border border-zinc-200 bg-white p-1.5 shadow-lg dark:border-zinc-700 dark:bg-zinc-800"
+            class="absolute z-50 mt-1 w-full rounded-lg border border-zinc-200 bg-white shadow-lg dark:border-zinc-700 dark:bg-zinc-800"
         >
+            <div class="border-b border-zinc-100 p-2 dark:border-zinc-700">
+                <input
+                    type="search"
+                    x-model.debounce.300ms="q"
+                    placeholder="{{ __('Search technologies...') }}"
+                    class="w-full rounded-md border border-zinc-200 bg-zinc-50 px-2.5 py-1.5 text-sm focus:border-primary focus:outline-hidden focus:ring-2 focus:ring-primary/30 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
+                />
+            </div>
+            <div class="max-h-72 overflow-auto p-1.5">
             @foreach ($groupedTechnologies as $category => $techs)
-                <div class="px-2 pt-2 pb-1 text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
-                    {{ $category }}
+                <div x-data="{ items: {{ json_encode($techs->pluck('tech_name')->map('strtolower')->values()->all()) }} }" x-show="q === '' || items.some(t => t.includes(q.toLowerCase())) || {{ json_encode(strtolower($category)) }}.includes(q.toLowerCase())">
+                    <div class="px-2 pt-2 pb-1 text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
+                        {{ $category }}
+                    </div>
+                    @foreach ($techs as $tech)
+                        <label
+                            wire:key="tech-option-{{ $tech->tech_id }}"
+                            x-show="q === '' || {{ json_encode(strtolower($tech->tech_name)) }}.includes(q.toLowerCase()) || {{ json_encode(strtolower($category)) }}.includes(q.toLowerCase())"
+                            class="flex cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50 dark:text-zinc-300 dark:hover:bg-zinc-700/50"
+                        >
+                            <input
+                                type="checkbox"
+                                wire:model.live="selectedTechnologies"
+                                value="{{ $tech->tech_id }}"
+                                class="size-4 rounded border-zinc-300 text-primary focus:ring-primary"
+                            />
+                            <span>{{ $tech->tech_name }}</span>
+                        </label>
+                    @endforeach
                 </div>
-                @foreach ($techs as $tech)
-                    <label
-                        wire:key="tech-option-{{ $tech->tech_id }}"
-                        class="flex cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50 dark:text-zinc-300 dark:hover:bg-zinc-700/50"
-                    >
-                        <input
-                            type="checkbox"
-                            wire:model.live="selectedTechnologies"
-                            value="{{ $tech->tech_id }}"
-                            class="size-4 rounded border-zinc-300 text-primary focus:ring-primary"
-                        />
-                        <span>{{ $tech->tech_name }}</span>
-                    </label>
-                @endforeach
             @endforeach
+        </div>
         </div>
     </div>
 

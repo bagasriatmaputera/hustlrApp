@@ -352,4 +352,34 @@ class ProjectShowTest extends TestCase
             'title' => 'Brand new subtask',
         ]);
     }
+
+    public function test_project_actions_are_logged_and_displayed(): void
+    {
+        $user = $this->authorizedUser();
+        $status = ProjectStatus::create(['status_name' => 'In Progress']);
+
+        $project = Project::create([
+            'project_name' => 'Logged Project',
+            'ownership_type' => 'Internal',
+            'status_id' => $status->status_id,
+            'created_by' => $user->id,
+        ]);
+
+        $this->actingAs($user);
+
+        Livewire::test(Show::class, ['project' => $project])
+            ->call('updateHealthStatus', 'At Risk')
+            ->assertStatus(200);
+
+        $this->assertDatabaseHas('project_activity_logs', [
+            'project_id' => $project->project_id,
+            'action' => 'health.updated',
+            'user_id' => $user->id,
+        ]);
+
+        $this->get(route('projects.show', $project->project_id))
+            ->assertOk()
+            ->assertSee('Recent Activity')
+            ->assertSee('Health updated to At Risk.');
+    }
 }
