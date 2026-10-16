@@ -9,7 +9,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
+/**
+ * @property string $task_id
+ * @property string $project_id
+ * @property string $title
+ * @property string|null $description
+ * @property string $status
+ * @property string $priority
+ * @property string|null $category
+ * @property Carbon|null $due_date
+ * @property int $order
+ * @property int|null $assigned_to
+ * @property string|null $pic_name
+ */
 class Task extends Model
 {
     /** @use HasFactory<TaskFactory> */

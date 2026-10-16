@@ -50,7 +50,12 @@ class Show extends Component
     /** @var array<int, string> */
     public array $newSubtasks = [];
 
+    /** @var array<int, array{id: string, title: string}> */
+    public array $existingSubtasks = [];
+
     public string $tempSubtask = '';
+
+    public ?string $editingTaskId = null;
 
     // Milestone Creation Form Properties
     public bool $showMilestoneModal = false;
@@ -165,7 +170,129 @@ class Show extends Component
         $this->taskStatus = $defaultStatus;
         $this->taskPriority = 'Medium';
         $this->taskCategory = 'Backend';
+        $this->editingTaskId = null;
+        $this->existingSubtasks = [];
         $this->showTaskModal = true;
+    }
+
+    public function openEditTaskModal(string $taskId): void
+    {
+        $this->authorizePermission('IPS - PROJECT - Can Update Tasks');
+
+        $task = Task::where('project_id', $this->project->project_id)
+            ->with('checklists')
+            ->findOrFail($taskId);
+
+        $this->editingTaskId = $task->task_id;
+        $this->taskTitle = $task->title;
+        $this->taskDescription = $task->description ?? '';
+        $this->taskStatus = $task->status;
+        $this->taskPriority = $task->priority;
+        $this->taskCategory = $task->category ?? 'Backend';
+        $this->taskDueDate = $task->due_date?->format('Y-m-d');
+        $this->taskAssignedTo = $task->assigned_to;
+        $this->taskPicType = $task->assigned_to !== null ? 'user' : 'manual';
+        $this->taskPicName = $task->pic_name ?? '';
+
+        $this->existingSubtasks = $task->checklists
+            ->map(fn ($chk): array => ['id' => $chk->checklist_id, 'title' => $chk->title])
+            ->values()
+            ->all();
+
+        $this->newSubtasks = [];
+        $this->tempSubtask = '';
+        $this->resetValidation();
+        $this->showTaskModal = true;
+    }
+
+    public function removeExistingSubtask(int $index): void
+    {
+        if (isset($this->existingSubtasks[$index])) {
+            unset($this->existingSubtasks[$index]);
+            $this->existingSubtasks = array_values($this->existingSubtasks);
+        }
+    }
+
+    public function updateTask(): void
+    {
+        $this->authorizePermission('IPS - PROJECT - Can Update Tasks');
+
+        if ($this->editingTaskId === null) {
+            return;
+        }
+
+        $this->validate([
+            'taskTitle' => ['required', 'string', 'max:255'],
+            'taskDescription' => ['nullable', 'string'],
+            'taskStatus' => ['required', 'in:Backlog,In Progress,In Review,Done'],
+            'taskPriority' => ['required', 'in:Low,Medium,High'],
+            'taskCategory' => ['required', 'string', 'max:50'],
+            'taskDueDate' => ['nullable', 'date'],
+            'taskPicType' => ['required', 'in:user,manual'],
+            'taskAssignedTo' => ['nullable', 'exists:users,id'],
+            'taskPicName' => ['nullable', 'string', 'max:100'],
+            'existingSubtasks.*.id' => ['required', 'string'],
+            'existingSubtasks.*.title' => ['required', 'string', 'max:255'],
+        ]);
+
+        $task = Task::where('project_id', $this->project->project_id)->findOrFail($this->editingTaskId);
+
+        $assignedTo = $this->taskPicType === 'user' ? $this->taskAssignedTo : null;
+        $picName = $this->taskPicType === 'manual' ? trim($this->taskPicName) : null;
+        if ($picName === '') {
+            $picName = null;
+        }
+
+        $task->update([
+            'title' => $this->taskTitle,
+            'description' => $this->taskDescription ?: null,
+            'status' => $this->taskStatus,
+            'priority' => $this->taskPriority,
+            'category' => $this->taskCategory,
+            'due_date' => $this->taskDueDate ?: null,
+            'assigned_to' => $assignedTo,
+            'pic_name' => $picName,
+        ]);
+
+        $keptIds = [];
+        $nextOrder = 0;
+
+        foreach ($this->existingSubtasks as $row) {
+            $checklist = $task->checklists()->find($row['id']);
+            if ($checklist !== null) {
+                $checklist->update(['title' => $row['title'], 'order' => $nextOrder]);
+                $keptIds[] = $row['id'];
+            }
+            $nextOrder++;
+        }
+
+        $task->checklists()->whereNotIn('checklist_id', $keptIds)->delete();
+
+        foreach ($this->newSubtasks as $subtaskTitle) {
+            $task->checklists()->create([
+                'title' => $subtaskTitle,
+                'is_completed' => false,
+                'order' => $nextOrder,
+            ]);
+            $nextOrder++;
+        }
+
+        $this->showTaskModal = false;
+        $this->editingTaskId = null;
+        $this->existingSubtasks = [];
+        $this->reset([
+            'taskTitle',
+            'taskDescription',
+            'taskDueDate',
+            'newSubtasks',
+            'tempSubtask',
+            'taskAssignedTo',
+            'taskPicName',
+        ]);
+        $this->project->refresh();
+        unset($this->boardColumns);
+
+        Flux::toast(variant: 'success', text: __('Task updated successfully.'));
     }
 
     public function addSubtaskItem(): void

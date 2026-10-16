@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property string $checklist_id
+ * @property string $task_id
+ * @property string $title
+ * @property bool $is_completed
+ * @property int $order
+ */
 class TaskChecklist extends Model
 {
     use HasFactory, HasUuids;

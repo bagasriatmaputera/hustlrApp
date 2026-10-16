@@ -61,30 +61,7 @@
                 <flux:heading size="lg">{{ __('Technologies') }}</flux:heading>
                 <flux:subheading>{{ __('Select the technologies used in this project.') }}</flux:subheading>
 
-                @if ($this->technologies->isNotEmpty())
-                    @php
-                        $groupedTechnologies = $this->technologies->groupBy('category');
-                    @endphp
-                    <div class="flex flex-col gap-4">
-                        @foreach ($groupedTechnologies as $category => $techs)
-                            <div>
-                                <flux:text class="mb-2 text-xs font-semibold uppercase tracking-wider">{{ $category }}</flux:text>
-                                <div class="flex flex-wrap gap-2">
-                                    @foreach ($techs as $tech)
-                                        <label wire:key="tech-{{ $tech->tech_id }}" class="cursor-pointer">
-                                            <input type="checkbox" wire:model="selectedTechnologies" value="{{ $tech->tech_id }}" class="peer hidden" />
-                                            <span class="inline-flex items-center rounded-lg border border-zinc-200 px-3 py-1.5 text-sm font-medium text-zinc-600 transition-all peer-checked:border-blue-500 peer-checked:bg-blue-50 peer-checked:text-blue-700 dark:border-zinc-700 dark:text-zinc-400 dark:peer-checked:border-blue-500 dark:peer-checked:bg-blue-900/30 dark:peer-checked:text-blue-300">
-                                                {{ $tech->tech_name }}
-                                            </span>
-                                        </label>
-                                    @endforeach
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                @else
-                    <flux:text class="text-sm text-zinc-500">{{ __('No technologies available. Add technologies first.') }}</flux:text>
-                @endif
+                <x-project-technologies :technologies="$this->technologies" :selected="$selectedTechnologies" />
             </flux:card>
 
             <div class="flex items-center justify-end gap-3">

@@ -88,6 +88,11 @@ class Edit extends Component
         return Technology::orderBy('category')->orderBy('tech_name')->get();
     }
 
+    public function removeTechnology(string $techId): void
+    {
+        $this->selectedTechnologies = array_values(array_diff($this->selectedTechnologies, [$techId]));
+    }
+
     /**
      * @return array<string, array<string>>
      */

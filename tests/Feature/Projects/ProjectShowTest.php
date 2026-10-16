@@ -283,4 +283,73 @@ class ProjectShowTest extends TestCase
             'health_status' => 'At Risk',
         ]);
     }
+
+    public function test_user_can_edit_task_and_manage_subtasks(): void
+    {
+        $user = $this->authorizedUser();
+        $status = ProjectStatus::create(['status_name' => 'In Progress']);
+
+        $project = Project::create([
+            'project_name' => 'Editable Tasks',
+            'ownership_type' => 'Internal',
+            'status_id' => $status->status_id,
+            'created_by' => $user->id,
+        ]);
+
+        $task = Task::create([
+            'project_id' => $project->project_id,
+            'title' => 'Original Task',
+            'status' => 'Backlog',
+            'priority' => 'Medium',
+            'category' => 'Backend',
+        ]);
+
+        $keep = TaskChecklist::create([
+            'task_id' => $task->task_id,
+            'title' => 'Keep me',
+            'is_completed' => false,
+            'order' => 0,
+        ]);
+
+        $remove = TaskChecklist::create([
+            'task_id' => $task->task_id,
+            'title' => 'Remove me',
+            'is_completed' => false,
+            'order' => 1,
+        ]);
+
+        $this->actingAs($user);
+
+        Livewire::test(Show::class, ['project' => $project])
+            ->call('openEditTaskModal', $task->task_id)
+            ->assertSet('editingTaskId', $task->task_id)
+            ->assertSet('taskTitle', 'Original Task')
+            ->set('taskTitle', 'Updated Task Title')
+            ->set('taskStatus', 'In Progress')
+            ->set('existingSubtasks.0.title', 'Kept and renamed')
+            ->call('removeExistingSubtask', 1)
+            ->set('newSubtasks', ['Brand new subtask'])
+            ->call('updateTask')
+            ->assertHasNoErrors();
+
+        $this->assertDatabaseHas('tasks', [
+            'task_id' => $task->task_id,
+            'title' => 'Updated Task Title',
+            'status' => 'In Progress',
+        ]);
+
+        $this->assertDatabaseHas('task_checklists', [
+            'checklist_id' => $keep->checklist_id,
+            'title' => 'Kept and renamed',
+        ]);
+
+        $this->assertDatabaseMissing('task_checklists', [
+            'checklist_id' => $remove->checklist_id,
+        ]);
+
+        $this->assertDatabaseHas('task_checklists', [
+            'task_id' => $task->task_id,
+            'title' => 'Brand new subtask',
+        ]);
+    }
 }

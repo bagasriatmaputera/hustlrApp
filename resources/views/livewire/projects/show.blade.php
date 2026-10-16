@@ -286,6 +286,10 @@
                                     <flux:dropdown position="bottom" align="end">
                                         <flux:button variant="ghost" size="xs" icon="ellipsis-horizontal" />
                                         <flux:menu>
+                                            <flux:menu.item icon="pencil-square" wire:click="openEditTaskModal('{{ $task->task_id }}')">
+                                                {{ __('Edit Task') }}
+                                            </flux:menu.item>
+                                            <flux:menu.separator />
                                             <flux:menu.submenu heading="{{ __('Move to...') }}">
                                                 @foreach (['Backlog', 'In Progress', 'In Review', 'Done'] as $opt)
                                                     @if ($opt !== $task->status)
@@ -305,9 +309,9 @@
 
                                 {{-- Title & Description --}}
                                 <div>
-                                    <div class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+                                    <button type="button" wire:click="openEditTaskModal('{{ $task->task_id }}')" class="text-start text-sm font-semibold text-zinc-900 dark:text-zinc-100 hover:text-primary transition">
                                         {{ $task->title }}
-                                    </div>
+                                    </button>
                                     @if ($task->description)
                                         <div class="text-xs text-zinc-500 mt-1 line-clamp-2">
                                             {{ $task->description }}
@@ -481,10 +485,10 @@
 
     {{-- MODAL: CREATE TASK --}}
     <flux:modal wire:model="showTaskModal" class="md:w-xl">
-        <form wire:submit="createTask" class="space-y-5">
+        <form wire:submit="{{ $editingTaskId ? 'updateTask' : 'createTask' }}" class="space-y-5">
             <div>
-                <flux:heading size="lg">{{ __('Create Task') }}</flux:heading>
-                <flux:subheading>{{ __('Add a new action item to this project board.') }}</flux:subheading>
+                <flux:heading size="lg">{{ $editingTaskId ? __('Edit Task') : __('Create Task') }}</flux:heading>
+                <flux:subheading>{{ $editingTaskId ? __('Update this task and its sub-tasks.') : __('Add a new action item to this project board.') }}</flux:subheading>
             </div>
 
             <flux:input wire:model="taskTitle" :label="__('Task Title')" placeholder="e.g. Implement Fortify 2FA Authentication" required />
@@ -552,6 +556,24 @@
                 @endif
             </div>
 
+            {{-- Existing Sub-tasks (edit mode) --}}
+            @if (! empty($existingSubtasks))
+                <div class="space-y-2">
+                    <flux:label>{{ __('Sub-tasks') }}</flux:label>
+                    <div class="space-y-2 rounded-lg border border-zinc-200 dark:border-zinc-800 p-2.5">
+                        @foreach ($existingSubtasks as $i => $sub)
+                            <div class="flex items-center gap-2" wire:key="existing-sub-{{ $sub['id'] }}">
+                                <flux:input wire:model="existingSubtasks.{{ $i }}.title" class="flex-1" />
+                                <flux:button type="button" size="sm" variant="ghost" icon="trash" wire:click="removeExistingSubtask({{ $i }})" class="text-zinc-400 hover:text-red-500" />
+                            </div>
+                        @endforeach
+                    </div>
+                    @error('existingSubtasks.*.title')
+                        <flux:text class="text-sm text-red-600 dark:text-red-400">{{ $message }}</flux:text>
+                    @enderror
+                </div>
+            @endif
+
             {{-- Subtasks Checklist Builder --}}
             <div class="space-y-2">
                 <flux:label>{{ __('Sub-tasks / Checklist (Optional)') }}</flux:label>
@@ -577,7 +599,7 @@
                 <flux:modal.close>
                     <flux:button variant="ghost">{{ __('Cancel') }}</flux:button>
                 </flux:modal.close>
-                <flux:button type="submit" variant="primary">{{ __('Create Task') }}</flux:button>
+                <flux:button type="submit" variant="primary">{{ $editingTaskId ? __('Save Changes') : __('Create Task') }}</flux:button>
             </div>
         </form>
     </flux:modal>
