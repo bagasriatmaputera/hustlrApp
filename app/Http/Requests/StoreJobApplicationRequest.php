@@ -8,7 +8,7 @@ class StoreJobApplicationRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('IPS - JOBTRACKER - Can Create Job Tracker') ?? false;
     }
 
     /**

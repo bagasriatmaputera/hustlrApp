@@ -17,21 +17,24 @@ class ProjectSeeder extends Seeder
         $owner = User::first();
         $clients = Client::factory(5)->create();
 
-        $technologies = collect([
-            ['tech_name' => 'Laravel', 'category' => 'Backend'],
-            ['tech_name' => 'React', 'category' => 'Frontend'],
-            ['tech_name' => 'Vue.js', 'category' => 'Frontend'],
-            ['tech_name' => 'Tailwind CSS', 'category' => 'Frontend'],
-            ['tech_name' => 'MySQL', 'category' => 'Database'],
-            ['tech_name' => 'PostgreSQL', 'category' => 'Database'],
-            ['tech_name' => 'Docker', 'category' => 'DevOps'],
-            ['tech_name' => 'Flutter', 'category' => 'Mobile'],
-            ['tech_name' => 'Redis', 'category' => 'Database'],
-            ['tech_name' => 'Alpine.js', 'category' => 'Frontend'],
-        ])->map(fn (array $tech) => Technology::firstOrCreate(
-            ['tech_name' => $tech['tech_name']],
-            ['category' => $tech['category']]
-        ));
+        $technologies = Technology::all();
+        if ($technologies->isEmpty()) {
+            $technologies = collect([
+                ['tech_name' => 'Laravel', 'category' => 'Backend'],
+                ['tech_name' => 'React', 'category' => 'Frontend'],
+                ['tech_name' => 'Vue.js', 'category' => 'Frontend'],
+                ['tech_name' => 'Tailwind CSS', 'category' => 'Frontend'],
+                ['tech_name' => 'MySQL', 'category' => 'Database'],
+                ['tech_name' => 'PostgreSQL', 'category' => 'Database'],
+                ['tech_name' => 'Docker', 'category' => 'DevOps'],
+                ['tech_name' => 'Flutter', 'category' => 'Mobile'],
+                ['tech_name' => 'Redis', 'category' => 'Database'],
+                ['tech_name' => 'Alpine.js', 'category' => 'Frontend'],
+            ])->map(fn (array $tech) => Technology::firstOrCreate(
+                ['tech_name' => $tech['tech_name']],
+                ['category' => $tech['category']]
+            ));
+        }
 
         $projects = [
             [

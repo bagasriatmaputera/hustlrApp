@@ -1,14 +1,15 @@
 <?php
+
+use App\Livewire\Portfolio\Experiences\Create as ExperienceCreate;
+use App\Livewire\Portfolio\Experiences\Edit as ExperienceEdit;
+use App\Livewire\Portfolio\Experiences\Index as ExperienceIndex;
 use App\Livewire\Portfolio\Profile\Edit;
 use App\Livewire\Portfolio\Projects\Create as ProjectCreate;
-use App\Livewire\Portfolio\Projects\Index as ProjectIndex;
 use App\Livewire\Portfolio\Projects\Edit as ProjectEdit;
-use App\Livewire\Portfolio\Experiences\Create as ExperienceCreate;
-use App\Livewire\Portfolio\Experiences\Index as ExperienceIndex;
-use App\Livewire\Portfolio\Experiences\Edit as ExperienceEdit;
+use App\Livewire\Portfolio\Projects\Index as ProjectIndex;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'approved'])->group(function () {
     Route::livewire('portfolio/profile', Edit::class)->name('portfolio.profile.edit');
 
     // Project

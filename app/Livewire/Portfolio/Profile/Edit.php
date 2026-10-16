@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Portfolio\Profile;
 
+use App\Concerns\AuthorizesPermissions;
 use App\Models\Portfolio\PortfolioProfile;
 use Flux\Flux;
 use Illuminate\Support\Facades\Storage;
@@ -13,7 +14,7 @@ use Livewire\WithFileUploads;
 #[Title('Portfolio - Edit Profile')]
 class Edit extends Component
 {
-    use WithFileUploads;
+    use AuthorizesPermissions, WithFileUploads;
 
     public string $name = '';
 
@@ -28,6 +29,8 @@ class Edit extends Component
 
     public function mount(): void
     {
+        $this->authorizePermission('PORTFOLIO - Can Manage Profile');
+
         $profile = PortfolioProfile::first();
 
         if ($profile) {
@@ -40,6 +43,8 @@ class Edit extends Component
 
     public function save(): void
     {
+        $this->authorizePermission('PORTFOLIO - Can Manage Profile');
+
         $this->validate([
             'name' => ['required', 'string', 'max:255'],
             'job_position' => ['required', 'string', 'max:255'],
@@ -76,6 +81,8 @@ class Edit extends Component
 
     public function removeImage(): void
     {
+        $this->authorizePermission('PORTFOLIO - Can Manage Profile');
+
         $profile = PortfolioProfile::first();
 
         if ($profile && $profile->image_path) {

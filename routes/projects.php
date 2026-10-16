@@ -6,7 +6,7 @@ use App\Livewire\Projects\Index;
 use App\Livewire\Projects\Show;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'approved'])->group(function () {
     Route::livewire('projects', Index::class)->name('projects.index');
     Route::livewire('projects/create', Create::class)->name('projects.create');
     Route::livewire('projects/{project}', Show::class)->name('projects.show');

@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             RolePermissionSeeder::class,
             FirstUserSeeder::class,
             ProjectStatusSeeder::class,
+            TechnologySeeder::class,
             ProjectSeeder::class,
             JobApplicationSeeder::class,
             PortfolioProfileSeeder::class,

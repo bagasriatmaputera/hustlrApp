@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Projects;
 
+use App\Concerns\AuthorizesPermissions;
 use App\Models\Client;
 use App\Models\Project;
 use App\Models\ProjectStatus;
@@ -17,6 +18,8 @@ use Livewire\Component;
 #[Title('Add Project')]
 class Create extends Component
 {
+    use AuthorizesPermissions;
+
     public string $project_name = '';
 
     public string $description = '';
@@ -37,6 +40,11 @@ class Create extends Component
 
     /** @var array<int, string> */
     public array $selectedTechnologies = [];
+
+    public function mount(): void
+    {
+        $this->authorizePermission('IPS - PROJECT - Can Create Projects');
+    }
 
     /**
      * @return Collection<int, ProjectStatus>
@@ -87,6 +95,8 @@ class Create extends Component
 
     public function save(): void
     {
+        $this->authorizePermission('IPS - PROJECT - Can Create Projects');
+
         $validated = $this->validate();
 
         $project = Project::create([

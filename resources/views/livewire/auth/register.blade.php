@@ -54,13 +54,30 @@
                 viewable
             />
 
+            <div class="flex flex-col gap-2">
+                <flux:text class="text-sm font-medium">{{ __('Modules you need access to') }}</flux:text>
+                <flux:text class="text-xs text-zinc-500 dark:text-zinc-400">
+                    {{ __('The owner reviews your request before access is granted.') }}
+                </flux:text>
+                @foreach (\App\PermissionManager\ModuleRegistry::all() as $moduleKey => $moduleLabel)
+                    <flux:checkbox
+                        name="requested_modules[]"
+                        value="{{ $moduleKey }}"
+                        :label="__($moduleLabel)"
+                        @checked(in_array($moduleKey, old('requested_modules', []), true))
+                    />
+                @endforeach
+                @error('requested_modules')
+                    <flux:text class="text-sm text-red-600 dark:text-red-400">{{ $message }}</flux:text>
+                @enderror
+            </div>
+
             <div class="flex items-center justify-end">
                 <flux:button type="submit" variant="primary" class="w-full" data-test="register-user-button">
                     {{ __('Create account') }}
                 </flux:button>
             </div>
         </form>
-
         <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-zinc-600 dark:text-zinc-400">
             <span>{{ __('Already have an account?') }}</span>
             <flux:link :href="route('login')" wire:navigate>{{ __('Log in') }}</flux:link>

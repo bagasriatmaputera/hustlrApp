@@ -4,7 +4,6 @@ namespace Tests\Feature\Projects;
 
 use App\Models\Project;
 use App\Models\ProjectStatus;
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -21,7 +20,7 @@ class ProjectIndexTest extends TestCase
 
     public function test_authenticated_users_can_visit_projects_page(): void
     {
-        $user = User::factory()->create();
+        $user = $this->authorizedUser();
 
         $response = $this->actingAs($user)->get(route('projects.index'));
 
@@ -30,7 +29,7 @@ class ProjectIndexTest extends TestCase
 
     public function test_projects_page_displays_projects(): void
     {
-        $user = User::factory()->create();
+        $user = $this->authorizedUser();
         $status = ProjectStatus::create(['status_name' => 'In Progress']);
 
         Project::create([
@@ -48,7 +47,7 @@ class ProjectIndexTest extends TestCase
 
     public function test_projects_page_shows_empty_state_when_no_projects(): void
     {
-        $user = User::factory()->create();
+        $user = $this->authorizedUser();
 
         $response = $this->actingAs($user)->get(route('projects.index'));
 
@@ -65,7 +64,7 @@ class ProjectIndexTest extends TestCase
 
     public function test_authenticated_users_can_visit_create_project_page(): void
     {
-        $user = User::factory()->create();
+        $user = $this->authorizedUser();
 
         $response = $this->actingAs($user)->get(route('projects.create'));
 

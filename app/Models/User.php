@@ -13,6 +13,8 @@ use Illuminate\Support\Str;
 use Laravel\Fortify\Contracts\PasskeyUser;
 use Laravel\Fortify\PasskeyAuthenticatable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use Spatie\Permission\Traits\HasRoles;
+
 /**
  * @property int $id
  * @property string $name
@@ -25,9 +27,9 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property string $approval_status
+ * @property array<int, string>|null $requested_modules
  */
-use Spatie\Permission\Traits\HasRoles;
-
 class User extends Authenticatable implements PasskeyUser
 {
     /** @use HasFactory<UserFactory> */
@@ -42,6 +44,8 @@ class User extends Authenticatable implements PasskeyUser
         'email',
         'password',
         'role',
+        'approval_status',
+        'requested_modules',
     ];
 
     /**
@@ -64,7 +68,24 @@ class User extends Authenticatable implements PasskeyUser
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'requested_modules' => 'array',
         ];
+    }
+
+    public function isApproved(): bool
+    {
+        return $this->approval_status === 'approved'
+            || $this->hasRole('Owner Integrated Personal System');
+    }
+
+    public function isPending(): bool
+    {
+        return $this->approval_status === 'pending';
+    }
+
+    public function isRejected(): bool
+    {
+        return $this->approval_status === 'rejected';
     }
 
     /**

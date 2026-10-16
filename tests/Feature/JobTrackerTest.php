@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Livewire\JobTracker\Index;
 use App\Models\JobApplication;
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
@@ -15,7 +14,7 @@ class JobTrackerTest extends TestCase
 
     public function test_user_can_view_job_tracker_page(): void
     {
-        $user = User::factory()->create();
+        $user = $this->authorizedUser();
         JobApplication::factory()->create([
             'user_id' => $user->id,
             'company_name' => 'Tech Nusantara',
@@ -35,7 +34,7 @@ class JobTrackerTest extends TestCase
 
     public function test_user_can_create_job_application_via_livewire_modal(): void
     {
-        $user = User::factory()->create();
+        $user = $this->authorizedUser();
         $this->actingAs($user);
 
         Livewire::test(Index::class)
@@ -64,7 +63,7 @@ class JobTrackerTest extends TestCase
 
     public function test_user_can_view_and_update_job_application(): void
     {
-        $user = User::factory()->create();
+        $user = $this->authorizedUser();
         $job = JobApplication::factory()->create([
             'user_id' => $user->id,
             'company_name' => 'Initial Company',
@@ -96,7 +95,7 @@ class JobTrackerTest extends TestCase
 
     public function test_user_can_update_apply_status_directly(): void
     {
-        $user = User::factory()->create();
+        $user = $this->authorizedUser();
         $job = JobApplication::factory()->create([
             'user_id' => $user->id,
             'apply_status' => 'applied',
@@ -115,7 +114,7 @@ class JobTrackerTest extends TestCase
 
     public function test_user_can_delete_job_application(): void
     {
-        $user = User::factory()->create();
+        $user = $this->authorizedUser();
         $job = JobApplication::factory()->create([
             'user_id' => $user->id,
         ]);
@@ -135,7 +134,7 @@ class JobTrackerTest extends TestCase
 
     public function test_infinite_scroll_loads_more_records(): void
     {
-        $user = User::factory()->create();
+        $user = $this->authorizedUser();
         JobApplication::factory()->count(25)->create([
             'user_id' => $user->id,
         ]);
@@ -155,7 +154,7 @@ class JobTrackerTest extends TestCase
 
     public function test_controller_api_endpoints(): void
     {
-        $user = User::factory()->create();
+        $user = $this->authorizedUser();
         $this->actingAs($user);
 
         // Test POST store API

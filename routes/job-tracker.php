@@ -4,7 +4,7 @@ use App\Http\Controllers\JobApplicationController;
 use App\Livewire\JobTracker\Index;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'approved'])->group(function () {
     // Livewire Full Page Route for Job Tracker
     Route::livewire('job-tracker', Index::class)->name('job-tracker.index');
     Route::livewire('job-tracker/create', Index::class)->name('job-tracker.create');

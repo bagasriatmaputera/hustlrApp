@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\TaskFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Task extends Model
 {
+    /** @use HasFactory<TaskFactory> */
     use HasFactory, HasUuids, SoftDeletes;
 
     protected $primaryKey = 'task_id';
@@ -32,6 +34,7 @@ class Task extends Model
         'due_date',
         'order',
         'assigned_to',
+        'pic_name',
     ];
 
     /**
@@ -77,5 +80,15 @@ class Task extends Model
     public function totalChecklistsCount(): int
     {
         return $this->checklists->count();
+    }
+
+    public function getPicNameDisplayAttribute(): ?string
+    {
+        $user = $this->assignedUser;
+        if ($user !== null) {
+            return $user->name !== '' ? $user->name : $user->full_name;
+        }
+
+        return $this->pic_name;
     }
 }

@@ -28,6 +28,7 @@ class ManagementPermissionManager extends PermissionManager
         'IPS - PROJECT - Can Create Projects',
         'IPS - PROJECT - Can Show Projects',
         'IPS - PROJECT - Can Update Projects',
+        'IPS - PROJECT - Can Manage Technologies',
 
         // Tasks
         'IPS - PROJECT - Can List Tasks',

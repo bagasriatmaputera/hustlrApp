@@ -340,16 +340,35 @@
                                     </div>
                                 @endif
 
-                                {{-- Footer: Due Date & Assignee --}}
-                                <div class="flex items-center justify-between text-[11px] text-zinc-400 mt-1 pt-2 border-t border-zinc-100 dark:border-zinc-800/80">
-                                    <div class="flex items-center gap-1">
-                                        <flux:icon.calendar class="size-3 text-zinc-400" />
-                                        <span>{{ $task->due_date?->format('M d') ?? __('No date') }}</span>
-                                    </div>
-                                    @if ($subtaskCount > 0)
+                                {{-- Footer: Due Date, Checklist & Assignee (PIC) --}}
+                                <div class="flex items-center justify-between text-[11px] text-zinc-500 dark:text-zinc-400 mt-1 pt-2 border-t border-zinc-100 dark:border-zinc-800/80">
+                                    <div class="flex items-center gap-3">
                                         <div class="flex items-center gap-1">
-                                            <flux:icon.check-circle class="size-3 {{ $completedSubtasks === $subtaskCount ? 'text-emerald-500' : 'text-zinc-400' }}" />
-                                            <span>{{ $completedSubtasks }}/{{ $subtaskCount }}</span>
+                                            <flux:icon.calendar class="size-3 text-zinc-400" />
+                                            <span>{{ $task->due_date?->format('M d') ?? __('No date') }}</span>
+                                        </div>
+                                        @if ($subtaskCount > 0)
+                                            <div class="flex items-center gap-1">
+                                                <flux:icon.check-circle class="size-3 {{ $completedSubtasks === $subtaskCount ? 'text-emerald-500' : 'text-zinc-400' }}" />
+                                                <span>{{ $completedSubtasks }}/{{ $subtaskCount }}</span>
+                                            </div>
+                                        @endif
+                                    </div>
+
+                                    @if ($task->pic_name_display)
+                                        <div class="flex items-center gap-1.5" title="{{ __('PIC: ') . $task->pic_name_display }}">
+                                            @if ($task->assignedUser)
+                                                <div class="flex size-5 items-center justify-center rounded-full bg-primary-100 dark:bg-primary-950/60 text-primary-700 dark:text-primary-300 font-semibold text-[10px]">
+                                                    {{ substr($task->assignedUser->name, 0, 1) }}
+                                                </div>
+                                            @else
+                                                <div class="flex size-5 items-center justify-center rounded-full bg-zinc-200 dark:bg-zinc-700 text-zinc-700 dark:text-zinc-200 text-[10px] font-medium">
+                                                    {{ substr($task->pic_name, 0, 1) }}
+                                                </div>
+                                            @endif
+                                            <span class="max-w-[90px] truncate text-[11px] font-medium text-zinc-700 dark:text-zinc-300">
+                                                {{ $task->pic_name_display }}
+                                            </span>
                                         </div>
                                     @endif
                                 </div>
@@ -497,6 +516,40 @@
                 </flux:select>
 
                 <flux:input wire:model="taskDueDate" type="date" :label="__('Due Date (Optional)')" />
+            </div>
+
+            {{-- PIC (Person In Charge) Selection or Manual Input --}}
+            <div class="space-y-2 rounded-lg border border-zinc-200 dark:border-zinc-800 p-3 bg-zinc-50/50 dark:bg-zinc-900/40">
+                <div class="flex items-center justify-between">
+                    <flux:label>{{ __('Person In Charge (PIC)') }}</flux:label>
+                    <div class="flex items-center rounded-lg bg-zinc-200/70 dark:bg-zinc-800 p-0.5 text-xs">
+                        <button
+                            type="button"
+                            wire:click="$set('taskPicType', 'user')"
+                            class="px-2.5 py-1 rounded-md transition font-medium {{ $taskPicType === 'user' ? 'bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 shadow-xs' : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200' }}"
+                        >
+                            {{ __('Select User') }}
+                        </button>
+                        <button
+                            type="button"
+                            wire:click="$set('taskPicType', 'manual')"
+                            class="px-2.5 py-1 rounded-md transition font-medium {{ $taskPicType === 'manual' ? 'bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 shadow-xs' : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200' }}"
+                        >
+                            {{ __('Input Manually') }}
+                        </button>
+                    </div>
+                </div>
+
+                @if ($taskPicType === 'user')
+                    <flux:select wire:model="taskAssignedTo" :placeholder="__('-- Select User / PIC (Optional) --')">
+                        <flux:select.option :value="null">{{ __('None / Unassigned') }}</flux:select.option>
+                        @foreach ($this->availableUsers as $user)
+                            <flux:select.option :value="$user->id">{{ $user->full_name ?? $user->name }} ({{ $user->email }})</flux:select.option>
+                        @endforeach
+                    </flux:select>
+                @else
+                    <flux:input wire:model="taskPicName" :placeholder="__('e.g. John Doe, External QA, Freelancer...')" />
+                @endif
             </div>
 
             {{-- Subtasks Checklist Builder --}}

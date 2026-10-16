@@ -8,7 +8,7 @@ class UpdateJobApplicationRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('IPS - JOBTRACKER - Can Update Job Tracker') ?? false;
     }
 
     /**

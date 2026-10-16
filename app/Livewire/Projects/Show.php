@@ -2,10 +2,12 @@
 
 namespace App\Livewire\Projects;
 
+use App\Concerns\AuthorizesPermissions;
 use App\Models\Project;
 use App\Models\ProjectMilestone;
 use App\Models\Task;
 use App\Models\TaskChecklist;
+use App\Models\User;
 use Flux\Flux;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\View\View;
@@ -17,6 +19,8 @@ use Livewire\Component;
 #[Title('Project Overview')]
 class Show extends Component
 {
+    use AuthorizesPermissions;
+
     public Project $project;
 
     #[Url]
@@ -36,6 +40,12 @@ class Show extends Component
     public string $taskCategory = 'Backend';
 
     public ?string $taskDueDate = null;
+
+    public string $taskPicType = 'user'; // 'user' or 'manual'
+
+    public ?int $taskAssignedTo = null;
+
+    public string $taskPicName = '';
 
     /** @var array<int, string> */
     public array $newSubtasks = [];
@@ -66,6 +76,8 @@ class Show extends Component
 
     public function mount(Project $project): void
     {
+        $this->authorizePermission('IPS - PROJECT - Can Show Projects');
+
         $this->project = $project->load([
             'status',
             'client',
@@ -87,7 +99,7 @@ class Show extends Component
     #[Computed]
     public function boardColumns(): array
     {
-        $allTasks = $this->project->tasks()->with('checklists')->orderBy('order')->get();
+        $allTasks = $this->project->tasks()->with(['checklists', 'assignedUser'])->orderBy('order')->get();
 
         return [
             'Backlog' => $allTasks->where('status', 'Backlog')->values(),
@@ -95,6 +107,15 @@ class Show extends Component
             'In Review' => $allTasks->where('status', 'In Review')->values(),
             'Done' => $allTasks->where('status', 'Done')->values(),
         ];
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    #[Computed]
+    public function availableUsers(): Collection
+    {
+        return User::orderBy('name')->get();
     }
 
     /**
@@ -115,6 +136,8 @@ class Show extends Component
 
     public function updateHealthStatus(string $health): void
     {
+        $this->authorizePermission('IPS - PROJECT - Can Update Projects');
+
         if (! in_array($health, ['On Track', 'At Risk', 'Delayed', 'Completed'])) {
             return;
         }
@@ -129,7 +152,16 @@ class Show extends Component
 
     public function openTaskModal(string $defaultStatus = 'Backlog'): void
     {
-        $this->reset(['taskTitle', 'taskDescription', 'taskDueDate', 'newSubtasks', 'tempSubtask']);
+        $this->reset([
+            'taskTitle',
+            'taskDescription',
+            'taskDueDate',
+            'newSubtasks',
+            'tempSubtask',
+            'taskAssignedTo',
+            'taskPicName',
+        ]);
+        $this->taskPicType = 'user';
         $this->taskStatus = $defaultStatus;
         $this->taskPriority = 'Medium';
         $this->taskCategory = 'Backend';
@@ -155,6 +187,8 @@ class Show extends Component
 
     public function createTask(): void
     {
+        $this->authorizePermission('IPS - PROJECT - Can Create Tasks');
+
         $this->validate([
             'taskTitle' => ['required', 'string', 'max:255'],
             'taskDescription' => ['nullable', 'string'],
@@ -162,9 +196,18 @@ class Show extends Component
             'taskPriority' => ['required', 'in:Low,Medium,High'],
             'taskCategory' => ['required', 'string', 'max:50'],
             'taskDueDate' => ['nullable', 'date'],
+            'taskPicType' => ['required', 'in:user,manual'],
+            'taskAssignedTo' => ['nullable', 'exists:users,id'],
+            'taskPicName' => ['nullable', 'string', 'max:100'],
         ]);
 
         $maxOrder = $this->project->tasks()->where('status', $this->taskStatus)->max('order') ?? 0;
+
+        $assignedTo = $this->taskPicType === 'user' ? $this->taskAssignedTo : null;
+        $picName = $this->taskPicType === 'manual' ? trim($this->taskPicName) : null;
+        if ($picName === '') {
+            $picName = null;
+        }
 
         $task = $this->project->tasks()->create([
             'title' => $this->taskTitle,
@@ -174,6 +217,8 @@ class Show extends Component
             'category' => $this->taskCategory,
             'due_date' => $this->taskDueDate ?: null,
             'order' => $maxOrder + 1,
+            'assigned_to' => $assignedTo,
+            'pic_name' => $picName,
         ]);
 
         foreach ($this->newSubtasks as $idx => $subtaskTitle) {
@@ -185,7 +230,15 @@ class Show extends Component
         }
 
         $this->showTaskModal = false;
-        $this->reset(['taskTitle', 'taskDescription', 'taskDueDate', 'newSubtasks', 'tempSubtask']);
+        $this->reset([
+            'taskTitle',
+            'taskDescription',
+            'taskDueDate',
+            'newSubtasks',
+            'tempSubtask',
+            'taskAssignedTo',
+            'taskPicName',
+        ]);
         $this->project->refresh();
         unset($this->boardColumns);
 
@@ -194,6 +247,8 @@ class Show extends Component
 
     public function updateTaskStatus(string $taskId, string $newStatus): void
     {
+        $this->authorizePermission('IPS - PROJECT - Can Update Tasks');
+
         if (! in_array($newStatus, ['Backlog', 'In Progress', 'In Review', 'Done'])) {
             return;
         }
@@ -209,6 +264,8 @@ class Show extends Component
 
     public function toggleChecklist(string $checklistId): void
     {
+        $this->authorizePermission('IPS - PROJECT - Can Update Tasks');
+
         $checklist = TaskChecklist::whereHas('task', function ($query) {
             $query->where('project_id', $this->project->project_id);
         })->findOrFail($checklistId);
@@ -221,6 +278,8 @@ class Show extends Component
 
     public function deleteTask(string $taskId): void
     {
+        $this->authorizePermission('IPS - PROJECT - Can Delete Tasks');
+
         $task = Task::where('project_id', $this->project->project_id)->findOrFail($taskId);
         $task->delete();
 
@@ -241,6 +300,8 @@ class Show extends Component
 
     public function createMilestone(): void
     {
+        $this->authorizePermission('IPS - PROJECT - Can Update Projects');
+
         $this->validate([
             'milestoneTitle' => ['required', 'string', 'max:255'],
             'milestoneDescription' => ['nullable', 'string'],
@@ -268,6 +329,8 @@ class Show extends Component
 
     public function updateMilestoneStatus(string $milestoneId, string $status): void
     {
+        $this->authorizePermission('IPS - PROJECT - Can Update Projects');
+
         if (! in_array($status, ['Upcoming', 'In Progress', 'Completed'])) {
             return;
         }
@@ -283,6 +346,8 @@ class Show extends Component
 
     public function deleteMilestone(string $milestoneId): void
     {
+        $this->authorizePermission('IPS - PROJECT - Can Update Projects');
+
         $milestone = ProjectMilestone::where('project_id', $this->project->project_id)->findOrFail($milestoneId);
         $milestone->delete();
 
@@ -296,6 +361,8 @@ class Show extends Component
 
     public function saveLinks(): void
     {
+        $this->authorizePermission('IPS - PROJECT - Can Update Projects');
+
         $this->validate([
             'linkRepository' => ['nullable', 'url', 'max:255'],
             'linkDocs' => ['nullable', 'url', 'max:255'],

@@ -19,7 +19,7 @@ class ProjectShowTest extends TestCase
     public function test_guests_are_redirected_to_login(): void
     {
         $status = ProjectStatus::create(['status_name' => 'In Progress']);
-        $user = User::factory()->create();
+        $user = $this->authorizedUser();
 
         $project = Project::create([
             'project_name' => 'Secret Project',
@@ -34,7 +34,7 @@ class ProjectShowTest extends TestCase
 
     public function test_authenticated_user_can_view_project_overview_and_header(): void
     {
-        $user = User::factory()->create();
+        $user = $this->authorizedUser();
         $status = ProjectStatus::create(['status_name' => 'In Progress']);
 
         $project = Project::create([
@@ -62,7 +62,7 @@ class ProjectShowTest extends TestCase
 
     public function test_user_can_create_task_and_view_on_board(): void
     {
-        $user = User::factory()->create();
+        $user = $this->authorizedUser();
         $status = ProjectStatus::create(['status_name' => 'In Progress']);
 
         $project = Project::create([
@@ -99,9 +99,70 @@ class ProjectShowTest extends TestCase
         ]);
     }
 
+    public function test_user_can_create_task_with_pic_assigned_user(): void
+    {
+        $user = $this->authorizedUser(['name' => 'Alice Developer', 'full_name' => 'Alice Developer']);
+        $assignee = User::factory()->create(['name' => 'Bob Engineer', 'full_name' => 'Bob Engineer']);
+        $status = ProjectStatus::create(['status_name' => 'In Progress']);
+
+        $project = Project::create([
+            'project_name' => 'Task Tracker User PIC',
+            'ownership_type' => 'Internal',
+            'status_id' => $status->status_id,
+            'created_by' => $user->id,
+        ]);
+
+        $this->actingAs($user);
+
+        Livewire::test(Show::class, ['project' => $project])
+            ->set('taskTitle', 'Integrate Payment Gateway')
+            ->set('taskPicType', 'user')
+            ->set('taskAssignedTo', $assignee->id)
+            ->call('createTask')
+            ->assertHasNoErrors()
+            ->assertSee('Bob Engineer');
+
+        $this->assertDatabaseHas('tasks', [
+            'project_id' => $project->project_id,
+            'title' => 'Integrate Payment Gateway',
+            'assigned_to' => $assignee->id,
+            'pic_name' => null,
+        ]);
+    }
+
+    public function test_user_can_create_task_with_pic_input_manually(): void
+    {
+        $user = $this->authorizedUser(['name' => 'Alice Developer']);
+        $status = ProjectStatus::create(['status_name' => 'In Progress']);
+
+        $project = Project::create([
+            'project_name' => 'Task Tracker Manual PIC',
+            'ownership_type' => 'Internal',
+            'status_id' => $status->status_id,
+            'created_by' => $user->id,
+        ]);
+
+        $this->actingAs($user);
+
+        Livewire::test(Show::class, ['project' => $project])
+            ->set('taskTitle', 'External PenTest Review')
+            ->set('taskPicType', 'manual')
+            ->set('taskPicName', 'External Auditor Team')
+            ->call('createTask')
+            ->assertHasNoErrors()
+            ->assertSee('External Auditor Team');
+
+        $this->assertDatabaseHas('tasks', [
+            'project_id' => $project->project_id,
+            'title' => 'External PenTest Review',
+            'assigned_to' => null,
+            'pic_name' => 'External Auditor Team',
+        ]);
+    }
+
     public function test_user_can_update_task_status(): void
     {
-        $user = User::factory()->create();
+        $user = $this->authorizedUser();
         $status = ProjectStatus::create(['status_name' => 'In Progress']);
 
         $project = Project::create([
@@ -133,7 +194,7 @@ class ProjectShowTest extends TestCase
 
     public function test_user_can_toggle_subtask_checklist(): void
     {
-        $user = User::factory()->create();
+        $user = $this->authorizedUser();
         $status = ProjectStatus::create(['status_name' => 'In Progress']);
 
         $project = Project::create([
@@ -170,7 +231,7 @@ class ProjectShowTest extends TestCase
 
     public function test_user_can_create_and_manage_milestones(): void
     {
-        $user = User::factory()->create();
+        $user = $this->authorizedUser();
         $status = ProjectStatus::create(['status_name' => 'In Progress']);
 
         $project = Project::create([
@@ -200,7 +261,7 @@ class ProjectShowTest extends TestCase
 
     public function test_user_can_update_project_health_status(): void
     {
-        $user = User::factory()->create();
+        $user = $this->authorizedUser();
         $status = ProjectStatus::create(['status_name' => 'In Progress']);
 
         $project = Project::create([

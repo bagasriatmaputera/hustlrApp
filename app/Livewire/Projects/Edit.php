@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Projects;
 
+use App\Concerns\AuthorizesPermissions;
 use App\Models\Client;
 use App\Models\Project;
 use App\Models\ProjectStatus;
@@ -15,6 +16,8 @@ use Livewire\Component;
 #[Title('Edit Project')]
 class Edit extends Component
 {
+    use AuthorizesPermissions;
+
     public Project $project;
 
     public string $project_name = '';
@@ -40,6 +43,8 @@ class Edit extends Component
 
     public function mount(Project $project): void
     {
+        $this->authorizePermission('IPS - PROJECT - Can Update Projects');
+
         $this->project = $project;
 
         $this->project_name = $project->project_name;
@@ -105,6 +110,8 @@ class Edit extends Component
 
     public function update(): void
     {
+        $this->authorizePermission('IPS - PROJECT - Can Update Projects');
+
         $validated = $this->validate();
 
         $this->project->update([

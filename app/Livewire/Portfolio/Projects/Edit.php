@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Portfolio\Projects;
 
+use App\Concerns\AuthorizesPermissions;
 use App\Models\Portfolio\PortfolioProject;
 use Flux\Flux;
 use Livewire\Attributes\Title;
@@ -10,6 +11,8 @@ use Livewire\Component;
 #[Title('Portfolio - Edit Project')]
 class Edit extends Component
 {
+    use AuthorizesPermissions;
+
     public PortfolioProject $portfolioProject;
 
     public string $title_id = '';
@@ -40,6 +43,8 @@ class Edit extends Component
 
     public function mount(PortfolioProject $portfolioProject): void
     {
+        $this->authorizePermission('PORTFOLIO - Can Manage Projects');
+
         $this->portfolioProject = $portfolioProject;
         $this->title_id = $portfolioProject->title['id'] ?? '';
         $this->title_en = $portfolioProject->title['en'] ?? '';
@@ -58,6 +63,8 @@ class Edit extends Component
 
     public function save(): void
     {
+        $this->authorizePermission('PORTFOLIO - Can Manage Projects');
+
         $this->validate([
             'title_id' => ['required', 'string', 'max:255'],
             'title_en' => ['required', 'string', 'max:255'],

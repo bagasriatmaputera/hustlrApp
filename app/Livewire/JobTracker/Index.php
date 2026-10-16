@@ -2,6 +2,7 @@
 
 namespace App\Livewire\JobTracker;
 
+use App\Concerns\AuthorizesPermissions;
 use App\Models\JobApplication;
 use App\Models\User;
 use App\Services\JobApplicationService;
@@ -21,7 +22,7 @@ use Livewire\WithPagination;
 #[Title('Job Tracker')]
 class Index extends Component
 {
-    use WithPagination;
+    use AuthorizesPermissions, WithPagination;
 
     #[Url]
     public string $search = '';
@@ -80,6 +81,8 @@ class Index extends Component
 
     public function mount(): void
     {
+        $this->authorizePermission('IPS - JOBTRACKER - Can List Job Tracker');
+
         // Default applied_at to today for new records
         $this->applied_at = now()->toDateString();
     }
@@ -186,6 +189,8 @@ class Index extends Component
 
     public function createJob(): void
     {
+        $this->authorizePermission('IPS - JOBTRACKER - Can Create Job Tracker');
+
         $validated = $this->validate([
             'company_name' => ['required', 'string', 'max:255'],
             'position' => ['required', 'string', 'max:255'],
@@ -217,6 +222,8 @@ class Index extends Component
 
     public function openShowModal(string $jobId): void
     {
+        $this->authorizePermission('IPS - JOBTRACKER - Can List Job Tracker');
+
         $this->viewingJob = JobApplication::with('user')->find($jobId);
         if ($this->viewingJob) {
             $this->showDetailModal = true;
@@ -247,6 +254,8 @@ class Index extends Component
 
     public function updateJob(): void
     {
+        $this->authorizePermission('IPS - JOBTRACKER - Can Update Job Tracker');
+
         if (! $this->selectedJobId) {
             return;
         }
@@ -286,6 +295,8 @@ class Index extends Component
 
     public function updateStatus(string $jobId, string $newStatus): void
     {
+        $this->authorizePermission('IPS - JOBTRACKER - Can Update Job Tracker');
+
         $job = JobApplication::findOrFail($jobId);
 
         /** @var JobApplicationService $service */
@@ -299,6 +310,8 @@ class Index extends Component
 
     public function confirmDelete(string $jobId): void
     {
+        $this->authorizePermission('IPS - JOBTRACKER - Can Delete Job Tracker');
+
         $job = JobApplication::findOrFail($jobId);
 
         $this->selectedJobId = $job->job_application_id;
@@ -308,6 +321,8 @@ class Index extends Component
 
     public function deleteJob(): void
     {
+        $this->authorizePermission('IPS - JOBTRACKER - Can Delete Job Tracker');
+
         if (! $this->selectedJobId) {
             $this->showDeleteModal = false;
 

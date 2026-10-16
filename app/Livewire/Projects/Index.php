@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Projects;
 
+use App\Concerns\AuthorizesPermissions;
 use App\Models\Project;
 use App\Models\ProjectStatus;
 use Flux\Flux;
@@ -16,13 +17,18 @@ use Livewire\WithPagination;
 #[Title('All Projects')]
 class Index extends Component
 {
-    use WithPagination;
+    use AuthorizesPermissions, WithPagination;
 
     #[Url]
     public string $search = '';
 
     #[Url]
     public string $statusFilter = '';
+
+    public function mount(): void
+    {
+        $this->authorizePermission('IPS - PROJECT - Can List Projects');
+    }
 
     /**
      * @return LengthAwarePaginator<int, Project>
@@ -93,6 +99,8 @@ class Index extends Component
 
     public function deleteProject(string $projectId): void
     {
+        $this->authorizePermission('IPS - PROJECT - Can Delete Projects');
+
         $project = Project::findOrFail($projectId);
         $project->delete();
 

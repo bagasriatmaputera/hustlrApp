@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Portfolio\Experiences;
 
+use App\Concerns\AuthorizesPermissions;
 use App\Models\Portfolio\PortfolioExperience;
 use App\Models\Portfolio\PortfolioJobDesc;
 use Flux\Flux;
@@ -11,6 +12,8 @@ use Livewire\Component;
 #[Title('Portfolio - Edit Experience')]
 class Edit extends Component
 {
+    use AuthorizesPermissions;
+
     public PortfolioExperience $portfolioExperience;
 
     public string $company_name = '';
@@ -34,6 +37,8 @@ class Edit extends Component
 
     public function mount(PortfolioExperience $portfolioExperience): void
     {
+        $this->authorizePermission('PORTFOLIO - Can Manage Experiences');
+
         $this->portfolioExperience = $portfolioExperience->load('jobDescs');
         $this->company_name = $portfolioExperience->company_name;
         $this->position = $portfolioExperience->position;
@@ -72,6 +77,8 @@ class Edit extends Component
 
     public function save(): void
     {
+        $this->authorizePermission('PORTFOLIO - Can Manage Experiences');
+
         $this->validate([
             'company_name' => ['required', 'string', 'max:255'],
             'position' => ['required', 'string', 'max:255'],

@@ -21,7 +21,15 @@
                         </flux:sidebar.item>
                     @endcan
 
-                    <flux:sidebar.group icon="folder-git-2" :heading="__('Project Managements')" expandable :expanded="request()->routeIs('projects.*')">
+                    @if (auth()->user()->hasRole('Owner Integrated Personal System'))
+                        <flux:sidebar.item icon="check-badge" :href="route('approvals.index')" :current="request()->routeIs('approvals.*')" wire:navigate>
+                            {{ __('Approvals') }}
+                            @livewire('approvals.badge')
+                        </flux:sidebar.item>
+                    @endif
+
+                    @can('IPS - PROJECT - Can List Projects')
+                    <flux:sidebar.group icon="folder-git-2" :heading="__('Project Managements')" expandable :expanded="request()->routeIs('projects.*') || request()->routeIs('technologies.*')">
                         <flux:sidebar.item :href="route('projects.index')" :current="request()->routeIs('projects.index')" wire:navigate>
                             {{ __('All Projects') }}
                         </flux:sidebar.item>
@@ -30,20 +38,24 @@
                                 {{ __('Add Project') }}
                             </flux:sidebar.item>
                         @endcan
+                        @can('IPS - PROJECT - Can Manage Technologies')
+                            <flux:sidebar.item icon="cpu-chip" :href="route('technologies.index')" :current="request()->routeIs('technologies.*')" wire:navigate>
+                                {{ __('Technologies') }}
+                            </flux:sidebar.item>
+                        @endcan
                     </flux:sidebar.group>
+                    @endcan
 
+                    @can('IPS - JOBTRACKER - Can List Job Tracker')
                     {{-- Job Tracker --}}
                     <flux:sidebar.group icon="briefcase" :heading="__('Job Tracker')" expandable :expanded="request()->routeIs('job-tracker.*')">
                         <flux:sidebar.item :href="route('job-tracker.index')" :current="request()->routeIs('job-tracker.index')" wire:navigate>
                             {{ __('Job Tracker') }}
                         </flux:sidebar.item>
-                        @can('IPS - PROJECT - Can Create Projects')
-                            <flux:sidebar.item :href="route('job-tracker.create')" :current="request()->routeIs('job-tracker.create')" wire:navigate>
-                                {{ __('Add Job Tracker') }}
-                            </flux:sidebar.item>
-                        @endcan
                     </flux:sidebar.group>
+                    @endcan
 
+                    @can('PORTFOLIO - Can Manage Portfolio')
                     {{-- Portfolio --}}
                     <flux:sidebar.group icon="briefcase" :heading="__('Portfolio')" expandable :expanded="request()->routeIs('portfolio.*')">
                         <flux:sidebar.item :href="route('portfolio.profile.edit')" :current="request()->routeIs('portfolio.profile.edit')" wire:navigate>
@@ -55,12 +67,8 @@
                         <flux:sidebar.item :href="route('portfolio.experiences.index')" :current="request()->routeIs('portfolio.experiences.index')" wire:navigate>
                             {{ __('Experience') }}
                         </flux:sidebar.item>
-                        {{-- @can('IPS - PROJECT - Can Create Projects')
-                            <flux:sidebar.item :href="route('job-tracker.create')" :current="request()->routeIs('job-tracker.create')" wire:navigate>
-                                {{ __('Add Job Tracker') }}
-                            </flux:sidebar.item>
-                        @endcan --}}
                     </flux:sidebar.group>
+                    @endcan
 
                 </flux:sidebar.group>
             </flux:sidebar.nav>

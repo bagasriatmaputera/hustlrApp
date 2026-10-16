@@ -31,6 +31,7 @@ class OwnerPermissionManager extends PermissionManager
         'IPS - PROJECT - Can Show Projects',
         'IPS - PROJECT - Can Update Projects',
         'IPS - PROJECT - Can Delete Projects',
+        'IPS - PROJECT - Can Manage Technologies',
 
         // Tasks
         'IPS - PROJECT - Can List Tasks',
@@ -54,5 +55,12 @@ class OwnerPermissionManager extends PermissionManager
         'PORTFOLIO - Can Manage Profile',
         'PORTFOLIO - Can Manage Projects',
         'PORTFOLIO - Can Manage Experiences',
+
+        // Job Tracker
+        'IPS - JOBTRACKER - Can View Job Tracker in Sidebar',
+        'IPS - JOBTRACKER - Can List Job Tracker',
+        'IPS - JOBTRACKER - Can Create Job Tracker',
+        'IPS - JOBTRACKER - Can Update Job Tracker',
+        'IPS - JOBTRACKER - Can Delete Job Tracker',
     ];
 }

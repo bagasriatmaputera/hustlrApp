@@ -13,11 +13,14 @@ class FirstUserSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::firstOrCreate([
-            'full_name' => 'Owner',
-            'email' => 'owner@gmail.com',
-            'password' => bcrypt('password'),
-        ]);
+        $user = User::firstOrCreate(
+            ['email' => 'owner@gmail.com'],
+            [
+                'full_name' => 'Owner',
+                'password' => bcrypt('password'),
+                'approval_status' => 'approved',
+            ]
+        );
 
         $role = Role::where('name', 'Owner Integrated Personal System')->first();
         if ($role) {

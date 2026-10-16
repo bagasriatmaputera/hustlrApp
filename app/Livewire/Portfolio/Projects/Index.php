@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Portfolio\Projects;
 
+use App\Concerns\AuthorizesPermissions;
 use App\Models\Portfolio\PortfolioProject;
 use Flux\Flux;
 use Illuminate\Database\Eloquent\Collection;
@@ -13,8 +14,15 @@ use Livewire\Component;
 #[Title('Portfolio - Projects')]
 class Index extends Component
 {
+    use AuthorizesPermissions;
+
     #[Url]
     public string $search = '';
+
+    public function mount(): void
+    {
+        $this->authorizePermission('PORTFOLIO - Can Manage Projects');
+    }
 
     /**
      * @return Collection<int, PortfolioProject>
@@ -31,6 +39,8 @@ class Index extends Component
 
     public function delete(string $projectId): void
     {
+        $this->authorizePermission('PORTFOLIO - Can Manage Projects');
+
         PortfolioProject::findOrFail($projectId)->delete();
         Flux::toast(variant: 'success', text: __('Project deleted successfully.'));
     }

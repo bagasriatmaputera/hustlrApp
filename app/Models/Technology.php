@@ -16,6 +16,10 @@ class Technology extends Model
 
     protected $primaryKey = 'tech_id';
 
+    public $incrementing = false;
+
+    protected $keyType = 'string';
+
     protected $fillable = [
         'tech_name',
         'category',

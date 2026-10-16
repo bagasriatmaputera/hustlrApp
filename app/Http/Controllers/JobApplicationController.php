@@ -23,6 +23,10 @@ class JobApplicationController extends Controller
      */
     public function index(Request $request): RedirectResponse|JsonResponse
     {
+        if (! $request->user()?->can('IPS - JOBTRACKER - Can List Job Tracker')) {
+            abort(Response::HTTP_FORBIDDEN, __('Unauthorized action.'));
+        }
+
         if ($request->wantsJson()) {
             $filters = $request->only(['search', 'contract_status', 'apply_status', 'workplace_type']);
             $jobs = $this->jobApplicationService->getPaginated($filters, (int) $request->get('per_page', 10));
@@ -61,6 +65,10 @@ class JobApplicationController extends Controller
      */
     public function show(Request $request, JobApplication $jobApplication): RedirectResponse|JsonResponse
     {
+        if (! $request->user()?->can('IPS - JOBTRACKER - Can List Job Tracker')) {
+            abort(Response::HTTP_FORBIDDEN, __('Unauthorized action.'));
+        }
+
         if ($request->wantsJson()) {
             return response()->json([
                 'data' => $jobApplication->load('user'),
@@ -95,6 +103,10 @@ class JobApplicationController extends Controller
      */
     public function destroy(Request $request, JobApplication $jobApplication): JsonResponse|RedirectResponse
     {
+        if (! $request->user()?->can('IPS - JOBTRACKER - Can Delete Job Tracker')) {
+            abort(Response::HTTP_FORBIDDEN, __('Unauthorized action.'));
+        }
+
         $this->jobApplicationService->deleteJobApplication($jobApplication);
 
         if ($request->wantsJson()) {

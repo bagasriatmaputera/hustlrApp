@@ -36,19 +36,11 @@ class AppServiceProvider extends ServiceProvider
         // Owner has unrestricted super-admin access across all permissions and gates
         Gate::before(function ($user, string $ability): ?bool {
             try {
-                if ($user->hasRole(['Owner Integrated Personal System', 'owner', 'Owner'])) {
+                if ($user->hasRole('Owner Integrated Personal System')) {
                     return true;
                 }
             } catch (\Throwable $e) {
                 // Ignore if role not seeded yet in some environments
-            }
-
-            if (
-                $user->id === 1 ||
-                in_array($user->email, ['owner@gmail.com', 'bagasriatmap@gmail.com']) ||
-                in_array(strtolower($user->role ?? ''), ['owner', 'owner integrated personal system', 'admin'])
-            ) {
-                return true;
             }
 
             return null;
