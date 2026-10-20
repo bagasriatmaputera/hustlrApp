@@ -427,7 +427,7 @@
 
                                 {{-- Title & Description --}}
                                 <div>
-                                    <button type="button" wire:click="openEditTaskModal('{{ $task->task_id }}')" class="text-start text-sm font-semibold text-zinc-900 dark:text-zinc-100 hover:text-primary transition break-words">
+                                    <button type="button" wire:click="openEditTaskModal('{{ $task->task_id }}')" class="w-full text-start text-sm font-semibold text-zinc-900 dark:text-zinc-100 hover:text-primary transition break-words line-clamp-2">
                                         {{ $task->title }}
                                     </button>
                                     @if ($task->description)
