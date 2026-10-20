@@ -55,10 +55,10 @@ class Edit extends Component
         $this->tech_stack_raw = implode(', ', $portfolioProject->tech_stack ?? []);
         $this->live_url = $portfolioProject->live_url ?? '';
         $this->repo_url = $portfolioProject->repo_url ?? '';
-        $this->featured = $portfolioProject->featured;
-        $this->is_live = $portfolioProject->is_live;
-        $this->is_repo = $portfolioProject->is_repo;
-        $this->order = $portfolioProject->order;
+        $this->featured = (bool) ($portfolioProject->featured ?? false);
+        $this->is_live = (bool) ($portfolioProject->is_live ?? false);
+        $this->is_repo = (bool) ($portfolioProject->is_repo ?? false);
+        $this->order = (int) ($portfolioProject->order ?? 0);
     }
 
     public function save(): void

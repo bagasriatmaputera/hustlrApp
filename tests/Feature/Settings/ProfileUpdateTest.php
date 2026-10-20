@@ -19,6 +19,13 @@ class ProfileUpdateTest extends TestCase
         $this->get('/settings/profile')->assertOk();
     }
 
+    public function test_profile_page_is_displayed_when_full_name_is_null(): void
+    {
+        $this->actingAs(User::factory()->create(['full_name' => null]));
+
+        $this->get('/settings/profile')->assertOk();
+    }
+
     public function test_profile_information_can_be_updated(): void
     {
         $user = User::factory()->create();
@@ -35,6 +42,7 @@ class ProfileUpdateTest extends TestCase
         $user->refresh();
 
         $this->assertEquals('Test User', $user->name);
+        $this->assertEquals('Test User', $user->full_name);
         $this->assertEquals('test@example.com', $user->email);
         $this->assertNull($user->email_verified_at);
     }

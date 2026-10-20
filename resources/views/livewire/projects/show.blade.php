@@ -255,7 +255,7 @@
             <flux:text class="text-sm text-zinc-500">{{ __('No activity yet.') }}</flux:text>
         @else
             <div class="flex flex-col gap-3">
-                @foreach ($this->recentActivity as $log)
+                @foreach ($this->recentActivity->take($this->expandRecentActivity ? 20 : 5) as $log)
                     <div class="flex items-start gap-3" wire:key="activity-{{ $log->log_id }}">
                         <div class="flex size-8 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-xs font-semibold dark:bg-zinc-800">
                             {{ $log->user?->initials() ?? '?' }}
@@ -270,6 +270,15 @@
                     </div>
                 @endforeach
             </div>
+            @if ($this->recentActivity->count() > 5)
+                <div class="flex justify-end mt-2">
+                    @if ($this->expandRecentActivity)
+                        <flux:button variant="ghost" size="sm" wire:click="toggleRecentActivity">{{ __('Show less') }}</flux:button>
+                    @else
+                        <flux:button variant="ghost" size="sm" wire:click="toggleRecentActivity">{{ __('Show more') }}</flux:button>
+                    @endif
+                </div>
+            @endif
         @endif
     </flux:card>
 
@@ -347,7 +356,7 @@
                     $tasks = $this->boardColumns[$statusKey] ?? collect();
                 @endphp
 
-                <div class="flex flex-col gap-3 rounded-xl border border-zinc-200 dark:border-zinc-800 p-3 {{ $colMeta['bg'] }}">
+                <div class="flex min-w-0 flex-col gap-3 rounded-xl border border-zinc-200 dark:border-zinc-800 p-3 {{ $colMeta['bg'] }}">
                     {{-- Column Header --}}
                     <div class="flex items-center justify-between px-1">
                         <div class="flex items-center gap-2">
@@ -363,7 +372,7 @@
                     </div>
 
                     {{-- Task Cards List --}}
-                    <div class="flex flex-col gap-2.5 min-h-[140px]">
+                    <div class="flex flex-col gap-2.5 min-h-[140px]" wire:sort="moveTask" wire:sort:group="project-tasks" wire:sort:group-id="{{ $statusKey }}">
                         @forelse ($tasks as $task)
                             @php
                                 $priorityStyles = \App\Livewire\Projects\Show::priorityColor($task->priority);
@@ -371,10 +380,17 @@
                                 $completedSubtasks = $task->checklists->where('is_completed', true)->count();
                             @endphp
 
-                            <flux:card wire:key="task-card-{{ $task->task_id }}" class="!p-3 flex flex-col gap-2.5 hover:shadow-sm transition-all border border-zinc-200/80 dark:border-zinc-800">
+                            <flux:card wire:key="task-card-{{ $task->task_id }}" wire:sort:item="{{ $task->task_id }}" class="!p-3 flex min-w-0 flex-col gap-2.5 hover:shadow-sm transition-all border border-zinc-200/80 dark:border-zinc-800">
                                 {{-- Card Badges & Options --}}
                                 <div class="flex items-start justify-between gap-2">
                                     <div class="flex flex-wrap items-center gap-1.5">
+                                        <span wire:sort:handle title="{{ __('Drag to move') }}" class="flex cursor-grab items-center gap-1 rounded px-1.5 py-0.5 text-[10px] font-medium text-zinc-400 transition hover:bg-zinc-100 hover:text-zinc-700 active:cursor-grabbing dark:hover:bg-zinc-800">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="size-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                                <path d="M4 8h16" />
+                                                <path d="M4 12h16" />
+                                                <path d="M4 16h16" />
+                                            </svg>
+                                        </span>
                                         <span class="{{ $priorityStyles['bg'] }} {{ $priorityStyles['text'] }} rounded px-1.5 py-0.5 text-[10px] font-semibold">
                                             {{ $task->priority }}
                                         </span>
@@ -411,11 +427,11 @@
 
                                 {{-- Title & Description --}}
                                 <div>
-                                    <button type="button" wire:click="openEditTaskModal('{{ $task->task_id }}')" class="text-start text-sm font-semibold text-zinc-900 dark:text-zinc-100 hover:text-primary transition">
+                                    <button type="button" wire:click="openEditTaskModal('{{ $task->task_id }}')" class="text-start text-sm font-semibold text-zinc-900 dark:text-zinc-100 hover:text-primary transition break-words">
                                         {{ $task->title }}
                                     </button>
                                     @if ($task->description)
-                                        <div class="text-xs text-zinc-500 mt-1 line-clamp-2">
+                                        <div class="text-xs text-zinc-500 mt-1 line-clamp-2 break-words">
                                             {{ $task->description }}
                                         </div>
                                     @endif
@@ -501,9 +517,7 @@
                     <flux:heading size="lg">{{ __('Project Roadmap & Release Sprints') }}</flux:heading>
                     <flux:subheading>{{ __('Key stages and delivery milestones across the project lifecycle.') }}</flux:subheading>
                 </div>
-                <flux:button variant="primary" size="sm" icon="plus" wire:click="openMilestoneModal">
-                    {{ __('New Milestone') }}
-                </flux:button>
+
             </div>
 
             @if ($this->milestones->isEmpty())

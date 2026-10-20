@@ -40,14 +40,14 @@ class Edit extends Component
         $this->authorizePermission('PORTFOLIO - Can Manage Experiences');
 
         $this->portfolioExperience = $portfolioExperience->load('jobDescs');
-        $this->company_name = $portfolioExperience->company_name;
-        $this->position = $portfolioExperience->position;
-        $this->start_date = $portfolioExperience->start_date->format('Y-m-d');
+        $this->company_name = (string) ($portfolioExperience->company_name ?? '');
+        $this->position = (string) ($portfolioExperience->position ?? '');
+        $this->start_date = $portfolioExperience->start_date?->format('Y-m-d') ?? '';
         $this->end_date = $portfolioExperience->end_date?->format('Y-m-d') ?? '';
-        $this->location = $portfolioExperience->location;
-        $this->workplace_type = $portfolioExperience->workplace_type;
-        $this->contract_type = $portfolioExperience->contract_type;
-        $this->order = $portfolioExperience->order;
+        $this->location = (string) ($portfolioExperience->location ?? '');
+        $this->workplace_type = (string) ($portfolioExperience->workplace_type ?? 'On-site');
+        $this->contract_type = (string) ($portfolioExperience->contract_type ?? 'Full-time');
+        $this->order = (int) ($portfolioExperience->order ?? 0);
         $this->job_descs = $portfolioExperience->jobDescs->map(fn ($jd) => [
             'job_desc_id' => $jd->job_desc_id,
             'description' => $jd->description,

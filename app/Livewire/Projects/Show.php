@@ -13,6 +13,7 @@ use App\PermissionManager\ModuleRegistry;
 use Flux\Flux;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
@@ -84,6 +85,8 @@ class Show extends Component
     public string $memberSearch = '';
 
     public int $memberPerPage = 5;
+
+    public bool $expandRecentActivity = false;
 
     public ?string $linkRepository = null;
 
@@ -229,6 +232,11 @@ class Show extends Component
         $this->project->logActivity('health.updated', __('Health updated to :health.', ['health' => $health]));
 
         Flux::toast(variant: 'success', text: __('Project health updated to :health.', ['health' => $health]));
+    }
+
+    public function toggleRecentActivity(): void
+    {
+        $this->expandRecentActivity = ! $this->expandRecentActivity;
     }
 
     // --- Task Actions ---
@@ -503,6 +511,45 @@ class Show extends Component
     }
 
     // --- Milestone Actions ---
+
+    public function moveTask(string $taskId, int $position, string $status): void
+    {
+        $this->authorizePermission('IPS - PROJECT - Can Update Tasks');
+
+        if (! in_array($status, ['Backlog', 'In Progress', 'In Review', 'Done'], true)) {
+            return;
+        }
+
+        $task = Task::where('project_id', $this->project->project_id)->findOrFail($taskId);
+
+        $destinationTasks = $this->project->tasks()
+            ->where('status', $status)
+            ->where('task_id', '!=', $task->task_id)
+            ->orderBy('order')
+            ->get()
+            ->values();
+
+        $position = max(0, min($position, $destinationTasks->count()));
+
+        $ordered = $destinationTasks->take($position)
+            ->push($task)
+            ->merge($destinationTasks->skip($position));
+
+        DB::transaction(function () use ($ordered, $status) {
+            $counter = 0;
+            foreach ($ordered as $taskToOrder) {
+                $taskToOrder->update(['status' => $status, 'order' => ($counter + 1) * 10]);
+                $counter++;
+            }
+        });
+
+        $this->project->refresh();
+        unset($this->boardColumns);
+
+        $this->project->logActivity('task.status_changed', __('Moved task ":title" to :status.', ['title' => $task->title, 'status' => $status]));
+
+        Flux::toast(variant: 'success', text: __('Task moved to :status.', ['status' => $status]));
+    }
 
     public function openMilestoneModal(): void
     {

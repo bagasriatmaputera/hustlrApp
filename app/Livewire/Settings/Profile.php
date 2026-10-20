@@ -24,7 +24,7 @@ class Profile extends Component
      */
     public function mount(): void
     {
-        $this->name = Auth::user()->full_name;
+        $this->name = Auth::user()->full_name ?? Auth::user()->name ?? '';
         $this->email = Auth::user()->email;
     }
 
@@ -38,6 +38,7 @@ class Profile extends Component
         $validated = $this->validate($this->profileRules($user->id));
 
         $user->fill($validated);
+        $user->full_name = $validated['name'];
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
