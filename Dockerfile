@@ -32,6 +32,10 @@ WORKDIR /var/www/html
 COPY --from=vendor /app /var/www/html
 COPY --from=assets /app/public/build ./public/build
 
+RUN rm -f public/storage \
+    && mkdir -p storage/app/public \
+    && ln -s ../storage/app/public public/storage
+
 ARG UID=1000
 ARG GID=1000
 RUN addgroup -g ${GID} laravel \
@@ -45,3 +49,5 @@ EXPOSE 9000
 FROM nginx:alpine AS web
 COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY --from=app /var/www/html/public /var/www/html/public
+RUN rm -rf /var/www/html/public/storage \
+    && ln -s ../storage/app/public /var/www/html/public/storage
