@@ -24,5 +24,20 @@ class PortfolioProfile extends Model
         'job_position',
         'summary',
         'image_path',
+        'location',
+        'resume_url',
+        'available_for_work',
+        'socials',
     ];
+
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'available_for_work' => 'boolean',
+            'socials' => 'array',
+        ];
+    }
 }

@@ -22,6 +22,19 @@ class Edit extends Component
 
     public string $summary = '';
 
+    public string $location = '';
+
+    public string $resume_url = '';
+
+    public bool $available_for_work = true;
+
+    /** @var array{github: string, linkedin: string, email: string} */
+    public array $socials = [
+        'github' => '',
+        'linkedin' => '',
+        'email' => '',
+    ];
+
     #[Validate(['nullable', 'image', 'max:2048'])]
     public mixed $image = null;
 
@@ -37,6 +50,14 @@ class Edit extends Component
             $this->name = $profile->name;
             $this->job_position = $profile->job_position;
             $this->summary = $profile->summary;
+            $this->location = (string) ($profile->location ?? '');
+            $this->resume_url = (string) ($profile->resume_url ?? '');
+            $this->available_for_work = (bool) ($profile->available_for_work ?? true);
+            $this->socials = [
+                'github' => (string) ($profile->socials['github'] ?? ''),
+                'linkedin' => (string) ($profile->socials['linkedin'] ?? ''),
+                'email' => (string) ($profile->socials['email'] ?? ''),
+            ];
             $this->currentImagePath = $profile->image_path;
         }
     }
@@ -49,6 +70,13 @@ class Edit extends Component
             'name' => ['required', 'string', 'max:255'],
             'job_position' => ['required', 'string', 'max:255'],
             'summary' => ['required', 'string'],
+            'location' => ['nullable', 'string', 'max:255'],
+            'resume_url' => ['nullable', 'string', 'max:255'],
+            'available_for_work' => ['boolean'],
+            'socials' => ['array'],
+            'socials.github' => ['nullable', 'string', 'max:255'],
+            'socials.linkedin' => ['nullable', 'string', 'max:255'],
+            'socials.email' => ['nullable', 'string', 'email', 'max:255'],
             'image' => ['nullable', 'image', 'max:2048'],
         ]);
 
@@ -56,6 +84,10 @@ class Edit extends Component
             'name' => $this->name,
             'job_position' => $this->job_position,
             'summary' => $this->summary,
+            'location' => $this->location ?: null,
+            'resume_url' => $this->resume_url ?: null,
+            'available_for_work' => $this->available_for_work,
+            'socials' => $this->socials,
         ];
 
         if ($this->image) {

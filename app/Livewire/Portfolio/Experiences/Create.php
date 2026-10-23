@@ -18,6 +18,12 @@ class Create extends Component
 
     public string $position = '';
 
+    /** @var array{id: string, en: string} */
+    public array $description = [
+        'id' => '',
+        'en' => '',
+    ];
+
     public string $start_date = '';
 
     public string $end_date = '';
@@ -58,6 +64,9 @@ class Create extends Component
         $this->validate([
             'company_name' => ['required', 'string', 'max:255'],
             'position' => ['required', 'string', 'max:255'],
+            'description' => ['array'],
+            'description.id' => ['nullable', 'string'],
+            'description.en' => ['nullable', 'string'],
             'start_date' => ['required', 'date'],
             'end_date' => ['nullable', 'date', 'after_or_equal:start_date'],
             'location' => ['required', 'string', 'max:255'],
@@ -71,6 +80,7 @@ class Create extends Component
         $experience = PortfolioExperience::create([
             'company_name' => $this->company_name,
             'position' => $this->position,
+            'description' => $this->description,
             'start_date' => $this->start_date,
             'end_date' => $this->end_date ?: null,
             'location' => $this->location,

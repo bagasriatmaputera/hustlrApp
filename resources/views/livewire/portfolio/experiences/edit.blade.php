@@ -42,6 +42,14 @@
         </flux:card>
 
         <flux:card class="flex flex-col gap-6">
+            <flux:heading size="lg">{{ __('Description') }}</flux:heading>
+            <div class="grid gap-4 sm:grid-cols-2">
+                <flux:textarea wire:model="description.id" :label="__('Description (Indonesian)')" rows="3" />
+                <flux:textarea wire:model="description.en" :label="__('Description (English)')" rows="3" />
+            </div>
+        </flux:card>
+
+        <flux:card class="flex flex-col gap-6">
             <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <flux:heading size="lg">{{ __('Job Descriptions / Highlights') }}</flux:heading>
                 <flux:button variant="ghost" size="sm" icon="plus" wire:click="addJobDesc" class="w-full sm:w-auto">

@@ -14,6 +14,10 @@ class PortfolioExperienceSeeder extends Seeder
             [
                 'company_name' => 'The One Retail',
                 'position' => 'Software Engineer',
+                'description' => [
+                    'id' => 'Mengembangkan dan mengelola arsitektur aplikasi ritel, integrasi queue management, serta penerapan pipeline CI/CD untuk memastikan pengiriman fitur yang andal dan terukur.',
+                    'en' => 'Developing and managing retail application architecture, queue management integration, and CI/CD pipelines to ensure reliable and scalable feature delivery.',
+                ],
                 'start_date' => '2026-01-01',
                 'end_date' => null,
                 'location' => 'South Jakarta, Jakarta, Indonesia',
@@ -29,6 +33,10 @@ class PortfolioExperienceSeeder extends Seeder
             [
                 'company_name' => 'PT. DigiCraft Syakeera Ventures',
                 'position' => 'Backend Developer (Internship)',
+                'description' => [
+                    'id' => 'Fokus pada pengembangan API backend yang andal, pemodelan database relasional, serta kolaborasi tim pengembang dengan metodologi Scrum.',
+                    'en' => 'Focused on developing robust backend APIs, relational database modeling, and developer team collaboration using Scrum methodology.',
+                ],
                 'start_date' => '2025-09-01',
                 'end_date' => '2025-12-31',
                 'location' => 'Surakarta, Central Java, Indonesia',
@@ -44,6 +52,10 @@ class PortfolioExperienceSeeder extends Seeder
             [
                 'company_name' => 'Eduwork',
                 'position' => 'Fullstack Web Developer - Trainee',
+                'description' => [
+                    'id' => 'Program intensif fullstack web development mencakup perancangan basis data, arsitektur MVC, integrasi API, dan pembuatan antarmuka responsif.',
+                    'en' => 'Intensive fullstack web development program covering database design, MVC architecture, API integration, and responsive UI creation.',
+                ],
                 'start_date' => '2024-12-01',
                 'end_date' => '2025-05-31',
                 'location' => 'Remote',
@@ -59,6 +71,10 @@ class PortfolioExperienceSeeder extends Seeder
             [
                 'company_name' => 'Yamaha Music Product Asia',
                 'position' => 'Operator',
+                'description' => [
+                    'id' => 'Menjalankan proses operasional produksi dengan standar kualitas tinggi, koordinasi tim kerja, serta dokumentasi administrasi berkala.',
+                    'en' => 'Managed production operational processes with high quality standards, team coordination, and periodic administrative documentation.',
+                ],
                 'start_date' => '2022-12-01',
                 'end_date' => '2025-01-31',
                 'location' => 'West Cikarang, West Java, Indonesia',
@@ -76,13 +92,16 @@ class PortfolioExperienceSeeder extends Seeder
             $jobDescs = $data['job_descs'];
             unset($data['job_descs']);
 
-            $experience = PortfolioExperience::firstOrCreate(
-                [
-                    'company_name' => $data['company_name'],
-                    'position' => $data['position'],
-                ],
-                $data
-            );
+            $experience = PortfolioExperience::query()
+                ->where('order', $data['order'])
+                ->first()
+                ?? PortfolioExperience::query()
+                    ->where('company_name', $data['company_name'])
+                    ->where('position', $data['position'])
+                    ->first()
+                ?? new PortfolioExperience;
+
+            $experience->fill($data)->save();
 
             foreach ($jobDescs as $description) {
                 PortfolioJobDesc::firstOrCreate(

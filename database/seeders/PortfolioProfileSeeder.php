@@ -9,12 +9,22 @@ class PortfolioProfileSeeder extends Seeder
 {
     public function run(): void
     {
-        PortfolioProfile::firstOrCreate(
-            ['name' => 'Bagas Riatmaputera'],
+        $profile = PortfolioProfile::query()->oldest('created_at')->first();
+
+        PortfolioProfile::updateOrCreate(
+            ['profile_id' => $profile?->profile_id],
             [
+                'name' => 'Bagas Riatma Putera',
                 'job_position' => 'Software Engineer',
-                'summary' => 'Software Engineer with experience in building web and mobile applications. Skilled in Laravel, Vue.js, React, and modern backend technologies. Passionate about delivering high-quality, scalable solutions.',
-                'image_path' => null,
+                'summary' => 'Software Engineer at The One Retail focused on building modern web applications, RESTful APIs, and scalable systems using Laravel, TypeScript, Vue.js, and CI/CD.',
+                'location' => 'Jakarta, Indonesia',
+                'resume_url' => '#',
+                'available_for_work' => true,
+                'socials' => [
+                    'github' => 'https://github.com/bagasriatmaputera',
+                    'linkedin' => 'https://www.linkedin.com/in/bagasriatmap/',
+                    'email' => 'bagasriatmap@gmail.com',
+                ],
             ]
         );
 

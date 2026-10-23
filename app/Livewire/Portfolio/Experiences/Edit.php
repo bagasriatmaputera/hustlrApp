@@ -20,6 +20,12 @@ class Edit extends Component
 
     public string $position = '';
 
+    /** @var array{id: string, en: string} */
+    public array $description = [
+        'id' => '',
+        'en' => '',
+    ];
+
     public string $start_date = '';
 
     public string $end_date = '';
@@ -42,6 +48,10 @@ class Edit extends Component
         $this->portfolioExperience = $portfolioExperience->load('jobDescs');
         $this->company_name = (string) ($portfolioExperience->company_name ?? '');
         $this->position = (string) ($portfolioExperience->position ?? '');
+        $this->description = [
+            'id' => (string) ($portfolioExperience->description['id'] ?? ''),
+            'en' => (string) ($portfolioExperience->description['en'] ?? ''),
+        ];
         $this->start_date = $portfolioExperience->start_date?->format('Y-m-d') ?? '';
         $this->end_date = $portfolioExperience->end_date?->format('Y-m-d') ?? '';
         $this->location = (string) ($portfolioExperience->location ?? '');
@@ -82,6 +92,9 @@ class Edit extends Component
         $this->validate([
             'company_name' => ['required', 'string', 'max:255'],
             'position' => ['required', 'string', 'max:255'],
+            'description' => ['array'],
+            'description.id' => ['nullable', 'string'],
+            'description.en' => ['nullable', 'string'],
             'start_date' => ['required', 'date'],
             'end_date' => ['nullable', 'date', 'after_or_equal:start_date'],
             'location' => ['required', 'string', 'max:255'],
@@ -95,6 +108,7 @@ class Edit extends Component
         $this->portfolioExperience->update([
             'company_name' => $this->company_name,
             'position' => $this->position,
+            'description' => $this->description,
             'start_date' => $this->start_date,
             'end_date' => $this->end_date ?: null,
             'location' => $this->location,

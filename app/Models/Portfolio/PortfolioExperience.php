@@ -6,7 +6,19 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
+/**
+ * @property string $experience_id
+ * @property string $company_name
+ * @property string $position
+ * @property Carbon $start_date
+ * @property Carbon|null $end_date
+ * @property string $location
+ * @property string $workplace_type
+ * @property string $contract_type
+ * @property int $order
+ */
 class PortfolioExperience extends Model
 {
     use HasFactory, HasUuids;
@@ -23,6 +35,7 @@ class PortfolioExperience extends Model
     protected $fillable = [
         'company_name',
         'position',
+        'description',
         'start_date',
         'end_date',
         'location',
@@ -37,6 +50,7 @@ class PortfolioExperience extends Model
     protected function casts(): array
     {
         return [
+            'description' => 'array',
             'start_date' => 'date',
             'end_date' => 'date',
         ];
