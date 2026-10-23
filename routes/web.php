@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Approvals\Index as ApprovalsIndex;
+use App\Livewire\Dashboard;
 use App\Livewire\UAM\Index;
 use Illuminate\Support\Facades\Route;
 
@@ -11,7 +12,7 @@ Route::view('approval/pending', 'approval-pending')
     ->name('approval.pending');
 
 Route::middleware(['auth', 'verified', 'approved'])->group(function () {
-    Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::livewire('dashboard', Dashboard::class)->name('dashboard');
     Route::livewire('uam', Index::class)->name('uam.index');
     Route::livewire('approvals', ApprovalsIndex::class)->name('approvals.index');
 });
