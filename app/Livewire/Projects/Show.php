@@ -7,9 +7,11 @@ use App\Models\Project;
 use App\Models\ProjectActivityLog;
 use App\Models\ProjectMilestone;
 use App\Models\Task;
+use App\Models\TaskAttachment;
 use App\Models\TaskChecklist;
 use App\Models\User;
 use App\PermissionManager\ModuleRegistry;
+use App\Services\TaskAttachmentService;
 use Flux\Flux;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -19,11 +21,13 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 use Livewire\Component;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
+use Livewire\WithFileUploads;
 
 #[Title('Project Overview')]
 class Show extends Component
 {
-    use AuthorizesPermissions;
+    use AuthorizesPermissions, WithFileUploads;
 
     public Project $project;
 
@@ -59,7 +63,14 @@ class Show extends Component
 
     public string $tempSubtask = '';
 
+    /** @var array<int, TemporaryUploadedFile> */
+    public array $newTaskAttachments = [];
+
     public ?string $editingTaskId = null;
+
+    public bool $showAttachmentPreview = false;
+
+    public ?string $previewAttachmentId = null;
 
     // Milestone Creation Form Properties
     public bool $showMilestoneModal = false;
@@ -123,7 +134,7 @@ class Show extends Component
     #[Computed]
     public function boardColumns(): array
     {
-        $allTasks = $this->project->tasks()->with(['checklists', 'assignedUser'])->orderBy('order')->get();
+        $allTasks = $this->project->tasks()->with(['checklists', 'assignedUser', 'attachments'])->orderBy('order')->get();
 
         return [
             'Backlog' => $allTasks->where('status', 'Backlog')->values(),
@@ -131,6 +142,33 @@ class Show extends Component
             'In Review' => $allTasks->where('status', 'In Review')->values(),
             'Done' => $allTasks->where('status', 'Done')->values(),
         ];
+    }
+
+    /**
+     * @return Collection<int, TaskAttachment>
+     */
+    #[Computed]
+    public function editingAttachments(): Collection
+    {
+        if ($this->editingTaskId === null) {
+            return new Collection;
+        }
+
+        return TaskAttachment::where('task_id', $this->editingTaskId)
+            ->latest('created_at')
+            ->get();
+    }
+
+    #[Computed]
+    public function previewAttachment(): ?TaskAttachment
+    {
+        if ($this->previewAttachmentId === null) {
+            return null;
+        }
+
+        return TaskAttachment::whereHas('task', function ($query): void {
+            $query->where('project_id', $this->project->project_id);
+        })->find($this->previewAttachmentId);
     }
 
     /**
@@ -249,6 +287,7 @@ class Show extends Component
             'taskDueDate',
             'newSubtasks',
             'tempSubtask',
+            'newTaskAttachments',
             'taskAssignedTo',
             'taskPicName',
         ]);
@@ -287,6 +326,7 @@ class Show extends Component
 
         $this->newSubtasks = [];
         $this->tempSubtask = '';
+        $this->newTaskAttachments = [];
         $this->resetValidation();
         $this->showTaskModal = true;
     }
@@ -319,6 +359,8 @@ class Show extends Component
             'taskPicName' => ['nullable', 'string', 'max:100'],
             'existingSubtasks.*.id' => ['required', 'string'],
             'existingSubtasks.*.title' => ['required', 'string', 'max:255'],
+            'newTaskAttachments' => ['nullable', 'array', 'max:5'],
+            'newTaskAttachments.*' => ['file', 'max:10240', 'mimes:jpg,jpeg,png,webp,gif,pdf,doc,docx,xls,xlsx,ppt,pptx,txt,csv,zip'],
         ]);
 
         $task = Task::where('project_id', $this->project->project_id)->findOrFail($this->editingTaskId);
@@ -363,6 +405,8 @@ class Show extends Component
             $nextOrder++;
         }
 
+        $this->storeTaskAttachments($task);
+
         $this->showTaskModal = false;
         $this->editingTaskId = null;
         $this->existingSubtasks = [];
@@ -372,11 +416,12 @@ class Show extends Component
             'taskDueDate',
             'newSubtasks',
             'tempSubtask',
+            'newTaskAttachments',
             'taskAssignedTo',
             'taskPicName',
         ]);
         $this->project->refresh();
-        unset($this->boardColumns);
+        unset($this->boardColumns, $this->editingAttachments);
 
         Flux::toast(variant: 'success', text: __('Task updated successfully.'));
     }
@@ -412,6 +457,8 @@ class Show extends Component
             'taskPicType' => ['required', 'in:user,manual'],
             'taskAssignedTo' => ['nullable', 'exists:users,id'],
             'taskPicName' => ['nullable', 'string', 'max:100'],
+            'newTaskAttachments' => ['nullable', 'array', 'max:5'],
+            'newTaskAttachments.*' => ['file', 'max:10240', 'mimes:jpg,jpeg,png,webp,gif,pdf,doc,docx,xls,xlsx,ppt,pptx,txt,csv,zip'],
         ]);
 
         $maxOrder = $this->project->tasks()->where('status', $this->taskStatus)->max('order') ?? 0;
@@ -442,6 +489,8 @@ class Show extends Component
             ]);
         }
 
+        $this->storeTaskAttachments($task);
+
         $this->showTaskModal = false;
         $this->reset([
             'taskTitle',
@@ -449,6 +498,7 @@ class Show extends Component
             'taskDueDate',
             'newSubtasks',
             'tempSubtask',
+            'newTaskAttachments',
             'taskAssignedTo',
             'taskPicName',
         ]);
@@ -502,12 +552,64 @@ class Show extends Component
         $task = Task::where('project_id', $this->project->project_id)->findOrFail($taskId);
 
         $this->project->logActivity('task.deleted', __('Deleted task ":title".', ['title' => $task->title]));
+        app(TaskAttachmentService::class)->deleteForTask($task);
         $task->delete();
 
         $this->project->refresh();
         unset($this->boardColumns);
 
         Flux::toast(variant: 'success', text: __('Task deleted successfully.'));
+    }
+
+    public function removePendingTaskAttachment(int $index): void
+    {
+        $this->authorizePermission($this->editingTaskId ? 'IPS - PROJECT - Can Update Tasks' : 'IPS - PROJECT - Can Create Tasks');
+
+        if (isset($this->newTaskAttachments[$index])) {
+            unset($this->newTaskAttachments[$index]);
+            $this->newTaskAttachments = array_values($this->newTaskAttachments);
+        }
+    }
+
+    public function openAttachmentPreview(string $attachmentId): void
+    {
+        $this->authorizePermission('IPS - PROJECT - Can Show Tasks');
+
+        $attachment = TaskAttachment::whereHas('task', function ($query): void {
+            $query->where('project_id', $this->project->project_id);
+        })->findOrFail($attachmentId);
+
+        if (! $attachment->isPreviewable()) {
+            Flux::toast(variant: 'danger', text: __('Preview is not available for this file type.'));
+
+            return;
+        }
+
+        $this->previewAttachmentId = $attachment->attachment_id;
+        $this->showAttachmentPreview = true;
+        unset($this->previewAttachment);
+    }
+
+    public function deleteTaskAttachment(string $attachmentId): void
+    {
+        $this->authorizePermission('IPS - PROJECT - Can Update Tasks');
+
+        $attachment = TaskAttachment::whereHas('task', function ($query): void {
+            $query->where('project_id', $this->project->project_id);
+        })->findOrFail($attachmentId);
+
+        app(TaskAttachmentService::class)->delete($attachment);
+
+        if ($this->previewAttachmentId === $attachment->attachment_id) {
+            $this->showAttachmentPreview = false;
+            $this->previewAttachmentId = null;
+            unset($this->previewAttachment);
+        }
+
+        $this->project->refresh();
+        unset($this->boardColumns, $this->editingAttachments);
+
+        Flux::toast(variant: 'success', text: __('Attachment deleted.'));
     }
 
     // --- Milestone Actions ---
@@ -731,6 +833,15 @@ class Show extends Component
             'Low' => ['bg' => 'bg-zinc-100 dark:bg-zinc-800', 'text' => 'text-zinc-700 dark:text-zinc-300'],
             default => ['bg' => 'bg-zinc-100 dark:bg-zinc-800', 'text' => 'text-zinc-700 dark:text-zinc-300'],
         };
+    }
+
+    private function storeTaskAttachments(Task $task): void
+    {
+        if ($this->newTaskAttachments === []) {
+            return;
+        }
+
+        app(TaskAttachmentService::class)->storeMany($task, $this->newTaskAttachments, (int) Auth::id());
     }
 
     public static function healthColor(string $health): array

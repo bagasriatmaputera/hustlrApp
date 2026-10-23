@@ -79,6 +79,14 @@ class Task extends Model
     }
 
     /**
+     * @return HasMany<TaskAttachment, $this>
+     */
+    public function attachments(): HasMany
+    {
+        return $this->hasMany(TaskAttachment::class, 'task_id', 'task_id');
+    }
+
+    /**
      * @return BelongsTo<User, $this>
      */
     public function assignedUser(): BelongsTo

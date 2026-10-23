@@ -475,6 +475,12 @@
                                                 <span>{{ $completedSubtasks }}/{{ $subtaskCount }}</span>
                                             </div>
                                         @endif
+                                        @if ($task->attachments->isNotEmpty())
+                                            <div class="flex items-center gap-1" title="{{ __('Attachments') }}">
+                                                <flux:icon.paper-clip class="size-3 text-zinc-400" />
+                                                <span>{{ $task->attachments->count() }}</span>
+                                            </div>
+                                        @endif
                                     </div>
 
                                     @if ($task->pic_name_display)
@@ -611,6 +617,102 @@
 
             <flux:textarea wire:model="taskDescription" :label="__('Description (Optional)')" placeholder="Details or context for this task..." rows="2" />
 
+            <div class="space-y-2 rounded-lg border border-zinc-200 dark:border-zinc-800 p-3 bg-zinc-50/50 dark:bg-zinc-900/40">
+                <flux:label>{{ __('Attachments') }}</flux:label>
+                <flux:input
+                    wire:model="newTaskAttachments"
+                    type="file"
+                    multiple
+                    accept=".jpg,.jpeg,.png,.webp,.gif,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.zip"
+                />
+                <flux:text class="text-xs">
+                    {{ __('Max 5 files, 10 MB each. Images are compressed to WebP; GIF, PDF, and documents stay original.') }}
+                </flux:text>
+
+                @error('newTaskAttachments')
+                    <flux:text class="text-sm text-red-600 dark:text-red-400">{{ $message }}</flux:text>
+                @enderror
+                @error('newTaskAttachments.*')
+                    <flux:text class="text-sm text-red-600 dark:text-red-400">{{ $message }}</flux:text>
+                @enderror
+
+                @if (! empty($newTaskAttachments))
+                    <div class="space-y-1 rounded-lg bg-white dark:bg-zinc-800/50 p-2">
+                        @foreach ($newTaskAttachments as $index => $file)
+                            <div wire:key="pending-attachment-{{ $index }}" class="flex items-center gap-2 text-xs text-zinc-700 dark:text-zinc-300">
+                                <flux:icon.paper-clip class="size-3.5 shrink-0 text-zinc-400" />
+                                <span class="min-w-0 flex-1 truncate">{{ $file->getClientOriginalName() }}</span>
+                                <span class="shrink-0 text-zinc-400">{{ \Illuminate\Support\Number::fileSize($file->getSize() ?? 0) }}</span>
+                                <button type="button" wire:click="removePendingTaskAttachment({{ $index }})" class="shrink-0 text-zinc-400 hover:text-red-500">
+                                    <flux:icon.x-mark class="size-3.5" />
+                                </button>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+
+                @if ($editingTaskId && $this->editingAttachments->isNotEmpty())
+                    <div class="space-y-1 border-t border-zinc-200 pt-2 dark:border-zinc-800">
+                        @foreach ($this->editingAttachments as $attachment)
+                            <div wire:key="task-attachment-{{ $attachment->attachment_id }}" class="flex items-center gap-2 text-xs text-zinc-700 dark:text-zinc-300">
+                                @if ($attachment->isImage())
+                                    <button type="button" wire:click="openAttachmentPreview('{{ $attachment->attachment_id }}')" class="shrink-0">
+                                        <img
+                                            src="{{ route('tasks.attachments.preview', ['project' => $project->project_id, 'task' => $editingTaskId, 'attachment' => $attachment->attachment_id]) }}"
+                                            alt="{{ $attachment->file_name }}"
+                                            loading="lazy"
+                                            class="size-8 rounded object-cover ring-1 ring-zinc-200 dark:ring-zinc-700"
+                                        />
+                                    </button>
+                                @else
+                                    <flux:icon.document-text class="size-3.5 shrink-0 text-zinc-400" />
+                                @endif
+
+                                @if ($attachment->isPreviewable())
+                                    <button
+                                        type="button"
+                                        wire:click="openAttachmentPreview('{{ $attachment->attachment_id }}')"
+                                        class="min-w-0 flex-1 truncate text-left hover:text-primary hover:underline"
+                                        title="{{ $attachment->file_name }}"
+                                    >
+                                        {{ $attachment->file_name }}
+                                    </button>
+                                @else
+                                    <span class="min-w-0 flex-1 truncate" title="{{ $attachment->file_name }}">{{ $attachment->file_name }}</span>
+                                @endif
+
+                                <span class="shrink-0 text-zinc-400">{{ \Illuminate\Support\Number::fileSize($attachment->file_size) }}</span>
+
+                                @if ($attachment->isPreviewable())
+                                    <flux:button
+                                        size="xs"
+                                        variant="ghost"
+                                        icon="eye"
+                                        wire:click="openAttachmentPreview('{{ $attachment->attachment_id }}')"
+                                    />
+                                @endif
+
+                                <flux:button
+                                    size="xs"
+                                    variant="ghost"
+                                    icon="arrow-down-tray"
+                                    :href="route('tasks.attachments.download', ['project' => $project->project_id, 'task' => $editingTaskId, 'attachment' => $attachment->attachment_id])"
+                                    target="_blank"
+                                />
+                                <flux:button
+                                    size="xs"
+                                    variant="ghost"
+                                    icon="trash"
+                                    wire:click="deleteTaskAttachment('{{ $attachment->attachment_id }}')"
+                                    wire:confirm="{{ __('Delete this attachment?') }}"
+                                    class="text-zinc-400 hover:text-red-500"
+                                />
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+
             <div class="grid grid-cols-2 gap-4">
                 <flux:select wire:model="taskStatus" :label="__('Column Status')">
                     <flux:select.option value="Backlog">{{ __('Backlog / Not Started') }}</flux:select.option>
@@ -718,6 +820,55 @@
                 <flux:button type="submit" variant="primary">{{ $editingTaskId ? __('Save Changes') : __('Create Task') }}</flux:button>
             </div>
         </form>
+    </flux:modal>
+
+    {{-- MODAL: ATTACHMENT PREVIEW --}}
+    <flux:modal wire:model="showAttachmentPreview" class="w-[95vw] max-w-[96rem]">
+        @if ($this->previewAttachment)
+            @php
+                $preview = $this->previewAttachment;
+                $previewUrl = route('tasks.attachments.preview', [
+                    'project' => $project->project_id,
+                    'task' => $preview->task_id,
+                    'attachment' => $preview->attachment_id,
+                ]);
+            @endphp
+
+            <div class="space-y-4">
+                <div class="min-w-0 pe-12">
+                    <flux:heading size="lg" class="truncate">{{ $preview->file_name }}</flux:heading>
+                    <flux:subheading>{{ \Illuminate\Support\Number::fileSize($preview->file_size) }}</flux:subheading>
+                </div>
+
+                @if ($preview->isImage())
+                    <div class="flex justify-center rounded-lg bg-zinc-100 p-2 dark:bg-zinc-900">
+                        <img
+                            src="{{ $previewUrl }}"
+                            alt="{{ $preview->file_name }}"
+                            class="max-h-[55vh] w-auto max-w-full object-contain sm:max-h-[70vh]"
+                        />
+                    </div>
+                @else
+                    <iframe
+                        wire:key="attachment-preview-{{ $preview->attachment_id }}"
+                        src="{{ $previewUrl }}"
+                        title="{{ $preview->file_name }}"
+                        class="h-[55vh] w-full rounded-lg border border-zinc-200 sm:h-[70vh] dark:border-zinc-800"
+                    ></iframe>
+                @endif
+
+                <div class="flex justify-end border-t border-zinc-200 pt-3 dark:border-zinc-800">
+                    <flux:button
+                        size="sm"
+                        icon="arrow-down-tray"
+                        class="w-full sm:w-auto"
+                        :href="route('tasks.attachments.download', ['project' => $project->project_id, 'task' => $preview->task_id, 'attachment' => $preview->attachment_id])"
+                    >
+                        {{ __('Download') }}
+                    </flux:button>
+                </div>
+            </div>
+        @endif
     </flux:modal>
 
     {{-- MODAL: CREATE MILESTONE --}}
