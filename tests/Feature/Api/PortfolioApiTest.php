@@ -36,6 +36,23 @@ class PortfolioApiTest extends TestCase
             'description' => ['id' => 'Proyek portfolio', 'en' => 'Portfolio project'],
             'image' => 'https://cdn.example.com/project.webp',
             'gif_image' => 'portfolio/projects/demo.gif',
+            'media_gallery' => [
+                [
+                    'image' => 'portfolio/projects/screen1.webp',
+                    'caption' => [
+                        'id' => 'Tangkapan Layar 1',
+                        'en' => 'Screenshot 1',
+                    ],
+                ],
+            ],
+            'problem_solution' => [
+                'id' => 'Solusi atas masalah manajemen portofolio',
+                'en' => 'Solution for portfolio management issue',
+            ],
+            'challenges_learnings' => [
+                'id' => 'Tantangan integrasi API dan pembelajaran multi-bahasa',
+                'en' => 'API integration hurdles and multi-language learning',
+            ],
             'tech_stack' => ['Laravel', 'Livewire'],
             'live_url' => 'https://example.com',
             'repo_url' => 'https://github.com/example/portfolio',
@@ -77,6 +94,13 @@ class PortfolioApiTest extends TestCase
             ->assertJsonPath('data.projects.0.title.en', 'Portfolio Me')
             ->assertJsonPath('data.projects.0.image_url', 'https://cdn.example.com/project.webp')
             ->assertJsonPath('data.projects.0.gif_image_url', Storage::disk('public')->url('portfolio/projects/demo.gif'))
+            ->assertJsonPath('data.projects.0.media_gallery.0.image_url', Storage::disk('public')->url('portfolio/projects/screen1.webp'))
+            ->assertJsonPath('data.projects.0.media_gallery.0.caption.en', 'Screenshot 1')
+            ->assertJsonPath('data.projects.0.media_gallery.0.caption.id', 'Tangkapan Layar 1')
+            ->assertJsonPath('data.projects.0.problem_solution.en', 'Solution for portfolio management issue')
+            ->assertJsonPath('data.projects.0.problem_solution.id', 'Solusi atas masalah manajemen portofolio')
+            ->assertJsonPath('data.projects.0.challenges_learnings.en', 'API integration hurdles and multi-language learning')
+            ->assertJsonPath('data.projects.0.challenges_learnings.id', 'Tantangan integrasi API dan pembelajaran multi-bahasa')
             ->assertJsonPath('data.projects.0.featured', true)
             ->assertJsonPath('data.experiences.0.is_current', true)
             ->assertJsonPath('data.experiences.0.description.id', 'Membangun API portfolio')
