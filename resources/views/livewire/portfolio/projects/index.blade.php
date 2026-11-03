@@ -59,7 +59,7 @@
                             <flux:text class="text-xs text-zinc-500">{{ $project->title['id'] ?? '' }}</flux:text>
                         </div>
                         <flux:dropdown position="bottom" align="end">
-                            <flux:button variant="ghost" size="sm" icon="ellipsis-vertical" class="opacity-0 transition-opacity group-hover:opacity-100" />
+                            <flux:button variant="ghost" size="sm" icon="ellipsis-vertical" class="text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200" />
                             <flux:menu>
                                 <flux:menu.item icon="pencil-square" :href="route('portfolio.projects.edit', $project->project_id)" wire:navigate>
                                     {{ __('Edit') }}

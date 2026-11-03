@@ -70,13 +70,19 @@
             <div class="grid gap-6 md:grid-cols-2">
                 <div class="flex flex-col gap-3 rounded-xl border border-zinc-200 p-4 dark:border-zinc-800">
                     <flux:heading size="sm">{{ __('Cover Image') }}</flux:heading>
-                    @if ($image)
+                    @if ($image_file)
+                        <div class="aspect-video w-full overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-800">
+                            <img src="{{ $image_file->temporaryUrl() }}" alt="Cover Preview" class="h-full w-full object-cover object-top ring-2 ring-emerald-500" />
+                        </div>
+                    @elseif ($image)
                         @php
                             $coverPreviewUrl = filter_var($image, FILTER_VALIDATE_URL)
                                 ? $image
                                 : (str_starts_with($image, '/') || str_starts_with($image, 'storage/')
                                     ? asset(ltrim($image, '/'))
-                                    : Storage::disk((string) config('filesystems.default', 's3'))->url($image));
+                                    : (str_starts_with($image, 'portfolio/')
+                                        ? route('portfolio.media', ['path' => $image])
+                                        : Storage::disk((string) config('filesystems.default', 's3'))->url($image)));
                         @endphp
                         <div class="aspect-video w-full overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-800">
                             <img src="{{ $coverPreviewUrl }}" alt="Cover" class="h-full w-full object-cover object-top" />
@@ -88,13 +94,19 @@
 
                 <div class="flex flex-col gap-3 rounded-xl border border-zinc-200 p-4 dark:border-zinc-800">
                     <flux:heading size="sm">{{ __('GIF Preview') }}</flux:heading>
-                    @if ($gif_image)
+                    @if ($gif_image_file)
+                        <div class="aspect-video w-full overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-800">
+                            <img src="{{ $gif_image_file->temporaryUrl() }}" alt="GIF Preview" class="h-full w-full object-cover object-top ring-2 ring-emerald-500" />
+                        </div>
+                    @elseif ($gif_image)
                         @php
                             $gifPreviewUrl = filter_var($gif_image, FILTER_VALIDATE_URL)
                                 ? $gif_image
                                 : (str_starts_with($gif_image, '/') || str_starts_with($gif_image, 'storage/')
                                     ? asset(ltrim($gif_image, '/'))
-                                    : Storage::disk((string) config('filesystems.default', 's3'))->url($gif_image));
+                                    : (str_starts_with($gif_image, 'portfolio/')
+                                        ? route('portfolio.media', ['path' => $gif_image])
+                                        : Storage::disk((string) config('filesystems.default', 's3'))->url($gif_image)));
                         @endphp
                         <div class="aspect-video w-full overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-800">
                             <img src="{{ $gifPreviewUrl }}" alt="GIF" class="h-full w-full object-cover object-top" />
@@ -144,7 +156,9 @@
                                             ? $item['image']
                                             : (str_starts_with($item['image'], '/') || str_starts_with($item['image'], 'storage/')
                                                 ? asset(ltrim($item['image'], '/'))
-                                                : Storage::disk((string) config('filesystems.default', 's3'))->url($item['image']));
+                                                : (str_starts_with($item['image'], 'portfolio/')
+                                                    ? route('portfolio.media', ['path' => $item['image']])
+                                                    : Storage::disk((string) config('filesystems.default', 's3'))->url($item['image'])));
                                     @endphp
                                     <div class="h-28 w-44 overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-800">
                                         <img src="{{ $galleryPreview }}" alt="Preview" class="h-full w-full object-cover object-top" />

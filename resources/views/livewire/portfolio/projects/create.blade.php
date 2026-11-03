@@ -70,12 +70,22 @@
             <div class="grid gap-6 md:grid-cols-2">
                 <div class="flex flex-col gap-3 rounded-xl border border-zinc-200 p-4 dark:border-zinc-800">
                     <flux:heading size="sm">{{ __('Cover Image') }}</flux:heading>
+                    @if ($image_file)
+                        <div class="aspect-video w-full overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-800">
+                            <img src="{{ $image_file->temporaryUrl() }}" alt="Cover Preview" class="h-full w-full object-cover object-top ring-2 ring-emerald-500" />
+                        </div>
+                    @endif
                     <flux:input wire:model="image_file" type="file" accept="image/*" :label="__('Upload Cover to S3')" />
                     <flux:input wire:model="image" :label="__('Or Image Path / URL')" :placeholder="__('/images/projects/preview.jpeg or https://...')" />
                 </div>
 
                 <div class="flex flex-col gap-3 rounded-xl border border-zinc-200 p-4 dark:border-zinc-800">
                     <flux:heading size="sm">{{ __('GIF Preview') }}</flux:heading>
+                    @if ($gif_image_file)
+                        <div class="aspect-video w-full overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-800">
+                            <img src="{{ $gif_image_file->temporaryUrl() }}" alt="GIF Preview" class="h-full w-full object-cover object-top ring-2 ring-emerald-500" />
+                        </div>
+                    @endif
                     <flux:input wire:model="gif_image_file" type="file" accept="image/gif,image/webp,video/mp4" :label="__('Upload GIF to S3')" />
                     <flux:input wire:model="gif_image" :label="__('Or GIF Path / URL')" :placeholder="__('/images/projects/preview.gif or https://...')" />
                 </div>

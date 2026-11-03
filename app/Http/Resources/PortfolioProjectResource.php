@@ -95,6 +95,10 @@ class PortfolioProjectResource extends JsonResource
             return asset(ltrim($path, '/'));
         }
 
+        if (str_starts_with($path, 'portfolio/')) {
+            return route('portfolio.media', ['path' => $path]);
+        }
+
         $disk = (string) config('filesystems.default', 's3');
 
         return Storage::disk($disk)->url($path);

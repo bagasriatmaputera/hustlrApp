@@ -11,13 +11,17 @@
             <flux:heading size="lg">{{ __('Profile Image') }}</flux:heading>
 
             <div class="flex items-center gap-6">
-                @if ($currentImagePath)
+                @if ($image)
+                    <img src="{{ $image->temporaryUrl() }}" alt="Profile Preview" class="size-24 rounded-full object-cover ring-2 ring-emerald-500 shadow-sm" />
+                @elseif ($currentImagePath)
                     @php
                         $profileImageUrl = filter_var($currentImagePath, FILTER_VALIDATE_URL)
                             ? $currentImagePath
                             : (str_starts_with($currentImagePath, '/') || str_starts_with($currentImagePath, 'storage/')
                                 ? asset(ltrim($currentImagePath, '/'))
-                                : Storage::disk((string) config('filesystems.default', 's3'))->url($currentImagePath));
+                                : (str_starts_with($currentImagePath, 'portfolio/')
+                                    ? route('portfolio.media', ['path' => $currentImagePath])
+                                    : Storage::disk((string) config('filesystems.default', 's3'))->url($currentImagePath)));
                     @endphp
                     <img src="{{ $profileImageUrl }}" alt="Profile" class="size-24 rounded-full object-cover ring-2 ring-zinc-200 dark:ring-zinc-700" />
                 @else

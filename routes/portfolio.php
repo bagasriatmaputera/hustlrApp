@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Portfolio\PortfolioMediaController;
 use App\Livewire\Portfolio\Experiences\Create as ExperienceCreate;
 use App\Livewire\Portfolio\Experiences\Edit as ExperienceEdit;
 use App\Livewire\Portfolio\Experiences\Index as ExperienceIndex;
@@ -23,3 +24,7 @@ Route::middleware(['auth', 'verified', 'approved'])->group(function () {
     Route::livewire('portfolio/experience/{portfolioExperience}/edit', ExperienceEdit::class)->name('portfolio.experiences.edit');
 
 });
+
+Route::get('portfolio-media/{path}', [PortfolioMediaController::class, 'show'])
+    ->where('path', '.*')
+    ->name('portfolio.media');

@@ -83,8 +83,6 @@ class PortfolioApiTest extends TestCase
             'learning_outcomes' => null,
         ]);
 
-        $defaultDisk = (string) config('filesystems.default', 's3');
-
         $this->getJson('/api/portfolio')
             ->assertOk()
             ->assertJsonPath('data.profile.name', 'Bagas')
@@ -92,11 +90,11 @@ class PortfolioApiTest extends TestCase
             ->assertJsonPath('data.profile.resume_url', 'https://example.com/resume.pdf')
             ->assertJsonPath('data.profile.available_for_work', true)
             ->assertJsonPath('data.profile.socials.github', 'https://github.com/example')
-            ->assertJsonPath('data.profile.image_url', Storage::disk($defaultDisk)->url($profile->image_path))
+            ->assertJsonPath('data.profile.image_url', route('portfolio.media', ['path' => $profile->image_path]))
             ->assertJsonPath('data.projects.0.title.en', 'Portfolio Me')
             ->assertJsonPath('data.projects.0.image_url', 'https://cdn.example.com/project.webp')
-            ->assertJsonPath('data.projects.0.gif_image_url', Storage::disk($defaultDisk)->url('portfolio/projects/demo.gif'))
-            ->assertJsonPath('data.projects.0.media_gallery.0.image_url', Storage::disk($defaultDisk)->url('portfolio/projects/screen1.webp'))
+            ->assertJsonPath('data.projects.0.gif_image_url', route('portfolio.media', ['path' => 'portfolio/projects/demo.gif']))
+            ->assertJsonPath('data.projects.0.media_gallery.0.image_url', route('portfolio.media', ['path' => 'portfolio/projects/screen1.webp']))
             ->assertJsonPath('data.projects.0.media_gallery.0.caption.en', 'Screenshot 1')
             ->assertJsonPath('data.projects.0.media_gallery.0.caption.id', 'Tangkapan Layar 1')
             ->assertJsonPath('data.projects.0.problem_solution.en', 'Solution for portfolio management issue')
@@ -148,5 +146,36 @@ class PortfolioApiTest extends TestCase
             'is_repo' => false,
             'order' => 1,
         ];
+    }
+
+    public function test_portfolio_media_endpoint_streams_file(): void
+    {
+        $diskName = (string) config('filesystems.default', 's3');
+        Storage::fake($diskName);
+
+        $path = 'portfolio/profile/test-avatar.jpg';
+        Storage::disk($diskName)->put($path, 'fake-image-content');
+
+        $this->get('/portfolio-media/'.$path)
+            ->assertOk()
+            ->assertHeader('Cache-Control', 'max-age=86400, public');
+    }
+
+    public function test_portfolio_media_endpoint_rejects_path_traversal(): void
+    {
+        $this->get('/portfolio-media/portfolio/../secret.txt')
+            ->assertNotFound();
+
+        $this->get('/portfolio-media/other/file.jpg')
+            ->assertNotFound();
+    }
+
+    public function test_portfolio_media_endpoint_returns_404_when_file_not_found(): void
+    {
+        $diskName = (string) config('filesystems.default', 's3');
+        Storage::fake($diskName);
+
+        $this->get('/portfolio-media/portfolio/profile/missing.jpg')
+            ->assertNotFound();
     }
 }
