@@ -5,13 +5,15 @@ namespace App\Livewire\Portfolio\Projects;
 use App\Concerns\AuthorizesPermissions;
 use App\Models\Portfolio\PortfolioProject;
 use Flux\Flux;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 #[Title('Portfolio - Edit Project')]
 class Edit extends Component
 {
-    use AuthorizesPermissions;
+    use AuthorizesPermissions, WithFileUploads;
 
     public PortfolioProject $portfolioProject;
 
@@ -25,7 +27,13 @@ class Edit extends Component
 
     public string $image = '';
 
+    /** @var mixed */
+    public $image_file = null;
+
     public string $gif_image = '';
+
+    /** @var mixed */
+    public $gif_image_file = null;
 
     public string $problem_solution_en = '';
 
@@ -36,7 +44,7 @@ class Edit extends Component
     public string $challenges_learnings_id = '';
 
     /**
-     * @var array<int, array{image: string, caption_en: string, caption_id: string}>
+     * @var array<int, array{image: string, caption_en: string, caption_id: string, file?: mixed}>
      */
     public array $media_gallery = [];
 
@@ -108,6 +116,7 @@ class Edit extends Component
             'image' => '',
             'caption_en' => '',
             'caption_id' => '',
+            'file' => null,
         ];
     }
 
@@ -127,11 +136,14 @@ class Edit extends Component
             'description_id' => ['required', 'string'],
             'description_en' => ['required', 'string'],
             'image' => ['nullable', 'string', 'max:500'],
+            'image_file' => ['nullable', 'file', 'image', 'max:5120'],
             'gif_image' => ['nullable', 'string', 'max:500'],
+            'gif_image_file' => ['nullable', 'file', 'mimes:gif,webp,mp4', 'max:10240'],
             'media_gallery' => ['array'],
             'media_gallery.*.image' => ['nullable', 'string', 'max:500'],
             'media_gallery.*.caption_en' => ['nullable', 'string', 'max:255'],
             'media_gallery.*.caption_id' => ['nullable', 'string', 'max:255'],
+            'media_gallery.*.file' => ['nullable', 'file', 'image', 'max:5120'],
             'problem_solution_en' => ['nullable', 'string'],
             'problem_solution_id' => ['nullable', 'string'],
             'challenges_learnings_en' => ['nullable', 'string'],
@@ -145,17 +157,46 @@ class Edit extends Component
             'order' => ['integer', 'min:0'],
         ]);
 
+        $disk = (string) config('filesystems.default', 's3');
+
+        $coverImage = $this->image ?: null;
+        if ($this->image_file) {
+            if ($this->portfolioProject->image && Storage::disk($disk)->exists($this->portfolioProject->image)) {
+                Storage::disk($disk)->delete($this->portfolioProject->image);
+            }
+            $coverImage = $this->image_file->store('portfolio/projects', $disk);
+        }
+
+        $gifImage = $this->gif_image ?: null;
+        if ($this->gif_image_file) {
+            if ($this->portfolioProject->gif_image && Storage::disk($disk)->exists($this->portfolioProject->gif_image)) {
+                Storage::disk($disk)->delete($this->portfolioProject->gif_image);
+            }
+            $gifImage = $this->gif_image_file->store('portfolio/projects', $disk);
+        }
+
         $techStack = array_values(array_filter(array_map('trim', explode(',', $this->tech_stack_raw))));
 
         $mediaGallery = collect($this->media_gallery)
-            ->filter(fn (array $item): bool => trim($item['image']) !== '')
-            ->map(fn (array $item): array => [
-                'image' => trim($item['image']),
-                'caption' => [
-                    'en' => trim($item['caption_en']),
-                    'id' => trim($item['caption_id']),
-                ],
-            ])
+            ->map(function (array $item) use ($disk): ?array {
+                $itemImage = trim($item['image']);
+                if (isset($item['file']) && $item['file']) {
+                    $itemImage = $item['file']->store('portfolio/projects/gallery', $disk);
+                }
+
+                if ($itemImage === '') {
+                    return null;
+                }
+
+                return [
+                    'image' => $itemImage,
+                    'caption' => [
+                        'en' => trim($item['caption_en']),
+                        'id' => trim($item['caption_id']),
+                    ],
+                ];
+            })
+            ->filter()
             ->values()
             ->all();
 
@@ -170,8 +211,8 @@ class Edit extends Component
         $this->portfolioProject->update([
             'title' => ['id' => $this->title_id, 'en' => $this->title_en],
             'description' => ['id' => $this->description_id, 'en' => $this->description_en],
-            'image' => $this->image ?: null,
-            'gif_image' => $this->gif_image ?: null,
+            'image' => $coverImage,
+            'gif_image' => $gifImage,
             'media_gallery' => $mediaGallery,
             'problem_solution' => $problemSolution,
             'challenges_learnings' => $challengesLearnings,

@@ -9,6 +9,8 @@ use App\Models\Portfolio\PortfolioExperience;
 use App\Models\Portfolio\PortfolioJobDesc;
 use App\Models\Portfolio\PortfolioProject;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -108,6 +110,41 @@ class PortfolioEditTest extends TestCase
         $this->assertSame('Updated problem solution EN', $project->problem_solution['en']);
         $this->assertSame('Update masalah solusi ID', $project->problem_solution['id']);
         $this->assertEmpty($project->media_gallery);
+    }
+
+    public function test_project_create_can_upload_files_to_s3(): void
+    {
+        Storage::fake('s3');
+        config(['filesystems.default' => 's3']);
+
+        $user = $this->authorizedUser();
+        $this->actingAs($user);
+
+        $coverFile = UploadedFile::fake()->image('cover.jpg');
+        $galleryFile = UploadedFile::fake()->image('gallery1.jpg');
+
+        Livewire::test(ProjectCreate::class)
+            ->set('title_en', 'S3 Upload App')
+            ->set('title_id', 'Aplikasi Upload S3')
+            ->set('description_en', 'App with S3 storage')
+            ->set('description_id', 'Aplikasi dengan penyimpanan S3')
+            ->set('tech_stack_raw', 'Laravel, AWS S3')
+            ->set('image_file', $coverFile)
+            ->call('addMediaGalleryItem')
+            ->set('media_gallery.0.file', $galleryFile)
+            ->set('media_gallery.0.caption_en', 'S3 Gallery Preview')
+            ->set('media_gallery.0.caption_id', 'Preview Galeri S3')
+            ->call('save')
+            ->assertRedirect(route('portfolio.projects.index'));
+
+        $project = PortfolioProject::where('title->en', 'S3 Upload App')->firstOrFail();
+
+        $this->assertNotNull($project->image);
+        Storage::disk('s3')->assertExists($project->image);
+
+        $this->assertCount(1, $project->media_gallery);
+        $galleryPath = $project->media_gallery[0]['image'];
+        Storage::disk('s3')->assertExists($galleryPath);
     }
 
     public function test_experience_edit_page_loads_existing_data(): void

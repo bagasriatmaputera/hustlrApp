@@ -83,6 +83,8 @@ class PortfolioApiTest extends TestCase
             'learning_outcomes' => null,
         ]);
 
+        $defaultDisk = (string) config('filesystems.default', 's3');
+
         $this->getJson('/api/portfolio')
             ->assertOk()
             ->assertJsonPath('data.profile.name', 'Bagas')
@@ -90,11 +92,11 @@ class PortfolioApiTest extends TestCase
             ->assertJsonPath('data.profile.resume_url', 'https://example.com/resume.pdf')
             ->assertJsonPath('data.profile.available_for_work', true)
             ->assertJsonPath('data.profile.socials.github', 'https://github.com/example')
-            ->assertJsonPath('data.profile.image_url', Storage::disk('public')->url($profile->image_path))
+            ->assertJsonPath('data.profile.image_url', Storage::disk($defaultDisk)->url($profile->image_path))
             ->assertJsonPath('data.projects.0.title.en', 'Portfolio Me')
             ->assertJsonPath('data.projects.0.image_url', 'https://cdn.example.com/project.webp')
-            ->assertJsonPath('data.projects.0.gif_image_url', Storage::disk('public')->url('portfolio/projects/demo.gif'))
-            ->assertJsonPath('data.projects.0.media_gallery.0.image_url', Storage::disk('public')->url('portfolio/projects/screen1.webp'))
+            ->assertJsonPath('data.projects.0.gif_image_url', Storage::disk($defaultDisk)->url('portfolio/projects/demo.gif'))
+            ->assertJsonPath('data.projects.0.media_gallery.0.image_url', Storage::disk($defaultDisk)->url('portfolio/projects/screen1.webp'))
             ->assertJsonPath('data.projects.0.media_gallery.0.caption.en', 'Screenshot 1')
             ->assertJsonPath('data.projects.0.media_gallery.0.caption.id', 'Tangkapan Layar 1')
             ->assertJsonPath('data.projects.0.problem_solution.en', 'Solution for portfolio management issue')

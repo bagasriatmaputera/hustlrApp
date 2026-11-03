@@ -24,9 +24,29 @@ class PortfolioProfileResource extends JsonResource
             'resume_url' => $this->resume_url,
             'available_for_work' => $this->available_for_work,
             'socials' => $this->socials,
-            'image_url' => $this->image_path ? Storage::disk('public')->url($this->image_path) : null,
+            'image_path' => $this->image_path,
+            'image_url' => $this->imageUrl($this->image_path),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
+    }
+
+    private function imageUrl(?string $path): ?string
+    {
+        if ($path === null || $path === '') {
+            return null;
+        }
+
+        if (filter_var($path, FILTER_VALIDATE_URL)) {
+            return $path;
+        }
+
+        if (str_starts_with($path, '/') || str_starts_with($path, 'storage/')) {
+            return asset(ltrim($path, '/'));
+        }
+
+        $disk = (string) config('filesystems.default', 's3');
+
+        return Storage::disk($disk)->url($path);
     }
 }

@@ -66,9 +66,46 @@
 
         <flux:card class="flex flex-col gap-6">
             <flux:heading size="lg">{{ __('Media & Links') }}</flux:heading>
+
+            <div class="grid gap-6 md:grid-cols-2">
+                <div class="flex flex-col gap-3 rounded-xl border border-zinc-200 p-4 dark:border-zinc-800">
+                    <flux:heading size="sm">{{ __('Cover Image') }}</flux:heading>
+                    @if ($image)
+                        @php
+                            $coverPreviewUrl = filter_var($image, FILTER_VALIDATE_URL)
+                                ? $image
+                                : (str_starts_with($image, '/') || str_starts_with($image, 'storage/')
+                                    ? asset(ltrim($image, '/'))
+                                    : Storage::disk((string) config('filesystems.default', 's3'))->url($image));
+                        @endphp
+                        <div class="aspect-video w-full overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-800">
+                            <img src="{{ $coverPreviewUrl }}" alt="Cover" class="h-full w-full object-cover object-top" />
+                        </div>
+                    @endif
+                    <flux:input wire:model="image_file" type="file" accept="image/*" :label="__('Upload New Cover to S3')" />
+                    <flux:input wire:model="image" :label="__('Or Image Path / URL')" :placeholder="__('/images/projects/preview.jpeg or https://...')" />
+                </div>
+
+                <div class="flex flex-col gap-3 rounded-xl border border-zinc-200 p-4 dark:border-zinc-800">
+                    <flux:heading size="sm">{{ __('GIF Preview') }}</flux:heading>
+                    @if ($gif_image)
+                        @php
+                            $gifPreviewUrl = filter_var($gif_image, FILTER_VALIDATE_URL)
+                                ? $gif_image
+                                : (str_starts_with($gif_image, '/') || str_starts_with($gif_image, 'storage/')
+                                    ? asset(ltrim($gif_image, '/'))
+                                    : Storage::disk((string) config('filesystems.default', 's3'))->url($gif_image));
+                        @endphp
+                        <div class="aspect-video w-full overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-800">
+                            <img src="{{ $gifPreviewUrl }}" alt="GIF" class="h-full w-full object-cover object-top" />
+                        </div>
+                    @endif
+                    <flux:input wire:model="gif_image_file" type="file" accept="image/gif,image/webp,video/mp4" :label="__('Upload New GIF to S3')" />
+                    <flux:input wire:model="gif_image" :label="__('Or GIF Path / URL')" :placeholder="__('/images/projects/preview.gif or https://...')" />
+                </div>
+            </div>
+
             <div class="grid gap-4 md:grid-cols-2">
-                <flux:input wire:model="image" :label="__('Cover Image Path')" :placeholder="__('/images/projects/preview.jpeg')" />
-                <flux:input wire:model="gif_image" :label="__('GIF Image Path')" :placeholder="__('/images/projects/preview.gif')" />
                 <flux:input wire:model="live_url" :label="__('Live URL')" :placeholder="__('https://example.com')" type="url" />
                 <flux:input wire:model="repo_url" :label="__('Repository URL')" :placeholder="__('https://github.com/...')" type="url" />
             </div>
@@ -101,12 +138,32 @@
                             </div>
 
                             <div class="mt-3 flex flex-col gap-4">
-                                <flux:input
-                                    wire:model="media_gallery.{{ $i }}.image"
-                                    :label="__('Image Path / URL')"
-                                    :placeholder="__('/images/projects/screenshot-1.png or https://...')"
-                                    required
-                                />
+                                @if (!empty($item['image']))
+                                    @php
+                                        $galleryPreview = filter_var($item['image'], FILTER_VALIDATE_URL)
+                                            ? $item['image']
+                                            : (str_starts_with($item['image'], '/') || str_starts_with($item['image'], 'storage/')
+                                                ? asset(ltrim($item['image'], '/'))
+                                                : Storage::disk((string) config('filesystems.default', 's3'))->url($item['image']));
+                                    @endphp
+                                    <div class="h-28 w-44 overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-800">
+                                        <img src="{{ $galleryPreview }}" alt="Preview" class="h-full w-full object-cover object-top" />
+                                    </div>
+                                @endif
+
+                                <div class="grid gap-4 sm:grid-cols-2">
+                                    <flux:input
+                                        wire:model="media_gallery.{{ $i }}.file"
+                                        type="file"
+                                        accept="image/*"
+                                        :label="__('Upload New to S3')"
+                                    />
+                                    <flux:input
+                                        wire:model="media_gallery.{{ $i }}.image"
+                                        :label="__('Or Image Path / URL')"
+                                        :placeholder="__('/images/projects/screenshot-1.png or https://...')"
+                                    />
+                                </div>
 
                                 <div class="grid gap-4 sm:grid-cols-2">
                                     <flux:input

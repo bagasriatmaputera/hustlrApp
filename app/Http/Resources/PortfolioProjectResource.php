@@ -95,6 +95,8 @@ class PortfolioProjectResource extends JsonResource
             return asset(ltrim($path, '/'));
         }
 
-        return Storage::disk('public')->url($path);
+        $disk = (string) config('filesystems.default', 's3');
+
+        return Storage::disk($disk)->url($path);
     }
 }

@@ -42,7 +42,13 @@ class TaskAttachmentService
 
     public function delete(TaskAttachment $attachment): void
     {
-        Storage::disk('local')->delete($attachment->file_path);
+        $disk = (string) config('filesystems.default', 's3');
+        if (Storage::disk($disk)->exists($attachment->file_path)) {
+            Storage::disk($disk)->delete($attachment->file_path);
+        } elseif (Storage::disk('local')->exists($attachment->file_path)) {
+            Storage::disk('local')->delete($attachment->file_path);
+        }
+
         $attachment->delete();
     }
 
@@ -66,10 +72,11 @@ class TaskAttachmentService
                 return;
             }
 
+            $disk = (string) config('filesystems.default', 's3');
             $fileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME).'.webp';
             $path = 'task-attachments/'.$task->task_id.'/'.Str::uuid().'.webp';
 
-            if (! Storage::disk('local')->put($path, $contents)) {
+            if (! Storage::disk($disk)->put($path, $contents)) {
                 throw new RuntimeException(__('Unable to store task attachment.'));
             }
 
@@ -88,7 +95,8 @@ class TaskAttachmentService
 
     private function storeOriginal(Task $task, UploadedFile $file, int $userId): void
     {
-        $path = $file->store('task-attachments/'.$task->task_id, 'local');
+        $disk = (string) config('filesystems.default', 's3');
+        $path = $file->store('task-attachments/'.$task->task_id, $disk);
 
         if ($path === false) {
             throw new RuntimeException(__('Unable to store task attachment.'));

@@ -53,10 +53,11 @@ class Edit extends Component
             $this->location = (string) ($profile->location ?? '');
             $this->resume_url = (string) ($profile->resume_url ?? '');
             $this->available_for_work = (bool) ($profile->available_for_work ?? true);
+            $socials = is_array($profile->socials) ? $profile->socials : [];
             $this->socials = [
-                'github' => (string) ($profile->socials['github'] ?? ''),
-                'linkedin' => (string) ($profile->socials['linkedin'] ?? ''),
-                'email' => (string) ($profile->socials['email'] ?? ''),
+                'github' => (string) ($socials['github'] ?? ''),
+                'linkedin' => (string) ($socials['linkedin'] ?? ''),
+                'email' => (string) ($socials['email'] ?? ''),
             ];
             $this->currentImagePath = $profile->image_path;
         }
@@ -90,11 +91,17 @@ class Edit extends Component
             'socials' => $this->socials,
         ];
 
+        $disk = (string) config('filesystems.default', 's3');
+
         if ($this->image) {
             if ($this->currentImagePath) {
-                Storage::disk('public')->delete($this->currentImagePath);
+                if (Storage::disk($disk)->exists($this->currentImagePath)) {
+                    Storage::disk($disk)->delete($this->currentImagePath);
+                } elseif (Storage::disk('public')->exists($this->currentImagePath)) {
+                    Storage::disk('public')->delete($this->currentImagePath);
+                }
             }
-            $data['image_path'] = $this->image->store('portfolio/profile', 'public');
+            $data['image_path'] = $this->image->store('portfolio/profile', $disk);
         }
 
         $profile = PortfolioProfile::first();
@@ -105,7 +112,7 @@ class Edit extends Component
             PortfolioProfile::create($data);
         }
 
-        $this->currentImagePath = $profile?->fresh()?->image_path ?? $data['image_path'] ?? null;
+        $this->currentImagePath = $profile?->fresh()->image_path ?? $data['image_path'] ?? null;
         $this->image = null;
 
         Flux::toast(variant: 'success', text: __('Profile updated successfully.'));
@@ -115,10 +122,15 @@ class Edit extends Component
     {
         $this->authorizePermission('PORTFOLIO - Can Manage Profile');
 
+        $disk = (string) config('filesystems.default', 's3');
         $profile = PortfolioProfile::first();
 
         if ($profile && $profile->image_path) {
-            Storage::disk('public')->delete($profile->image_path);
+            if (Storage::disk($disk)->exists($profile->image_path)) {
+                Storage::disk($disk)->delete($profile->image_path);
+            } elseif (Storage::disk('public')->exists($profile->image_path)) {
+                Storage::disk('public')->delete($profile->image_path);
+            }
             $profile->update(['image_path' => null]);
             $this->currentImagePath = null;
         }

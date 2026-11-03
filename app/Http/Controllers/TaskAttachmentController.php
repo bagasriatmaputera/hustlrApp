@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\Task;
 use App\Models\TaskAttachment;
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -15,7 +16,7 @@ class TaskAttachmentController extends Controller
     {
         $this->authorizeAttachmentAccess($request, $project, $task, $attachment);
 
-        $disk = Storage::disk('local');
+        $disk = $this->resolveDisk($attachment->file_path);
         abort_unless($disk->exists($attachment->file_path), 404);
 
         return $disk->download($attachment->file_path, $attachment->file_name);
@@ -27,7 +28,7 @@ class TaskAttachmentController extends Controller
 
         abort_unless($attachment->isPreviewable(), 415, __('Preview is not available for this file type.'));
 
-        $disk = Storage::disk('local');
+        $disk = $this->resolveDisk($attachment->file_path);
         abort_unless($disk->exists($attachment->file_path), 404);
 
         return $disk->response($attachment->file_path, $attachment->file_name, [
@@ -36,6 +37,18 @@ class TaskAttachmentController extends Controller
                 : (string) $attachment->mime_type,
             'X-Content-Type-Options' => 'nosniff',
         ], 'inline');
+    }
+
+    private function resolveDisk(string $path): Filesystem
+    {
+        $defaultDisk = (string) config('filesystems.default', 's3');
+        $disk = Storage::disk($defaultDisk);
+
+        if (! $disk->exists($path) && Storage::disk('local')->exists($path)) {
+            return Storage::disk('local');
+        }
+
+        return $disk;
     }
 
     private function authorizeAttachmentAccess(Request $request, Project $project, Task $task, TaskAttachment $attachment): void

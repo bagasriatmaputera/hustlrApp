@@ -12,7 +12,14 @@
 
             <div class="flex items-center gap-6">
                 @if ($currentImagePath)
-                    <img src="{{ asset('storage/' . $currentImagePath) }}" alt="Profile" class="size-24 rounded-full object-cover ring-2 ring-zinc-200 dark:ring-zinc-700" />
+                    @php
+                        $profileImageUrl = filter_var($currentImagePath, FILTER_VALIDATE_URL)
+                            ? $currentImagePath
+                            : (str_starts_with($currentImagePath, '/') || str_starts_with($currentImagePath, 'storage/')
+                                ? asset(ltrim($currentImagePath, '/'))
+                                : Storage::disk((string) config('filesystems.default', 's3'))->url($currentImagePath));
+                    @endphp
+                    <img src="{{ $profileImageUrl }}" alt="Profile" class="size-24 rounded-full object-cover ring-2 ring-zinc-200 dark:ring-zinc-700" />
                 @else
                     <div class="flex size-24 items-center justify-center rounded-full bg-zinc-100 dark:bg-zinc-800">
                         <flux:icon.user class="size-10 text-zinc-400" />
