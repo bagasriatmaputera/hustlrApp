@@ -26,13 +26,18 @@ class Edit extends Component
 
     public string $resume_url = '';
 
+    #[Validate(['nullable', 'file', 'mimes:pdf,doc,docx', 'max:10240'])]
+    public mixed $resume_file = null;
+
     public bool $available_for_work = true;
 
-    /** @var array{github: string, linkedin: string, email: string} */
+    /** @var array{github: string, linkedin: string, email: string, instagram: string, tiktok: string} */
     public array $socials = [
         'github' => '',
         'linkedin' => '',
         'email' => '',
+        'instagram' => '',
+        'tiktok' => '',
     ];
 
     #[Validate(['nullable', 'image', 'max:2048'])]
@@ -58,6 +63,8 @@ class Edit extends Component
                 'github' => (string) ($socials['github'] ?? ''),
                 'linkedin' => (string) ($socials['linkedin'] ?? ''),
                 'email' => (string) ($socials['email'] ?? ''),
+                'instagram' => (string) ($socials['instagram'] ?? ''),
+                'tiktok' => (string) ($socials['tiktok'] ?? ''),
             ];
             $this->currentImagePath = $profile->image_path;
         }
@@ -73,13 +80,30 @@ class Edit extends Component
             'summary' => ['required', 'string'],
             'location' => ['nullable', 'string', 'max:255'],
             'resume_url' => ['nullable', 'string', 'max:255'],
+            'resume_file' => ['nullable', 'file', 'mimes:pdf,doc,docx', 'max:10240'],
             'available_for_work' => ['boolean'],
             'socials' => ['array'],
             'socials.github' => ['nullable', 'string', 'max:255'],
             'socials.linkedin' => ['nullable', 'string', 'max:255'],
             'socials.email' => ['nullable', 'string', 'email', 'max:255'],
+            'socials.instagram' => ['nullable', 'string', 'max:255'],
+            'socials.tiktok' => ['nullable', 'string', 'max:255'],
             'image' => ['nullable', 'image', 'max:2048'],
         ]);
+
+        $disk = (string) config('filesystems.default', 's3');
+
+        if ($this->resume_file) {
+            if ($this->resume_url && str_starts_with($this->resume_url, 'portfolio/')) {
+                if (Storage::disk($disk)->exists($this->resume_url)) {
+                    Storage::disk($disk)->delete($this->resume_url);
+                } elseif (Storage::disk('public')->exists($this->resume_url)) {
+                    Storage::disk('public')->delete($this->resume_url);
+                }
+            }
+            $this->resume_url = $this->resume_file->store('portfolio/resume', $disk);
+            $this->resume_file = null;
+        }
 
         $data = [
             'name' => $this->name,
@@ -90,8 +114,6 @@ class Edit extends Component
             'available_for_work' => $this->available_for_work,
             'socials' => $this->socials,
         ];
-
-        $disk = (string) config('filesystems.default', 's3');
 
         if ($this->image) {
             if ($this->currentImagePath) {
@@ -136,6 +158,29 @@ class Edit extends Component
         }
 
         Flux::toast(variant: 'success', text: __('Profile image removed.'));
+    }
+
+    public function removeResume(): void
+    {
+        $this->authorizePermission('PORTFOLIO - Can Manage Profile');
+
+        $disk = (string) config('filesystems.default', 's3');
+        $profile = PortfolioProfile::first();
+
+        if ($profile && $profile->resume_url) {
+            if (str_starts_with($profile->resume_url, 'portfolio/')) {
+                if (Storage::disk($disk)->exists($profile->resume_url)) {
+                    Storage::disk($disk)->delete($profile->resume_url);
+                } elseif (Storage::disk('public')->exists($profile->resume_url)) {
+                    Storage::disk('public')->delete($profile->resume_url);
+                }
+            }
+            $profile->update(['resume_url' => null]);
+            $this->resume_url = '';
+            $this->resume_file = null;
+        }
+
+        Flux::toast(variant: 'success', text: __('Resume removed.'));
     }
 
     public function render(): mixed

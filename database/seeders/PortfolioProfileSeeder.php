@@ -24,6 +24,8 @@ class PortfolioProfileSeeder extends Seeder
                     'github' => 'https://github.com/bagasriatmaputera',
                     'linkedin' => 'https://www.linkedin.com/in/bagasriatmap/',
                     'email' => 'bagasriatmap@gmail.com',
+                    'instagram' => 'https://www.instagram.com/bgs.rptr/',
+                    'tiktok' => 'https://www.tiktok.com/@bagasriatmaputra',
                 ],
             ]
         );

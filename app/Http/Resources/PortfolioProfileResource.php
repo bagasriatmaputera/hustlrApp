@@ -21,17 +21,18 @@ class PortfolioProfileResource extends JsonResource
             'job_position' => $this->job_position,
             'summary' => $this->summary,
             'location' => $this->location,
-            'resume_url' => $this->resume_url,
+            'resume_url' => $this->resolveFileUrl($this->resume_url),
+            'resume_path' => $this->resume_url,
             'available_for_work' => $this->available_for_work,
             'socials' => $this->socials,
             'image_path' => $this->image_path,
-            'image_url' => $this->imageUrl($this->image_path),
+            'image_url' => $this->resolveFileUrl($this->image_path),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
     }
 
-    private function imageUrl(?string $path): ?string
+    private function resolveFileUrl(?string $path): ?string
     {
         if ($path === null || $path === '') {
             return null;

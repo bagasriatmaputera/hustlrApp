@@ -51,20 +51,70 @@
         </flux:card>
 
         <flux:card class="flex flex-col gap-6">
+            <flux:heading size="lg">{{ __('Resume / Curriculum Vitae (CV)') }}</flux:heading>
+
+            <div class="flex flex-col gap-4">
+                @if ($resume_url)
+                    @php
+                        $resolvedResumeUrl = filter_var($resume_url, FILTER_VALIDATE_URL)
+                            ? $resume_url
+                            : (str_starts_with($resume_url, '/') || str_starts_with($resume_url, 'storage/')
+                                ? asset(ltrim($resume_url, '/'))
+                                : (str_starts_with($resume_url, 'portfolio/')
+                                    ? route('portfolio.media', ['path' => $resume_url])
+                                    : Storage::disk((string) config('filesystems.default', 's3'))->url($resume_url)));
+                    @endphp
+                    <div class="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-zinc-200 bg-zinc-50/50 p-4 dark:border-zinc-800 dark:bg-zinc-900/50">
+                        <div class="flex items-center gap-3 min-w-0">
+                            <div class="flex size-10 items-center justify-center rounded-lg bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400">
+                                <flux:icon.document-text class="size-6" />
+                            </div>
+                            <div class="flex flex-col min-w-0">
+                                <span class="truncate text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+                                    {{ basename($resume_url) }}
+                                </span>
+                                <span class="text-xs text-zinc-500">
+                                    {{ __('Active Resume File / Link') }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <flux:button variant="ghost" size="sm" icon="arrow-top-right-on-square" :href="$resolvedResumeUrl" target="_blank">
+                                {{ __('Preview / View CV') }}
+                            </flux:button>
+                            <flux:button variant="danger" size="sm" icon="trash" wire:click="removeResume" wire:confirm="{{ __('Are you sure you want to remove this resume?') }}">
+                                {{ __('Remove') }}
+                            </flux:button>
+                        </div>
+                    </div>
+                @endif
+
+                <div class="grid gap-4 sm:grid-cols-2">
+                    <flux:input wire:model="resume_file" type="file" accept=".pdf,.doc,.docx,application/pdf" :label="__('Upload Resume / CV File (S3)')" />
+                    <flux:input wire:model="resume_url" :label="__('Or Resume URL (External / Drive)')" :placeholder="__('https://example.com/resume.pdf')" />
+                </div>
+                <flux:text class="text-xs text-zinc-500">{{ __('Supported file types: PDF, DOC, DOCX up to 10MB.') }}</flux:text>
+            </div>
+        </flux:card>
+
+        <flux:card class="flex flex-col gap-6">
             <flux:heading size="lg">{{ __('Contact & Availability') }}</flux:heading>
 
             <div class="grid gap-4 sm:grid-cols-2">
                 <flux:input wire:model="location" :label="__('Location')" :placeholder="__('e.g. Jakarta, Indonesia')" />
-                <flux:input wire:model="resume_url" :label="__('Resume URL')" :placeholder="__('e.g. https://example.com/resume.pdf')" />
+                <div class="flex items-center pt-6">
+                    <flux:checkbox wire:model="available_for_work" :label="__('Available for Work')" />
+                </div>
             </div>
 
-            <flux:checkbox wire:model="available_for_work" :label="__('Available for Work')" />
-
             <flux:heading size="md">{{ __('Social Media') }}</flux:heading>
-            <div class="grid gap-4 sm:grid-cols-3">
+            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 <flux:input wire:model="socials.github" :label="__('GitHub URL')" :placeholder="__('https://github.com/username')" />
                 <flux:input wire:model="socials.linkedin" :label="__('LinkedIn URL')" :placeholder="__('https://linkedin.com/in/username')" />
                 <flux:input wire:model="socials.email" :label="__('Email')" :placeholder="__('name@example.com')" />
+                <flux:input wire:model="socials.instagram" :label="__('Instagram URL')" :placeholder="__('https://www.instagram.com/username')" />
+                <flux:input wire:model="socials.tiktok" :label="__('TikTok URL')" :placeholder="__('https://www.tiktok.com/@username')" />
             </div>
         </flux:card>
 

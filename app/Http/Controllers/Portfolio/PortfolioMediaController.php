@@ -40,4 +40,3 @@ class PortfolioMediaController extends Controller
         abort(404);
     }
 }
-
