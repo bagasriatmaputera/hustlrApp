@@ -3,10 +3,12 @@
 namespace Tests\Feature\Portfolio;
 
 use App\Livewire\Portfolio\Experiences\Edit as ExperienceEdit;
+use App\Livewire\Portfolio\Profile\Edit as ProfileEdit;
 use App\Livewire\Portfolio\Projects\Create as ProjectCreate;
 use App\Livewire\Portfolio\Projects\Edit as ProjectEdit;
 use App\Models\Portfolio\PortfolioExperience;
 use App\Models\Portfolio\PortfolioJobDesc;
+use App\Models\Portfolio\PortfolioProfile;
 use App\Models\Portfolio\PortfolioProject;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -168,6 +170,74 @@ class PortfolioEditTest extends TestCase
             ->assertSet('workplace_type', 'Hybrid')
             ->assertSet('contract_type', 'Full-time')
             ->assertSet('job_descs.0.description', 'Led the legacy migration');
+    }
+
+    public function test_portfolio_profile_edit_can_upload_resume_and_update_socials(): void
+    {
+        Storage::fake('s3');
+        config(['filesystems.default' => 's3']);
+
+        $user = $this->authorizedUser();
+        $this->actingAs($user);
+
+        $profile = PortfolioProfile::create([
+            'name' => 'Bagas Test',
+            'job_position' => 'Software Engineer',
+            'summary' => 'Bio test',
+            'location' => 'Jakarta, Indonesia',
+            'available_for_work' => true,
+            'socials' => [
+                'email' => 'bagas@example.com',
+                'github' => 'https://github.com/bagas',
+                'linkedin' => 'https://linkedin.com/in/bagas',
+                'instagram' => 'https://instagram.com/bgs.rptr',
+                'tiktok' => 'https://tiktok.com/@bagasriatmaputra',
+            ],
+        ]);
+
+        $resumeFile = UploadedFile::fake()->create('curriculum-vitae.pdf', 500, 'application/pdf');
+
+        Livewire::test(ProfileEdit::class)
+            ->assertSet('name', 'Bagas Test')
+            ->assertSet('socials.instagram', 'https://instagram.com/bgs.rptr')
+            ->assertSet('socials.tiktok', 'https://tiktok.com/@bagasriatmaputra')
+            ->set('resume_file', $resumeFile)
+            ->call('save')
+            ->assertHasNoErrors();
+
+        $profile->refresh();
+        $this->assertNotNull($profile->resume_url);
+        $this->assertStringStartsWith('portfolio/resume/', $profile->resume_url);
+        Storage::disk('s3')->assertExists($profile->resume_url);
+    }
+
+    public function test_portfolio_profile_edit_can_remove_resume(): void
+    {
+        Storage::fake('s3');
+        config(['filesystems.default' => 's3']);
+
+        $user = $this->authorizedUser();
+        $this->actingAs($user);
+
+        Storage::disk('s3')->put('portfolio/resume/test-cv.pdf', 'dummy content');
+
+        $profile = PortfolioProfile::create([
+            'name' => 'Bagas Test',
+            'job_position' => 'Software Engineer',
+            'summary' => 'Bio test',
+            'location' => 'Jakarta, Indonesia',
+            'resume_url' => 'portfolio/resume/test-cv.pdf',
+            'available_for_work' => true,
+            'socials' => [],
+        ]);
+
+        Livewire::test(ProfileEdit::class)
+            ->call('removeResume')
+            ->assertHasNoErrors();
+
+        $profile->refresh();
+        $this->assertNull($profile->resume_url);
+        Storage::disk('s3')->assertMissing('portfolio/resume/test-cv.pdf');
     }
 
     private function createProject(): PortfolioProject

@@ -22,12 +22,14 @@ class PortfolioApiTest extends TestCase
             'summary' => 'Builds reliable systems.',
             'image_path' => 'portfolio/profile/avatar.webp',
             'location' => 'Jakarta',
-            'resume_url' => 'https://example.com/resume.pdf',
+            'resume_url' => 'portfolio/resume/cv.pdf',
             'available_for_work' => true,
             'socials' => [
                 'github' => 'https://github.com/example',
                 'linkedin' => 'https://linkedin.com/in/example',
                 'email' => 'example@example.com',
+                'instagram' => 'https://www.instagram.com/bgs.rptr/',
+                'tiktok' => 'https://www.tiktok.com/@bagasriatmaputra',
             ],
         ]);
 
@@ -87,9 +89,11 @@ class PortfolioApiTest extends TestCase
             ->assertOk()
             ->assertJsonPath('data.profile.name', 'Bagas')
             ->assertJsonPath('data.profile.location', 'Jakarta')
-            ->assertJsonPath('data.profile.resume_url', 'https://example.com/resume.pdf')
+            ->assertJsonPath('data.profile.resume_url', route('portfolio.media', ['path' => 'portfolio/resume/cv.pdf']))
             ->assertJsonPath('data.profile.available_for_work', true)
             ->assertJsonPath('data.profile.socials.github', 'https://github.com/example')
+            ->assertJsonPath('data.profile.socials.instagram', 'https://www.instagram.com/bgs.rptr/')
+            ->assertJsonPath('data.profile.socials.tiktok', 'https://www.tiktok.com/@bagasriatmaputra')
             ->assertJsonPath('data.profile.image_url', route('portfolio.media', ['path' => $profile->image_path]))
             ->assertJsonPath('data.projects.0.title.en', 'Portfolio Me')
             ->assertJsonPath('data.projects.0.image_url', 'https://cdn.example.com/project.webp')
