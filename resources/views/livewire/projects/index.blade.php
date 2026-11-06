@@ -1,70 +1,70 @@
 <div class="flex h-full w-full flex-1 flex-col gap-6">
-    <div class="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
             <flux:heading size="xl">{{ __('All Projects') }}</flux:heading>
             <flux:subheading>{{ __('Manage and track all your projects in one place.') }}</flux:subheading>
         </div>
         @can('IPS - PROJECT - Can Create Projects')
-            <flux:button variant="primary" icon="plus" :href="route('projects.create')" wire:navigate>
+            <flux:button variant="primary" icon="plus" :href="route('projects.create')" wire:navigate class="w-full sm:w-auto">
                 {{ __('Add Project') }}
             </flux:button>
         @endcan
     </div>
 
 
-    <div class="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <flux:card class="!p-4">
+    <div class="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+        <flux:card class="!p-3.5 sm:!p-4">
             <div class="flex items-center gap-3">
-                <div class="flex size-10 items-center justify-center rounded-lg bg-zinc-100 dark:bg-zinc-800">
+                <div class="flex size-9 sm:size-10 shrink-0 items-center justify-center rounded-lg bg-zinc-100 dark:bg-zinc-800">
                     <flux:icon.folder class="size-5 text-zinc-600 dark:text-zinc-400" />
                 </div>
-                <div>
-                    <flux:text class="text-xs">{{ __('Total') }}</flux:text>
+                <div class="min-w-0">
+                    <flux:text class="text-xs truncate">{{ __('Total') }}</flux:text>
                     <flux:heading size="xl">{{ $this->totalProjects }}</flux:heading>
                 </div>
             </div>
         </flux:card>
-        <flux:card class="!p-4">
+        <flux:card class="!p-3.5 sm:!p-4">
             <div class="flex items-center gap-3">
-                <div class="flex size-10 items-center justify-center rounded-lg bg-amber-100 dark:bg-amber-900/30">
+                <div class="flex size-9 sm:size-10 shrink-0 items-center justify-center rounded-lg bg-amber-100 dark:bg-amber-900/30">
                     <flux:icon.play class="size-5 text-amber-600 dark:text-amber-400" />
                 </div>
-                <div>
-                    <flux:text class="text-xs">{{ __('Active') }}</flux:text>
+                <div class="min-w-0">
+                    <flux:text class="text-xs truncate">{{ __('Active') }}</flux:text>
                     <flux:heading size="xl">{{ $this->activeProjects }}</flux:heading>
                 </div>
             </div>
         </flux:card>
-        <flux:card class="!p-4">
+        <flux:card class="!p-3.5 sm:!p-4">
             <div class="flex items-center gap-3">
-                <div class="flex size-10 items-center justify-center rounded-lg bg-green-100 dark:bg-green-900/30">
+                <div class="flex size-9 sm:size-10 shrink-0 items-center justify-center rounded-lg bg-green-100 dark:bg-green-900/30">
                     <flux:icon.check-circle class="size-5 text-green-600 dark:text-green-400" />
                 </div>
-                <div>
-                    <flux:text class="text-xs">{{ __('Completed') }}</flux:text>
+                <div class="min-w-0">
+                    <flux:text class="text-xs truncate">{{ __('Completed') }}</flux:text>
                     <flux:heading size="xl">{{ $this->completedProjects }}</flux:heading>
                 </div>
             </div>
         </flux:card>
-        <flux:card class="!p-4">
+        <flux:card class="!p-3.5 sm:!p-4">
             <div class="flex items-center gap-3">
-                <div class="flex size-10 items-center justify-center rounded-lg bg-orange-100 dark:bg-orange-900/30">
+                <div class="flex size-9 sm:size-10 shrink-0 items-center justify-center rounded-lg bg-orange-100 dark:bg-orange-900/30">
                     <flux:icon.pause-circle class="size-5 text-orange-600 dark:text-orange-400" />
                 </div>
-                <div>
-                    <flux:text class="text-xs">{{ __('On Hold') }}</flux:text>
+                <div class="min-w-0">
+                    <flux:text class="text-xs truncate">{{ __('On Hold') }}</flux:text>
                     <flux:heading size="xl">{{ $this->onHoldProjects }}</flux:heading>
                 </div>
             </div>
         </flux:card>
     </div>
 
-    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div class="flex flex-1 gap-3">
-            <div class="max-w-xs flex-1">
+    <div class="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
+        <div class="flex flex-col sm:flex-row flex-1 gap-3">
+            <div class="w-full sm:w-72">
                 <flux:input wire:model.live.debounce.300ms="search" icon="magnifying-glass" :placeholder="__('Search projects...')" clearable />
             </div>
-            <div class="w-48">
+            <div class="w-full sm:w-48">
                 <flux:select wire:model.live="statusFilter" :placeholder="__('All Statuses')">
                     <flux:select.option value="">{{ __('All Statuses') }}</flux:select.option>
                     @foreach ($this->statuses as $status)
@@ -112,7 +112,7 @@
             </div>
         </flux:card>
     @else
-        <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
             @foreach ($this->projects as $project)
                 @php
                     $colors = \App\Livewire\Projects\Index::statusColor($project->status->status_name);
@@ -146,7 +146,7 @@
                             </flux:heading>
                         </div>
                         <flux:dropdown position="bottom" align="end">
-                            <flux:button variant="ghost" size="sm" icon="ellipsis-vertical" class="opacity-0 transition-opacity group-hover:opacity-100" />
+                            <flux:button variant="ghost" size="sm" icon="ellipsis-vertical" class="text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 shrink-0" />
                             <flux:menu>
                                 <flux:menu.item icon="eye" :href="route('projects.show', $project->project_id)" wire:navigate>
                                     {{ __('View Board & Roadmap') }}

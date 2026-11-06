@@ -1,11 +1,11 @@
 <div class="flex h-full w-full flex-1 flex-col gap-6">
-    <div class="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
             <flux:heading size="xl">{{ __('Work Experience') }}</flux:heading>
             <flux:subheading>{{ __('Manage your professional work experience.') }}</flux:subheading>
         </div>
         @can('PORTFOLIO - Can Manage Experiences')
-            <flux:button variant="primary" icon="plus" :href="route('portfolio.experiences.create')" wire:navigate>
+            <flux:button variant="primary" icon="plus" :href="route('portfolio.experiences.create')" wire:navigate class="w-full sm:w-auto">
                 {{ __('Add Experience') }}
             </flux:button>
         @endcan
@@ -58,7 +58,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="flex items-center gap-2">
+                        <div class="flex items-center gap-2 shrink-0">
                             <flux:button variant="ghost" size="sm" icon="pencil-square" :href="route('portfolio.experiences.edit', $experience->experience_id)" wire:navigate />
                             <flux:button variant="ghost" size="sm" icon="trash" wire:click="delete('{{ $experience->experience_id }}')" wire:confirm="{{ __('Delete this experience and all its job descriptions?') }}" />
                         </div>

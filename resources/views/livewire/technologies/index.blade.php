@@ -1,12 +1,12 @@
 <div class="flex h-full w-full flex-1 flex-col gap-6">
     {{-- Header Section --}}
-    <div class="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
             <flux:heading size="xl">{{ __('Technologies & Tech Stack') }}</flux:heading>
             <flux:subheading>{{ __('Manage programming languages, frameworks, databases, and tools used across your projects.') }}</flux:subheading>
         </div>
         <div>
-            <flux:button variant="primary" icon="plus" wire:click="openCreateModal">
+            <flux:button variant="primary" icon="plus" wire:click="openCreateModal" class="w-full sm:w-auto">
                 {{ __('Add Technology') }}
             </flux:button>
         </div>
@@ -112,7 +112,7 @@
     @else
         <flux:card class="!p-0 overflow-hidden">
             <div class="overflow-x-auto">
-                <table class="w-full text-left text-sm">
+                <table class="w-full text-left text-sm min-w-[620px]">
                     <thead class="border-b border-zinc-200 bg-zinc-50/50 text-xs font-semibold text-zinc-600 uppercase tracking-wider dark:border-zinc-800 dark:bg-zinc-900/50 dark:text-zinc-400">
                         <tr>
                             <th scope="col" class="py-3.5 ps-4 pe-3 sm:ps-6">{{ __('Technology Name') }}</th>

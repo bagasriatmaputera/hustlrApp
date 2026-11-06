@@ -7,17 +7,17 @@
     @endphp
 
     {{-- Breadcrumbs & Header Actions --}}
-    <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2 text-sm text-zinc-500">
-            <a href="{{ route('projects.index') }}" class="hover:text-zinc-800 dark:hover:text-zinc-200" wire:navigate>
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="flex items-center gap-2 text-sm text-zinc-500 min-w-0">
+            <a href="{{ route('projects.index') }}" class="hover:text-zinc-800 dark:hover:text-zinc-200 shrink-0" wire:navigate>
                 {{ __('Projects') }}
             </a>
             <span>/</span>
-            <span class="font-medium text-zinc-900 dark:text-zinc-100 truncate max-w-[200px] sm:max-w-md">
+            <span class="font-medium text-zinc-900 dark:text-zinc-100 truncate max-w-[180px] sm:max-w-md">
                 {{ $project->project_name }}
             </span>
         </div>
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2 shrink-0">
             <flux:button variant="ghost" size="sm" icon="pencil-square" :href="route('projects.edit', $project)" wire:navigate>
                 {{ __('Edit Project') }}
             </flux:button>
@@ -28,7 +28,7 @@
     </div>
 
     {{-- 1. Project Header & Overview Strip --}}
-    <flux:card class="!p-6 flex flex-col gap-6">
+    <flux:card class="!p-4 sm:!p-6 flex flex-col gap-6">
         <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
             <div class="flex flex-col gap-2 max-w-2xl">
                 {{-- Status & Health Badges --}}
@@ -171,7 +171,7 @@
         </div>
     </flux:card>
 
-    <flux:card class="!p-5">
+    <flux:card class="!p-4 sm:!p-5">
         <div class="mb-3 flex items-center justify-between">
             <flux:heading size="md">{{ __('Team Members') }}</flux:heading>
             <flux:text class="text-xs text-zinc-400">{{ $project->members->count() }} {{ __('members') }}</flux:text>
@@ -223,12 +223,12 @@
                     </flux:button>
                 @endif
                 <div class="flex flex-col gap-3 sm:flex-row sm:items-end">
-                    <flux:select wire:model="newMemberRole" :label="__('Role')" class="sm:w-40">
+                    <flux:select wire:model="newMemberRole" :label="__('Role')" class="w-full sm:w-40">
                         <flux:select.option value="Owner">{{ __('Owner') }}</flux:select.option>
                         <flux:select.option value="Member">{{ __('Member') }}</flux:select.option>
                         <flux:select.option value="Manager">{{ __('Manager') }}</flux:select.option>
                     </flux:select>
-                    <flux:button type="button" variant="primary" icon="plus" wire:click="addMember">{{ __('Add') }}</flux:button>
+                    <flux:button type="button" variant="primary" icon="plus" wire:click="addMember" class="w-full sm:w-auto">{{ __('Add') }}</flux:button>
                 </div>
             </div>
             @if ($this->newMemberMissingAccess())
@@ -245,7 +245,7 @@
         @endcan
     </flux:card>
 
-    <flux:card class="!p-5">
+    <flux:card class="!p-4 sm:!p-5">
         <div class="mb-3 flex items-center justify-between">
             <flux:heading size="md">{{ __('Recent Activity') }}</flux:heading>
             <flux:text class="text-xs text-zinc-400">{{ __('Latest :count actions', ['count' => $this->recentActivity->count()]) }}</flux:text>
@@ -283,12 +283,12 @@
     </flux:card>
 
     {{-- 2. Tab Navigation Strip --}}
-    <div class="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-2">
-        <div class="flex gap-4">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-200 dark:border-zinc-800 pb-2">
+        <div class="flex items-center gap-4 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
             <button
                 type="button"
                 wire:click="setTab('board')"
-                class="flex items-center gap-2 pb-2 text-sm font-semibold transition border-b-2 {{ $activeTab === 'board' ? 'border-primary text-primary' : 'border-transparent text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200' }}"
+                class="flex shrink-0 items-center gap-2 pb-2 text-sm font-semibold transition border-b-2 {{ $activeTab === 'board' ? 'border-primary text-primary' : 'border-transparent text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200' }}"
             >
                 <flux:icon.view-columns class="size-4" />
                 <span>{{ __('Board View') }}</span>
@@ -300,7 +300,7 @@
             <button
                 type="button"
                 wire:click="setTab('roadmap')"
-                class="flex items-center gap-2 pb-2 text-sm font-semibold transition border-b-2 {{ $activeTab === 'roadmap' ? 'border-primary text-primary' : 'border-transparent text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200' }}"
+                class="flex shrink-0 items-center gap-2 pb-2 text-sm font-semibold transition border-b-2 {{ $activeTab === 'roadmap' ? 'border-primary text-primary' : 'border-transparent text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200' }}"
             >
                 <flux:icon.map class="size-4" />
                 <span>{{ __('Roadmap / Milestones') }}</span>
@@ -310,13 +310,13 @@
             </button>
         </div>
 
-        <div>
+        <div class="flex justify-end">
             @if ($activeTab === 'board')
-                <flux:button variant="primary" size="sm" icon="plus" wire:click="openTaskModal('Backlog')">
+                <flux:button variant="primary" size="sm" icon="plus" wire:click="openTaskModal('Backlog')" class="w-full sm:w-auto">
                     {{ __('Add Task') }}
                 </flux:button>
             @else
-                <flux:button variant="primary" size="sm" icon="plus" wire:click="openMilestoneModal">
+                <flux:button variant="primary" size="sm" icon="plus" wire:click="openMilestoneModal" class="w-full sm:w-auto">
                     {{ __('Add Milestone') }}
                 </flux:button>
             @endif
@@ -373,6 +373,9 @@
 
                     {{-- Task Cards List --}}
                     <div class="flex flex-col gap-2.5 min-h-[140px]" wire:sort="moveTask" wire:sort:group="project-tasks" wire:sort:group-id="{{ $statusKey }}">
+                        {{-- Hidden handle to ensure SortableJS ALWAYS enforces handle mode and never allows dragging empty placeholders or entire cards arbitrarily --}}
+                        <span wire:sort:handle class="hidden"></span>
+
                         @forelse ($tasks as $task)
                             @php
                                 $priorityStyles = \App\Livewire\Projects\Show::priorityColor($task->priority);
@@ -463,7 +466,7 @@
                                 @endif
 
                                 {{-- Footer: Due Date, Checklist & Assignee (PIC) --}}
-                                <div class="flex items-center justify-between text-[11px] text-zinc-500 dark:text-zinc-400 mt-1 pt-2 border-t border-zinc-100 dark:border-zinc-800/80">
+                                <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] text-zinc-500 dark:text-zinc-400 mt-1 pt-2 border-t border-zinc-100 dark:border-zinc-800/80">
                                     <div class="flex items-center gap-3">
                                         <div class="flex items-center gap-1">
                                             <flux:icon.calendar class="size-3 text-zinc-400" />
@@ -502,9 +505,9 @@
                                 </div>
                             </flux:card>
                         @empty
-                            <div class="flex flex-col items-center justify-center p-6 text-center border-2 border-dashed border-zinc-200 dark:border-zinc-800 rounded-lg">
-                                <span class="text-xs text-zinc-400">{{ __('No tasks yet') }}</span>
-                                <button type="button" wire:click="openTaskModal('{{ $statusKey }}')" class="mt-1 text-xs text-primary font-medium hover:underline">
+                            <div wire:sort:ignore draggable="false" class="flex flex-col items-center justify-center p-6 text-center border-2 border-dashed border-zinc-200 dark:border-zinc-800 rounded-lg select-none cursor-default">
+                                <span class="text-xs text-zinc-400 pointer-events-none">{{ __('No tasks yet') }}</span>
+                                <button type="button" wire:click="openTaskModal('{{ $statusKey }}')" class="mt-1 text-xs text-primary font-medium hover:underline cursor-pointer">
                                     + {{ __('Add task') }}
                                 </button>
                             </div>
@@ -713,7 +716,7 @@
                 @endif
             </div>
 
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <flux:select wire:model="taskStatus" :label="__('Column Status')">
                     <flux:select.option value="Backlog">{{ __('Backlog / Not Started') }}</flux:select.option>
                     <flux:select.option value="In Progress">{{ __('In Progress') }}</flux:select.option>
@@ -728,7 +731,7 @@
                 </flux:select>
             </div>
 
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <flux:select wire:model="taskCategory" :label="__('Technology / Category Tag')">
                     <flux:select.option value="Backend">{{ __('Backend') }}</flux:select.option>
                     <flux:select.option value="UI">{{ __('UI / Frontend') }}</flux:select.option>
@@ -742,9 +745,9 @@
 
             {{-- PIC (Person In Charge) Selection or Manual Input --}}
             <div class="space-y-2 rounded-lg border border-zinc-200 dark:border-zinc-800 p-3 bg-zinc-50/50 dark:bg-zinc-900/40">
-                <div class="flex items-center justify-between">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <flux:label>{{ __('Person In Charge (PIC)') }}</flux:label>
-                    <div class="flex items-center rounded-lg bg-zinc-200/70 dark:bg-zinc-800 p-0.5 text-xs">
+                    <div class="flex items-center rounded-lg bg-zinc-200/70 dark:bg-zinc-800 p-0.5 text-xs w-fit">
                         <button
                             type="button"
                             wire:click="$set('taskPicType', 'user')"
@@ -883,7 +886,7 @@
 
             <flux:textarea wire:model="milestoneDescription" :label="__('Scope / Description')" placeholder="Briefly explain deliverables in this milestone..." rows="3" />
 
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <flux:select wire:model="milestoneStatus" :label="__('Status')">
                     <flux:select.option value="Upcoming">{{ __('Upcoming') }}</flux:select.option>
                     <flux:select.option value="In Progress">{{ __('In Progress') }}</flux:select.option>

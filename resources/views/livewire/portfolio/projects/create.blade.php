@@ -169,11 +169,11 @@
             </div>
         </flux:card>
 
-        <div class="flex items-center justify-end gap-3">
-            <flux:button variant="ghost" :href="route('portfolio.projects.index')" wire:navigate>
+        <div class="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+            <flux:button variant="ghost" :href="route('portfolio.projects.index')" wire:navigate class="w-full sm:w-auto">
                 {{ __('Cancel') }}
             </flux:button>
-            <flux:button variant="primary" type="submit" wire:loading.attr="disabled">
+            <flux:button variant="primary" type="submit" wire:loading.attr="disabled" class="w-full sm:w-auto">
                 {{ __('Create Project') }}
             </flux:button>
         </div>
